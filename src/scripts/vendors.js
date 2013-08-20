@@ -64,7 +64,24 @@ define(["exports", "collections", "strings"], function (vendors, collections, st
     } else if (strings.contains(userAgent, "WebKit")) {
         vendors.current = {
             prefixedStyles: getPrefixedStyles("-webkit-"),
-            prefixedEvents: {}
+            prefixedEvents: {
+                "animationend": "webkitAnimationEnd",
+                "animationiteration": "webkitAnimationIteration",
+                "animationstart": "webkitAnimationStart",
+                "fullscreenchange": "webkitfullscreenchange",
+                "fullscreenerror": "webkitfullscreenerror",
+                "keyadded": "webkitkeyadded",
+                "keyerror": "webkitkeyerror",
+                "keymessage": "webkitkeymessage",
+                "needkey": "webkitneedkey",
+                "pointerlockchange": "webkitpointerlockchange",
+                "pointerlockerror": "webkitpointerlockerror",
+                "speechchange": "webkitSpeechChange",
+                "sourceclose": "webkitsourceclose",
+                "sourceended": "webkitsourceended",
+                "sourceopen": "webkitsourceopen",
+                "transitionend": "webkitTransitionEnd"
+            }
         };
     } else {
         vendors.current = {

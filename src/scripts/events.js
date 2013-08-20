@@ -1,6 +1,10 @@
-define(["exports", "collections", "data", "strings", "objects"], function (events, collections, data, strings, objects) {
+define(["exports", "collections", "data", "strings", "objects", "vendors"], function (events, collections, data, strings, objects, vendors) {
 
     "use strict";
+
+    function prefix(type) {
+        return vendors.current.prefixedEvents[type] || type;
+    }
 
     events.add = function (target, id, listener, capture) {
         var storage = data.get(target);
@@ -20,7 +24,7 @@ define(["exports", "collections", "data", "strings", "objects"], function (event
         collections.add(storage.events[type], event);
 
         if (objects.isFunction(target.addEventListener)) {
-            target.addEventListener(event.type, event.listener, event.capture);
+            target.addEventListener(prefix(event.type), event.listener, event.capture);
         }
 
         //console.log(storage);
@@ -59,7 +63,7 @@ define(["exports", "collections", "data", "strings", "objects"], function (event
                     collections.remove(storage.events[key], event);
 
                     if (objects.isFunction(target.removeEventListener)) {
-                        target.removeEventListener(event.type, event.listener, event.capture);
+                        target.removeEventListener(prefix(event.type), event.listener, event.capture);
                     }
                 });
 
@@ -76,7 +80,29 @@ define(["exports", "collections", "data", "strings", "objects"], function (event
         //console.log(storage);
     };
 
+    //var defaultOptions = {
+    //    canBubble: false,
+    //    cancelable: false,
+    //    detail: undefined
+    //};
+
+    //if (!window.CustomEvent) {
+    //    function CustomEvent(event, params) {
+    //        params = params || { bubbles: false, cancelable: false, detail: undefined };
+    //        var evt = document.createEvent('CustomEvent');
+    //        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+    //        return evt;
+    //    };
+    //
+    //    CustomEvent.prototype = window.CustomEvent.prototype;
+    //    window.CustomEvent = CustomEvent;
+    //}
+
     events.fire = function (target, event) {
+        //var event = document.createEvent("CustomEvent");
+        //var init = objects.extend({}, defaultOptions, options);
+        //event.initCustomEvent(prefix(type), init.canBubble, init.cancelable, init.detail);
+
         if (objects.isFunction(target.dispatchEvent)) {
             target.dispatchEvent(event);
         } else {
