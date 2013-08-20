@@ -1,0 +1,30 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font: normal 100% sans-serif;
+	color: #fff;
+	background-color: #000;
+}
+
+.buttons {
+    position: fixed;
+	z-index: 1000;
+	top: 10px;
+	left: 10px;
+}
+
+button {
+    display: block;
+}
+
+.box {
+    font-size: 2em;
+    background-color: #1abc89;
+    width: 200px;
+    margin: 100px auto;
+    padding: 50px;
+    text-align: center;
+}
