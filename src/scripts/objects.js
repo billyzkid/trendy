@@ -2,6 +2,8 @@ define(["exports", "collections"], function (objects, collections) {
 
     "use strict";
 
+    var toString = Object.prototype.toString;
+
     objects.isNull = function (value) {
         return value === null;
     };
@@ -15,15 +17,15 @@ define(["exports", "collections"], function (objects, collections) {
     };
 
     objects.isArray = function (value) {
-        return Object.prototype.toString.call(value) === "[object Array]";
+        return toString.call(value) === "[object Array]";
     };
 
     objects.isFunction = function (value) {
-        return Object.prototype.toString.call(value) === "[object Function]";
+        return toString.call(value) === "[object Function]";
     };
 
     objects.isString = function (value) {
-        return Object.prototype.toString.call(value) === "[object String]";
+        return toString.call(value) === "[object String]";
     };
 
     objects.isEmpty = function (value) {
@@ -39,7 +41,9 @@ define(["exports", "collections"], function (objects, collections) {
     };
 
     objects.extend = function (value) {
-        collections.forEach(collections.slice(arguments, 1), function (source) {
+        var sources = collections.slice(arguments, 1);
+
+        collections.forEach(sources, function (source) {
             if (source) {
                 for (var property in source) {
                     value[property] = source[property];

@@ -1,9 +1,39 @@
-define(["exports", "collections", "data", "strings", "objects", "vendors"], function (events, collections, data, strings, objects, vendors) {
+define(["exports", "collections", "data", "objects", "strings", "vendors"], function (events, collections, data, objects, strings, vendors) {
 
     "use strict";
+    
+    var prefixedTypes;
+    var isSupportedFallbackRequired = !("onblur" in document.documentElement);
+    var isSupportedFallbackElement = document.createElement("div");
 
-    function prefix(type) {
-        return vendors.current.prefixedEvents[type] || type;
+    function resolve(type) {
+        if (!prefixedTypes) {
+            prefixedTypes = {};
+
+            //var prefix = vendors.eventPrefix;
+            //var element = document.documentElement;
+            //var types = [
+            //    "AnimationEnd",
+            //    "AnimationIteration",
+            //    "AnimationStart",
+            //    "FullscreenChange",
+            //    "FullscreenError",
+            //    "PointerLockChange",
+            //    "PointerLockError",
+            //    "TransitionEnd"
+            //];
+
+            //collections.forEach(types, function (type) {
+            //    var prefixedType = (prefix + type).toLowerCase();
+            //    var unprefixedType = type.toLowerCase();
+                
+            //    if (events.isSupported(prefixedType, element) && !events.isSupported(unprefixedType, element)) {
+            //        prefixedTypes[unprefixedType] = prefixedType;
+            //    }
+            //});
+        }
+
+        return prefixedTypes[type] || type;
     }
 
     events.add = function (target, id, listener, capture) {
@@ -24,7 +54,7 @@ define(["exports", "collections", "data", "strings", "objects", "vendors"], func
         collections.add(storage.events[type], event);
 
         if (objects.isFunction(target.addEventListener)) {
-            target.addEventListener(prefix(event.type), event.listener, event.capture);
+            target.addEventListener(resolve(event.type), event.listener, event.capture);
         }
 
         //console.log(storage);
@@ -63,7 +93,7 @@ define(["exports", "collections", "data", "strings", "objects", "vendors"], func
                     collections.remove(storage.events[key], event);
 
                     if (objects.isFunction(target.removeEventListener)) {
-                        target.removeEventListener(prefix(event.type), event.listener, event.capture);
+                        target.removeEventListener(resolve(event.type), event.listener, event.capture);
                     }
                 });
 
@@ -80,25 +110,26 @@ define(["exports", "collections", "data", "strings", "objects", "vendors"], func
         //console.log(storage);
     };
 
-    //var defaultOptions = {
-    //    canBubble: false,
-    //    cancelable: false,
-    //    detail: undefined
-    //};
-
-    //if (!window.CustomEvent) {
-    //    function CustomEvent(event, params) {
-    //        params = params || { bubbles: false, cancelable: false, detail: undefined };
-    //        var evt = document.createEvent('CustomEvent');
-    //        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-    //        return evt;
-    //    };
-    //
-    //    CustomEvent.prototype = window.CustomEvent.prototype;
-    //    window.CustomEvent = CustomEvent;
-    //}
-
     events.fire = function (target, event) {
+
+        //var defaultOptions = {
+        //    canBubble: false,
+        //    cancelable: false,
+        //    detail: undefined
+        //};
+
+        //if (!window.CustomEvent) {
+        //    function CustomEvent(event, params) {
+        //        params = params || { bubbles: false, cancelable: false, detail: undefined };
+        //        var evt = document.createEvent('CustomEvent');
+        //        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+        //        return evt;
+        //    };
+        //
+        //    CustomEvent.prototype = window.CustomEvent.prototype;
+        //    window.CustomEvent = CustomEvent;
+        //}
+
         //var event = document.createEvent("CustomEvent");
         //var init = objects.extend({}, defaultOptions, options);
         //event.initCustomEvent(prefix(type), init.canBubble, init.cancelable, init.detail);
@@ -120,6 +151,28 @@ define(["exports", "collections", "data", "strings", "objects", "vendors"], func
         }
 
         return event.defaultPrevented;
+    };
+
+    events.isSupported = function (type, element) {
+        var property = "on" + type;
+
+        if (isSupportedFallbackRequired) {
+            if (!objects.isFunction(element.setAttribute)) {
+                element = isSupportedFallbackElement;
+            }
+
+            var originalValue = element[property];
+            var newValue;
+
+            element.setAttribute(property, "");
+            newValue = element[property];
+            element[property] = originalValue;
+            element.removeAttribute(property);
+
+            return objects.isFunction(newValue);
+        } else {
+            return (property in element);
+        }
     };
 
 });

@@ -3,24 +3,26 @@ define(["exports"], function (strings) {
     "use strict";
 
     var empty = "";
-    var whitespace = /\s+/;
-    var leadingWhitespace = /^\s+/;
-    var trailingWhitespace = /\s+$/;
+    var whitespaceRE = /\s+/;
+    var leadingWhitespaceRE = /^\s+/;
+    var trailingWhitespaceRE = /\s+$/;
+    var camelCaseRE = /-(\w)/g;
+    var camelCaseCallback = function ($0, $1) { return $1.toUpperCase(); };
 
     strings.trim = function (value) {
         return strings.trimLeft(strings.trimRight(value));
     };
 
     strings.trimLeft = function (value) {
-        return value.replace(leadingWhitespace, empty);
+        return value.replace(leadingWhitespaceRE, empty);
     };
 
     strings.trimRight = function (value) {
-        return value.replace(trailingWhitespace, empty);
+        return value.replace(trailingWhitespaceRE, empty);
     };
 
     strings.tokenize = function (value) {
-        return strings.trim(value).split(whitespace);
+        return strings.trim(value).split(whitespaceRE);
     };
 
     strings.contains = function (value, search) {
@@ -53,6 +55,10 @@ define(["exports"], function (strings) {
 
     strings.removeAll = function (value, search) {
         return strings.replaceAll(value, search, empty);
+    };
+
+    strings.camelCase = function (value) {
+        return strings.replace(value, camelCaseRE, camelCaseCallback);
     };
 
 });
