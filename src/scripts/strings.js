@@ -6,8 +6,10 @@ define(["exports"], function (strings) {
     var whitespaceRE = /\s+/;
     var leadingWhitespaceRE = /^\s+/;
     var trailingWhitespaceRE = /\s+$/;
-    var camelCaseRE = /-(\w)/g;
-    var camelCaseCallback = function ($0, $1) { return $1.toUpperCase(); };
+    var toCamelCaseRE = /-([\da-z])/g;
+    var toCamelCaseCallback = function ($0, $1) { return $1.toUpperCase(); };
+    var fromCamelCaseRE = /[A-Z]/g;
+    var fromCamelCaseCallback = function ($0) { return "-" + $0.toLowerCase(); };
 
     strings.trim = function (value) {
         return strings.trimLeft(strings.trimRight(value));
@@ -57,8 +59,12 @@ define(["exports"], function (strings) {
         return strings.replaceAll(value, search, empty);
     };
 
-    strings.camelCase = function (value) {
-        return strings.replace(value, camelCaseRE, camelCaseCallback);
+    strings.toCamelCase = function (value) {
+        return strings.replace(value, toCamelCaseRE, toCamelCaseCallback);
+    };
+
+    strings.fromCamelCase = function (value) {
+        return strings.replace(value, fromCamelCaseRE, fromCamelCaseCallback);
     };
 
 });
