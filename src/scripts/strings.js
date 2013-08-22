@@ -6,7 +6,7 @@ define(["exports"], function (strings) {
     var whitespaceRE = /\s+/;
     var leadingWhitespaceRE = /^\s+/;
     var trailingWhitespaceRE = /\s+$/;
-    var toCamelCaseRE = /-([\da-z])/g;
+    var toCamelCaseRE = /-([\da-z])/gi;
     var toCamelCaseCallback = function ($0, $1) { return $1.toUpperCase(); };
     var fromCamelCaseRE = /[A-Z]/g;
     var fromCamelCaseCallback = function ($0) { return "-" + $0.toLowerCase(); };
