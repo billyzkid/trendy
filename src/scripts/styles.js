@@ -3,10 +3,7 @@ define(["exports", "collections", "objects", "strings", "vendors"], function (st
     "use strict";
 
     var defaultPriority = "";
-    var cssPropertyRE = /^(?:webkit|ms)-/;
-    var cssPropertyCallback = function ($0) { return "-" + $0; };
-    var stylePropertyRE = /^Webkit|Ms/;
-    var stylePropertyCallback = function ($0) { return $0.toLowerCase(); };
+
     var vendorPrefix = (function () {
         switch (vendors.current.engine) {
             case vendors.engines.webkit: return "-webkit-";
@@ -16,12 +13,16 @@ define(["exports", "collections", "objects", "strings", "vendors"], function (st
             default: return "";
         }
     })();
+
     var exceptionalProperties = (function () {
         switch (vendors.current.engine) {
+            case vendors.engines.webkit:
+                return {
+                    cssFloat: "float"
+                };
             case vendors.engines.gecko:
                 return {
                     cssFloat: "float",
-                    cssText: null,
                     float: "float",
                     maskType: "mask-type",
                     paintOrder: "paint-order"
@@ -29,73 +30,76 @@ define(["exports", "collections", "objects", "strings", "vendors"], function (st
             case vendors.engines.trident:
                 return {
                     cssFloat: "float",
-                    cssText: null,
+                    styleFloat: "float",
                     colorInterpolationFilters: "color-interpolation-filters",
                     floodColor: "flood-color",
                     floodOpacity: "flood-opacity",
                     lightingColor: "lighting-color",
                     scrollbar3dlightColor: "scrollbar-3dlight-color",
-                    scrollbar3dLightColor: "scrollbar-3dlight-color",
                     scrollbarDarkshadowColor: "scrollbar-darkshadow-color",
-                    scrollbarDarkShadowColor: "scrollbar-darkshadow-color",
                     textSizeAdjust: "-ms-text-size-adjust"
                 };
             case vendors.engines.presto:
                 return {
                     cssFloat: "float",
-                    cssText: null,
                     float: "float"
                 };
             default:
-                return {
-                    cssFloat: "float",
-                    cssText: null
-                };
+                return {};
         }
     })();
 
+    var cssPropertyRE1 = /-?([\dA-Z])/g;
+    var cssPropertyRE2 = /^(?:webkit|ms)-/;
+    var cssPropertyCallback1 = function ($0, $1) { return "-" + $1.toLowerCase(); };
+    var cssPropertyCallback2 = function ($0) { return "-" + $0; };
+
+    var stylePropertyRE1 = /-([\da-z])/gi;
+    var stylePropertyRE2 = /^(?:Webkit|Ms)/;
+    var stylePropertyCallback1 = function ($0, $1) { return $1.toUpperCase(); };
+    var stylePropertyCallback2 = function ($0) { return $0.toLowerCase(); };
+
     function toCssProperty(name) {
-        return strings.replace(strings.fromCamelCase(name), cssPropertyRE, cssPropertyCallback);
+        return strings.replace(strings.replace(name, cssPropertyRE1, cssPropertyCallback1), cssPropertyRE2, cssPropertyCallback2);
     }
 
     function toStyleProperty(name) {
-        return strings.replace(strings.toCamelCase(name), stylePropertyRE, stylePropertyCallback);
+        return strings.replace(strings.replace(name, stylePropertyRE1, stylePropertyCallback1), stylePropertyRE2, stylePropertyCallback2);
     }
 
     function resolveProperty(element, name) {
         var cssProperty = toCssProperty(name);
-        var styleProperty = toStyleProperty(name);
+        var styleProperty = toStyleProperty(cssProperty);
+        var style = element.style;
 
-        // resolve supported property
+        // try to resolve property
         if (styleProperty in exceptionalProperties) {
             return exceptionalProperties[styleProperty];
-        } else if (styleProperty in element.style) {
+        } else if (styleProperty in style) {
             return cssProperty;
         }
 
+        // try resolve property with/without vendor prefix
         if (strings.startsWith(cssProperty, vendorPrefix)) {
             var unprefixedCssProperty = strings.remove(cssProperty, vendorPrefix);
             var unprefixedStyleProperty = toStyleProperty(unprefixedCssProperty);
 
-            // resolve supported property without vendor prefix
             if (unprefixedStyleProperty in exceptionalProperties) {
                 return exceptionalProperties[unprefixedStyleProperty];
-            } else if (unprefixedStyleProperty in element.style) {
+            } else if (unprefixedStyleProperty in style) {
                 return unprefixedCssProperty;
             }
         } else {
             var prefixedCssProperty = vendorPrefix + cssProperty;
             var prefixedStyleProperty = toStyleProperty(prefixedCssProperty);
 
-            // resolve supported property with vendor prefix
             if (prefixedStyleProperty in exceptionalProperties) {
                 return exceptionalProperties[prefixedStyleProperty];
-            } else if (prefixedStyleProperty in element.style) {
+            } else if (prefixedStyleProperty in style) {
                 return prefixedCssProperty;
             }
         }
         
-        // unresolved
         return null;
     }
 
@@ -116,37 +120,27 @@ define(["exports", "collections", "objects", "strings", "vendors"], function (st
 
     // FIXME: remove
     //(function () {
-    //    var div = document.createElement("div");
-        
-    //    console.log("*********** Supported Properties ************");
+    //    var documentElement = document.documentElement;
 
-    //    var supportedProperties = [];
+    //    console.log("*********** Unresolved CSS Properties ************");
 
-    //    for (var property in div.style) {
-    //        supportedProperties.push(property);
-    //    }
-
-    //    supportedProperties.sort();
-
-    //    collections.forEach(supportedProperties, function (name) {
-    //        console.log(name);
-    //    });
-
-    //    console.log("*********** Unresolved Properties ************");
-
-    //    var unresolvedProperties = [];
-
-    //    collections.forEach(getComputedStyle(document.documentElement, null), function (name) {
-    //        if (!resolveProperty(div, name)) {
-    //            unresolvedProperties.push(name);
+    //    collections.forEach(getComputedStyle(documentElement, null), function (name) {
+    //        if (!resolveProperty(documentElement, name)) {
+    //            console.log(name);
     //        }
     //    });
 
-    //    collections.forEach(unresolvedProperties, function (name) {
-    //        console.log(name);
-    //    });
+    //    console.log("*********** Unresolved Style Properties ************");
 
-    //    console.log("*********** Common Properties ************");
+    //    for (var name in documentElement.style) {
+    //        if (!resolveProperty(documentElement, name)) {
+    //            console.log(name);
+    //        }
+    //    }
+
+    //    console.log("*********** Resolve Properties ************");
+
+    //    var div = document.createElement("div");
 
     //    console.log("background => " + resolveProperty(div, "background"));
     //    console.log("background-color => " + resolveProperty(div, "background-color"));
@@ -175,33 +169,30 @@ define(["exports", "collections", "objects", "strings", "vendors"], function (st
     //    console.log("WebkitBackfaceVisibility => " + resolveProperty(div, "WebkitBackfaceVisibility"));
     //    console.log("webkitBackfaceVisibility => " + resolveProperty(div, "webkitBackfaceVisibility"));
 
-    //    console.log("*********** Exceptional Properties ************");
-
     //    console.log("cssFloat => " + resolveProperty(div, "cssFloat"));
-    //    console.log("cssText => " + resolveProperty(div, "cssText"));
-
     //    console.log("float => " + resolveProperty(div, "float"));
+
     //    console.log("mask-type => " + resolveProperty(div, "mask-type"));
     //    console.log("maskType => " + resolveProperty(div, "maskType"));
+
     //    console.log("paint-order => " + resolveProperty(div, "paint-order"));
     //    console.log("paintOrder => " + resolveProperty(div, "paintOrder"));
 
     //    console.log("text-size-adjust => " + resolveProperty(div, "text-size-adjust"));
     //    console.log("textSizeAdjust => " + resolveProperty(div, "textSizeAdjust"));
-    //    console.log("-ms-text-size-adjust => " + resolveProperty(div, "-ms-text-size-adjust"));
-    //    console.log("msTextSizeAdjust => " + resolveProperty(div, "msTextSizeAdjust"));
 
     //    console.log("scrollbar-3dlight-color => " + resolveProperty(div, "scrollbar-3dlight-color"));
-    //    console.log("scrollbar3dLightColor => " + resolveProperty(div, "scrollbar3dLightColor"));
-    //    console.log("-ms-scrollbar-3dlight-color => " + resolveProperty(div, "-ms-scrollbar-3dlight-color"));
-    //    console.log("msScrollbar3dLightColor => " + resolveProperty(div, "msScrollbar3dLightColor"));
+    //    console.log("scrollbar3dlightColor => " + resolveProperty(div, "scrollbar3dlightColor"));
 
     //    console.log("scrollbar-darkshadow-color => " + resolveProperty(div, "scrollbar-darkshadow-color"));
-    //    console.log("scrollbarDarkShadowColor => " + resolveProperty(div, "scrollbarDarkShadowColor"));
-    //    console.log("-ms-scrollbar-darkshadow-color => " + resolveProperty(div, "-ms-scrollbar-darkshadow-color"));
-    //    console.log("msScrollbarDarkShadowColor => " + resolveProperty(div, "msScrollbarDarkShadowColor"));
+    //    console.log("scrollbarDarkshadowColor => " + resolveProperty(div, "scrollbarDarkshadowColor"));
+
+    //    console.log("dummy-property => " + resolveProperty(div, "dummy-property"));
 
     //    console.log("*********** API ************");
+
+    //    styles.set(div, "dummy-property", "dummy-value", "");
+    //    console.log(div.outerHTML);
 
     //    styles.set(div, "background", "#f00 left center no-repeat", "");
     //    console.log(div.outerHTML);

@@ -2,38 +2,53 @@ define(["exports", "collections", "data", "objects", "strings", "vendors"], func
 
     "use strict";
     
-    var prefixedTypes;
-    var isSupportedFallbackRequired = !("onblur" in document.documentElement);
-    var isSupportedFallbackElement = document.createElement("div");
-
-    function resolve(type) {
-        if (!prefixedTypes) {
-            prefixedTypes = {};
-
-            //var prefix = vendors.eventPrefix;
-            //var element = document.documentElement;
-            //var types = [
-            //    "AnimationEnd",
-            //    "AnimationIteration",
-            //    "AnimationStart",
-            //    "FullscreenChange",
-            //    "FullscreenError",
-            //    "PointerLockChange",
-            //    "PointerLockError",
-            //    "TransitionEnd"
-            //];
-
-            //collections.forEach(types, function (type) {
-            //    var prefixedType = (prefix + type).toLowerCase();
-            //    var unprefixedType = type.toLowerCase();
-                
-            //    if (events.isSupported(prefixedType, element) && !events.isSupported(unprefixedType, element)) {
-            //        prefixedTypes[unprefixedType] = prefixedType;
-            //    }
-            //});
+    var exceptionalTypes = (function () {
+        switch (vendors.current.engine) {
+            case vendors.engines.webkit:
+                return {
+                    "animationend": "webkitAnimationEnd",
+                    "animationiteration": "webkitAnimationIteration",
+                    "animationstart": "webkitAnimationStart",
+                    "fullscreenchange": "webkitfullscreenchange",
+                    "fullscreenerror": "webkitfullscreenerror",
+                    "transitionend": "webkitTransitionEnd"
+                };
+            case vendors.engines.gecko:
+                return {
+                    "animationend": "mozAnimationEnd",
+                    "animationiteration": "mozAnimationIteration",
+                    "animationstart": "mozAnimationStart",
+                    "fullscreenchange": "mozfullscreenchange",
+                    "fullscreenerror": "mozfullscreenerror",
+                    "transitionend": "mozTransitionEnd"
+                };
+            case vendors.engines.trident:
+                return {
+                    "animationend": "MSAnimationEnd",
+                    "animationiteration": "MSAnimationIteration",
+                    "animationstart": "MSAnimationStart",
+                    "fullscreenchange": "MSFullscreenChange",
+                    "fullscreenerror": "MSFullscreenError",
+                    "transitionend": "MSTransitionEnd"
+                };
+            case vendors.engines.presto:
+                return {
+                    "animationend": "oAnimationEnd",
+                    "animationiteration": "oAnimationIteration",
+                    "animationstart": "oAnimationStart",
+                    "transitionend": "oTransitionEnd"
+                };
+            default:
+                return {};
         }
+    })();
 
-        return prefixedTypes[type] || type;
+    function resolveType(target, type) {
+        if (type in exceptionalEvents) {
+            return exceptionalEvents[type];
+        } else {
+            return type;
+        }
     }
 
     events.add = function (target, id, listener, capture) {
@@ -54,7 +69,8 @@ define(["exports", "collections", "data", "objects", "strings", "vendors"], func
         collections.add(storage.events[type], event);
 
         if (objects.isFunction(target.addEventListener)) {
-            target.addEventListener(resolve(event.type), event.listener, event.capture);
+            var resolvedType = resolveType(target, event.type);
+            target.addEventListener(resolvedType, event.listener, event.capture);
         }
 
         //console.log(storage);
@@ -93,7 +109,8 @@ define(["exports", "collections", "data", "objects", "strings", "vendors"], func
                     collections.remove(storage.events[key], event);
 
                     if (objects.isFunction(target.removeEventListener)) {
-                        target.removeEventListener(resolve(event.type), event.listener, event.capture);
+                        var resolvedType = resolveType(target, event.type);
+                        target.removeEventListener(resolvedType, event.listener, event.capture);
                     }
                 });
 
@@ -151,28 +168,6 @@ define(["exports", "collections", "data", "objects", "strings", "vendors"], func
         }
 
         return event.defaultPrevented;
-    };
-
-    events.isSupported = function (type, element) {
-        var property = "on" + type;
-
-        if (isSupportedFallbackRequired) {
-            if (!objects.isFunction(element.setAttribute)) {
-                element = isSupportedFallbackElement;
-            }
-
-            var originalValue = element[property];
-            var newValue;
-
-            element.setAttribute(property, "");
-            newValue = element[property];
-            element[property] = originalValue;
-            element.removeAttribute(property);
-
-            return objects.isFunction(newValue);
-        } else {
-            return (property in element);
-        }
     };
 
 });
