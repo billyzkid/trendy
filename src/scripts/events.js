@@ -1,6 +1,12 @@
 define(["exports", "collections", "data", "objects", "strings", "vendors"], function (events, collections, data, objects, strings, vendors) {
 
     "use strict";
+
+    var defaultOptions = {
+        canBubble: false,
+        cancelable: false,
+        detail: null
+    };
     
     var exceptionalTypes = (function () {
         switch (vendors.current.engine) {
@@ -44,125 +50,107 @@ define(["exports", "collections", "data", "objects", "strings", "vendors"], func
     })();
 
     function resolveType(target, type) {
-        if (type in exceptionalEvents) {
-            return exceptionalEvents[type];
+        if (type in exceptionalTypes) {
+            return exceptionalTypes[type];
         } else {
             return type;
         }
     }
-
+    
     events.add = function (target, id, listener, capture) {
         var storage = data.get(target);
-        var index = id.indexOf(".");
-        var type = index >= 0 ? id.substring(0, index) : id;
-        var name = index >= 0 ? id.substring(index + 1) : "";
-        var event = { type: type, name: name, listener: listener, capture: !!capture };
+        var parts = id.split(".");
+        var type = resolveType(target, parts.shift());
+        var name = parts.join(".");
+        var event = { name: name, type: type, listener: listener, capture: capture };
 
+        // ensure storage for events
         if (!storage.events) {
             storage.events = {};
         }
 
+        // ensure storage for event type
         if (!storage.events[type]) {
             storage.events[type] = [];
         }
 
+        // store event by type
         collections.add(storage.events[type], event);
 
+        // add event listener
         if (objects.isFunction(target.addEventListener)) {
-            var resolvedType = resolveType(target, event.type);
-            target.addEventListener(resolvedType, event.listener, event.capture);
+            target.addEventListener(event.type, event.listener, event.capture);
         }
 
-        //console.log(storage);
+        // FIXME: remove!
+        console.log(storage);
     };
 
     events.remove = function (target, id, listener, capture) {
         var storage = data.get(target);
 
         if (storage.events) {
-            var index = !objects.isUndefined(id) ? id.indexOf(".") : -1;
-            var type = index >= 0 ? id.substring(0, index) : id;
-            var name = index >= 0 ? id.substring(index + 1) : "";
+            var parts, name, type;
 
+            // parse event name and type
+            if (!objects.isUndefined(id)) {
+                parts = id.split(".");
+                type = resolveType(target, parts.shift());
+                name = parts.join(".");
+            }
+
+            // loop thru stored events
             collections.forEach(objects.keys(storage.events), function (key) {
+                collections.forEach(collections.copy(storage.events[key]), function (event) {
+                    if ((objects.isUndefined(name) || name === "" || strings.startsWith(event.name + ".", name + ".")) &&
+                        (objects.isUndefined(type) || type === "" || type === event.type) &&
+                        (objects.isUndefined(listener) || listener === event.listener) &&
+                        (objects.isUndefined(capture) || capture === !!event.capture)) {
 
-                var events = collections.copy(storage.events[key]);
+                        // remove event listener
+                        if (objects.isFunction(target.removeEventListener)) {
+                            target.removeEventListener(event.type, event.listener, event.capture);
+                        }
 
-                collections.forEach(events, function (event) {
-
-                    if (type && type !== event.type) {
-                        return;
-                    }
-
-                    if (name && !strings.startsWith("." + event.name + ".", "." + name + ".")) {
-                        return;
-                    }
-
-                    if (!objects.isUndefined(listener) && listener !== event.listener) {
-                        return;
-                    }
-
-                    if (!objects.isUndefined(capture) && capture !== event.capture) {
-                        return;
-                    }
-
-                    collections.remove(storage.events[key], event);
-
-                    if (objects.isFunction(target.removeEventListener)) {
-                        var resolvedType = resolveType(target, event.type);
-                        target.removeEventListener(resolvedType, event.listener, event.capture);
+                        // remove stored event
+                        collections.remove(storage.events[key], event);
                     }
                 });
 
+                // if empty, delete event type from storage
                 if (objects.isEmpty(storage.events[key])) {
                     delete storage.events[key];
                 }
             });
 
+            // if empty, delete events from storage
             if (objects.isEmpty(storage.events)) {
                 delete storage.events;
             }
         }
 
-        //console.log(storage);
+        // FIXME: remove!
+        console.log(storage);
     };
 
-    events.fire = function (target, event) {
+    events.fire = function (target, type, options) {
+        var event = document.createEvent("CustomEvent");
+        var eventType = resolveType(target, type);
+        var eventOptions = objects.extend({}, defaultOptions, options);
 
-        //var defaultOptions = {
-        //    canBubble: false,
-        //    cancelable: false,
-        //    detail: undefined
-        //};
-
-        //if (!window.CustomEvent) {
-        //    function CustomEvent(event, params) {
-        //        params = params || { bubbles: false, cancelable: false, detail: undefined };
-        //        var evt = document.createEvent('CustomEvent');
-        //        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-        //        return evt;
-        //    };
-        //
-        //    CustomEvent.prototype = window.CustomEvent.prototype;
-        //    window.CustomEvent = CustomEvent;
-        //}
-
-        //var event = document.createEvent("CustomEvent");
-        //var init = objects.extend({}, defaultOptions, options);
-        //event.initCustomEvent(prefix(type), init.canBubble, init.cancelable, init.detail);
+        event.initCustomEvent(eventType, eventOptions.canBubble, eventOptions.cancelable, eventOptions.detail);
 
         if (objects.isFunction(target.dispatchEvent)) {
             target.dispatchEvent(event);
         } else {
-            var args = [event];
-            var type = event.type;
             var storage = data.get(target);
+            var key = event.type;
+            var args = event;
 
-            if (storage.events && storage.events[type]) {
-                var events = collections.copy(storage.events[type]);
-                
-                collections.forEach(events, function (event) {
-                    event.listener.apply(target, args);
+            // loop thru stored events
+            if (storage.events && storage.events[key]) {
+                collections.forEach(collections.copy(storage.events[key]), function (event) {
+                    event.listener.call(target, args);
                 });
             }
         }

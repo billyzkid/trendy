@@ -50,15 +50,15 @@ require({ baseUrl: "../../src/scripts" }, ["dom", "events"], function (dom, even
         });
 
         buttons[10].addEventListener("click", function () {
-            events.fire(target, new CustomEvent("dummy", { detail: new Date() }));
+            events.fire(target, "dummy", { detail: new Date() });
         });
 
         buttons[11].addEventListener("click", function () {
-            events.fire(target, new MouseEvent("click"));
+            events.fire(target, "click");
         });
 
         buttons[12].addEventListener("click", function () {
-            events.fire(target, new MouseEvent("mouseover"));
+            events.fire(target, "mouseover");
         });
     });
 });
