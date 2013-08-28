@@ -21,26 +21,22 @@ define(["../core/classes", "../core/collections", "../core/dom", "../core/object
         styles.set(this.element, "backface-visibility", "hidden");
                    
         if (this.transition) {
-            var self = this;
-
             collections.forEach(this.element.children, function (childElement, index) {
-                styles.set(childElement, "transition", "all " + self.duration + "ms " + (index * self.delay) + "ms");
-            });
+                styles.set(childElement, "transition", "all " + this.duration + "ms " + (index * this.delay) + "ms");
+            }, this);
         }
 
         this.update();
     };
 
     Grid.prototype.update = function () {
-        var self = this;
-
         collections.forEach(this.element.children, function (element, index) {
-            var row = Math.floor(index / self.maxColumns);
-            var column = index - row * self.maxColumns;
-            var width = 100 / self.columns;
-            var height = 100 / self.rows;
+            var row = Math.floor(index / this.maxColumns);
+            var column = index - row * this.maxColumns;
+            var width = 100 / this.columns;
+            var height = 100 / this.rows;
 
-            if (row < self.rows && column < self.columns) {
+            if (row < this.rows && column < this.columns) {
                 styles.set(element, "position", "absolute");
                 styles.set(element, "z-index", "999");
                 styles.set(element, "top", height * row + "%");
@@ -57,7 +53,7 @@ define(["../core/classes", "../core/collections", "../core/dom", "../core/object
                 styles.set(element, "visibility", "hidden");
                 styles.set(element, "transform", "scale(0.6) rotate(45deg)");
             }
-        });
+        }, this);
     };
 
     return Grid;
