@@ -1,4 +1,4 @@
-define(["exports", "classes", "collections", "dom", "objects", "styles"], function (ui, classes, collections, dom, objects, styles) {
+define(["../core/classes", "../core/collections", "../core/dom", "../core/objects", "../core/styles"], function (classes, collections, dom, objects, styles) {
 
     "use strict";
 
@@ -11,7 +11,7 @@ define(["exports", "classes", "collections", "dom", "objects", "styles"], functi
         maxColumns: 3
     };
 
-    ui.Grid = function (elementOrId, options) {
+    function Grid(elementOrId, options) {
         var self = this;
 
         this.element = objects.isString(elementOrId) ? dom.queryById(document, elementOrId) : elementOrId;
@@ -28,7 +28,7 @@ define(["exports", "classes", "collections", "dom", "objects", "styles"], functi
         }
     };
 
-    ui.Grid.prototype.update = function () {
+    Grid.prototype.update = function () {
         var self = this;
 
         collections.forEach(this.element.children, function (element, index) {
@@ -52,4 +52,5 @@ define(["exports", "classes", "collections", "dom", "objects", "styles"], functi
         });
     };
 
+    return Grid;
 });

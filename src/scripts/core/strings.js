@@ -1,4 +1,4 @@
-define(["exports"], function (strings) {
+define(["exports", "./collections"], function (strings, collections) {
 
     "use strict";
 
@@ -6,6 +6,7 @@ define(["exports"], function (strings) {
     var whitespaceRE = /\s+/;
     var leadingWhitespaceRE = /^\s+/;
     var trailingWhitespaceRE = /\s+$/;
+    var tokenizeCallback = function (token) { return token.length > 0; };
 
     strings.trim = function (value) {
         return strings.trimLeft(strings.trimRight(value));
@@ -20,7 +21,7 @@ define(["exports"], function (strings) {
     };
 
     strings.tokenize = function (value) {
-        return strings.trim(value).split(whitespaceRE);
+        return collections.filter(value.split(whitespaceRE), tokenizeCallback);
     };
 
     strings.contains = function (value, search) {

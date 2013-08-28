@@ -1,4 +1,6 @@
-require({ baseUrl: "../../src/scripts" }, ["collections", "dom", "events", "ui"], function (collections, dom, events, ui) {
+require({ baseUrl: "../../src/scripts" }, ["core/collections", "core/dom", "core/events", "components/Grid"], function (collections, dom, events, Grid) {
+
+    "use strict";
 
     var gridOptions = {
         transition: true,
@@ -12,7 +14,7 @@ require({ baseUrl: "../../src/scripts" }, ["collections", "dom", "events", "ui"]
     dom.ready(function () {
         var buttonElements = dom.queryAll(document, "button");
         var gridElement = dom.query(document, ".grid");
-        var grid = new ui.Grid(gridElement, gridOptions);
+        var grid = new Grid(gridElement, gridOptions);
 
         collections.forEach(buttonElements, function (element, index) {
             events.add(element, "click", function () {

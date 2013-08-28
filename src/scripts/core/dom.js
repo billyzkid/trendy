@@ -1,4 +1,4 @@
-define(["exports", "collections", "events"], function (dom, collections, events) {
+define(["exports", "./collections", "./events"], function (dom, collections, events) {
 
     "use strict";
 

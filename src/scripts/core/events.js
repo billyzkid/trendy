@@ -1,4 +1,4 @@
-define(["exports", "collections", "data", "objects", "strings", "vendors"], function (events, collections, data, objects, strings, vendors) {
+define(["exports", "./collections", "./data", "./objects", "./strings", "./vendors"], function (events, collections, data, objects, strings, vendors) {
 
     "use strict";
 
@@ -81,9 +81,6 @@ define(["exports", "collections", "data", "objects", "strings", "vendors"], func
         if (objects.isFunction(target.addEventListener)) {
             target.addEventListener(event.type, event.listener, event.capture);
         }
-
-        // FIXME: remove!
-        console.log(storage);
     };
 
     events.remove = function (target, id, listener, capture) {
@@ -128,9 +125,6 @@ define(["exports", "collections", "data", "objects", "strings", "vendors"], func
                 delete storage.events;
             }
         }
-
-        // FIXME: remove!
-        console.log(storage);
     };
 
     events.fire = function (target, type, options) {

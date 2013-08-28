@@ -1,4 +1,4 @@
-define(["exports", "collections", "strings"], function (classes, collections, strings) {
+define(["exports", "./collections", "./strings"], function (classes, collections, strings) {
 
     "use strict";
 

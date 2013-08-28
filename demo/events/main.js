@@ -1,32 +1,44 @@
-require({ baseUrl: "../../src/scripts" }, ["dom", "events"], function (dom, events) {
+require({ baseUrl: "../../src/scripts" }, ["core/dom", "core/events"], function (dom, events) {
 
     dom.ready(function () {
         var buttons = dom.queryAll(document, ".buttons > button");
         var target = dom.query(document, ".box");
+        //var target = {};
 
         buttons[0].addEventListener("click", function () {
             var date = new Date();
-            events.add(target, "dummy", function (event) { console.log("dummy", this, arguments, date); });
+            events.add(target, "dummy", function (event) {
+                console.log("dummy", this, arguments, date);
+            });
         });
 
         buttons[1].addEventListener("click", function () {
             var date = new Date();
-            events.add(target, "click", function (event) { console.log("click", this, arguments, date); });
+            events.add(target, "click", function (event) {
+                console.log("click", this, arguments, date);
+            });
         });
 
         buttons[2].addEventListener("click", function () {
             var date = new Date();
-            events.add(target, "click.foo", function (event) { console.log("click.foo", this, arguments, date); });
+            events.add(target, "click.foo", function (event) {
+                console.log("click.foo", this, arguments, date);
+            });
         });
 
         buttons[3].addEventListener("click", function () {
             var date = new Date();
-            events.add(target, "click.foo.bar", function (event) { console.log("click.foo.bar", this, arguments, date); event.preventDefault(); });
+            events.add(target, "click.foo.bar", function (event) {
+                console.log("click.foo.bar", this, arguments, date);
+                event.preventDefault();
+            });
         });
 
         buttons[4].addEventListener("click", function () {
             var date = new Date();
-            events.add(target, "mouseover.foo", function (event) { console.log("mouseover.foo", this, arguments, date); });
+            events.add(target, "mouseover.foo", function (event) {
+                console.log("mouseover.foo", this, arguments, date);
+            });
         });
 
         buttons[5].addEventListener("click", function () {
@@ -54,15 +66,15 @@ require({ baseUrl: "../../src/scripts" }, ["dom", "events"], function (dom, even
         });
 
         buttons[11].addEventListener("click", function () {
-            console.log("default prevented: " + events.fire(target, "dummy", { detail: new Date() }));
+            events.fire(target, "dummy", { detail: new Date() });
         });
 
         buttons[12].addEventListener("click", function () {
-            console.log("default prevented: " + events.fire(target, "click", { cancelable: true }));
+            events.fire(target, "click", { cancelable: true });
         });
 
         buttons[13].addEventListener("click", function () {
-            console.log("default prevented: " + events.fire(target, "mouseover"));
+            events.fire(target, "mouseover");
         });
     });
 });

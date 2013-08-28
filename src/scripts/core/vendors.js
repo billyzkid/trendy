@@ -1,4 +1,4 @@
-define(["exports", "strings"], function (vendors, strings) {
+define(["exports", "./strings"], function (vendors, strings) {
 
     "use strict";
 
