@@ -1,5 +1,7 @@
 require({ baseUrl: "../../src/scripts" }, ["core/dom", "core/events"], function (dom, events) {
 
+    "use strict";
+
     dom.ready(function () {
         var buttons = dom.queryAll(document, ".buttons > button");
         var target = dom.query(document, ".box");
