@@ -12,20 +12,24 @@ define(["../core/classes", "../core/collections", "../core/dom", "../core/object
     };
 
     function Grid(elementOrId, options) {
-        var self = this;
-
         this.element = objects.isString(elementOrId) ? dom.queryById(document, elementOrId) : elementOrId;
         objects.extend(this, defaultOptions, options);
 
-        this.update();
-
+        styles.set(this.element, "display", "block");
+        styles.set(this.element, "position", "relative");
+        styles.set(this.element, "overflow", "hidden");
+        styles.set(this.element, "backface-visibility", "hidden");
+                   
         if (this.transition) {
-            setTimeout(function () {
-                collections.forEach(self.element.children, function (childElement, index) {
-                    styles.set(childElement, "transition", "all " + self.duration + "ms " + (index * self.delay) + "ms");
-                });
+            var duration = this.duration;
+            var delay = this.delay;
+
+            collections.forEach(this.element.children, function (childElement, index) {
+                styles.set(childElement, "transition", "all " + duration + "ms " + (index * delay) + "ms");
             });
         }
+
+        this.update();
     };
 
     Grid.prototype.update = function () {
@@ -38,16 +42,21 @@ define(["../core/classes", "../core/collections", "../core/dom", "../core/object
             var height = 100 / self.rows;
 
             if (row < self.rows && column < self.columns) {
+                styles.set(element, "position", "absolute");
+                styles.set(element, "z-index", "999");
                 styles.set(element, "top", height * row + "%");
                 styles.set(element, "left", width * column + "%");
                 styles.set(element, "width", width + "%");
                 styles.set(element, "height", height + "%");
-
-                classes.remove(element, "hidden");
-                classes.add(element, "visible");
+                styles.set(element, "opacity", null);
+                styles.set(element, "visibility", null);
+                styles.set(element, "transform", null);
             } else {
-                classes.remove(element, "visible");
-                classes.add(element, "hidden");
+                styles.set(element, "position", "absolute");
+                styles.set(element, "z-index", null);
+                styles.set(element, "opacity", "0");
+                styles.set(element, "visibility", "hidden");
+                styles.set(element, "transform", "scale(0.6) rotate(45deg)");
             }
         });
     };

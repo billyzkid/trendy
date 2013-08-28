@@ -31,38 +31,18 @@ body {
 }
 
 .grid {
-    position: relative;
+    display: none;
     width: 100%;
     height: 100%;
-    overflow: hidden;
-    -webkit-backface-visibility: hidden;
-       -moz-backface-visibility: hidden;
-            backface-visibility: hidden;
 }
 
 .grid > div {
-    position: absolute;
     border: 1px solid rgba(0, 0, 0, 0.05);
     background-color: #1abc89;
 }
 
-.grid > div.visible {
-    opacity: 1;
-    visibility: visible;
-    z-index: 999;
-}
-
-.grid > div.hidden {
-    opacity: 0;
-    visibility: hidden;
-    -webkit-transform: scale(0.6) rotate(45deg);
-       -moz-transform: scale(0.6) rotate(45deg);
-        -ms-transform: scale(0.6) rotate(45deg);
-            transform: scale(0.6) rotate(45deg);
-}
-
-/* required by IE10 */
 .grid > div:hover {
+    /* empty :hover required by IE10 */
 }
 
 .grid > div:hover:before {

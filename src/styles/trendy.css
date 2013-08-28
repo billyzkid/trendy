@@ -1,1 +1,26 @@
-﻿
+﻿/*.grid {
+    position: relative;
+    overflow: hidden;
+    -webkit-backface-visibility: hidden;
+       -moz-backface-visibility: hidden;
+            backface-visibility: hidden;
+}
+
+.grid > div {
+    position: absolute;
+}
+
+.grid > div.visible {
+    opacity: 1;
+    visibility: visible;
+    z-index: 999;
+}
+
+.grid > div.hidden {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: scale(0.6) rotate(45deg);
+       -moz-transform: scale(0.6) rotate(45deg);
+        -ms-transform: scale(0.6) rotate(45deg);
+            transform: scale(0.6) rotate(45deg);
+}*/
