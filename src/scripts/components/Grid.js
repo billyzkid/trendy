@@ -1,4 +1,4 @@
-define(["../core/classes", "../core/collections", "../core/dom", "../core/objects", "../core/styles"], function (classes, collections, dom, objects, styles) {
+define(["../core/collections", "../core/dom", "../core/objects", "../core/styles"], function (collections, dom, objects, styles) {
 
     "use strict";
 
