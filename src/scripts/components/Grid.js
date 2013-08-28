@@ -21,11 +21,10 @@ define(["../core/classes", "../core/collections", "../core/dom", "../core/object
         styles.set(this.element, "backface-visibility", "hidden");
                    
         if (this.transition) {
-            var duration = this.duration;
-            var delay = this.delay;
+            var self = this;
 
             collections.forEach(this.element.children, function (childElement, index) {
-                styles.set(childElement, "transition", "all " + duration + "ms " + (index * delay) + "ms");
+                styles.set(childElement, "transition", "all " + self.duration + "ms " + (index * self.delay) + "ms");
             });
         }
 
