@@ -1,26 +1,27 @@
-﻿/*.grid {
+﻿[data-trendy-component='grid'] {
     position: relative;
     overflow: hidden;
     -webkit-backface-visibility: hidden;
        -moz-backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+         -o-backface-visibility: hidden;
             backface-visibility: hidden;
 }
 
-.grid > div {
+[data-trendy-component='grid'] > * {
     position: absolute;
 }
 
-.grid > div.visible {
-    opacity: 1;
-    visibility: visible;
-    z-index: 999;
-}
-
-.grid > div.hidden {
+[data-trendy-component='grid'] > [aria-hidden='true'] {
     opacity: 0;
     visibility: hidden;
     -webkit-transform: scale(0.6) rotate(45deg);
        -moz-transform: scale(0.6) rotate(45deg);
         -ms-transform: scale(0.6) rotate(45deg);
+         -o-transform: scale(0.6) rotate(45deg);
             transform: scale(0.6) rotate(45deg);
-}*/
+}
+
+[data-trendy-component='grid'] > [aria-hidden='false'] {
+    z-index: 999;
+}

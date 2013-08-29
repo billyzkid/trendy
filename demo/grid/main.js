@@ -3,9 +3,6 @@ require({ baseUrl: "../../src/scripts" }, ["core/collections", "core/dom", "core
     "use strict";
 
     var gridOptions = {
-        transition: true,
-        duration: 450,
-        delay: 20,
         rows: 5,
         columns: 5,
         maxColumns: 5
