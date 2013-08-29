@@ -1,4 +1,4 @@
-﻿[data-trendy-component='grid'] {
+﻿[data-trendy-control='Grid'] {
     position: relative;
     overflow: hidden;
     -webkit-backface-visibility: hidden;
@@ -8,11 +8,11 @@
             backface-visibility: hidden;
 }
 
-[data-trendy-component='grid'] > * {
+[data-trendy-control='Grid'] > * {
     position: absolute;
 }
 
-[data-trendy-component='grid'] > [aria-hidden='true'] {
+[data-trendy-control='Grid'] > [aria-hidden='true'] {
     opacity: 0;
     visibility: hidden;
     -webkit-transform: scale(0.6) rotate(45deg);
@@ -22,6 +22,6 @@
             transform: scale(0.6) rotate(45deg);
 }
 
-[data-trendy-component='grid'] > [aria-hidden='false'] {
+[data-trendy-control='Grid'] > [aria-hidden='false'] {
     z-index: 999;
 }

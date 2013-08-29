@@ -1,4 +1,5 @@
-require({ baseUrl: "../../src/scripts" }, ["core/collections", "core/dom", "core/events", "components/Grid"], function (collections, dom, events, Grid) {
+//require({ baseUrl: "../../src/scripts" }, ["core/collections", "core/dom", "core/events", "components/Grid"], function (collections, dom, events, Grid) {
+require({ baseUrl: "../../src/scripts" }, ["./trendy"], function (trendy) {
 
     "use strict";
 
@@ -8,13 +9,13 @@ require({ baseUrl: "../../src/scripts" }, ["core/collections", "core/dom", "core
         maxColumns: 5
     };
 
-    dom.ready(function () {
-        var buttonElements = dom.queryAll(document, "button");
-        var gridElement = dom.query(document, ".grid");
-        var grid = new Grid(gridElement, gridOptions);
+    trendy.dom.ready(function () {
+        var buttonElements = trendy.dom.queryAll(document, "button");
+        var gridElement = trendy.dom.query(document, ".grid");
+        var grid = new trendy.controls.Grid(gridElement, gridOptions);
 
-        collections.forEach(buttonElements, function (element, index) {
-            events.add(element, "click", function () {
+        trendy.collections.forEach(buttonElements, function (element, index) {
+            trendy.events.add(element, "click", function () {
                 grid.rows = Math.floor(index / grid.maxColumns) + 1;
                 grid.columns = index - (grid.rows - 1) * grid.maxColumns + 1;
                 grid.update();

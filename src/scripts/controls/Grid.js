@@ -1,4 +1,4 @@
-define(["../core/attributes", "../core/collections", "../core/dom", "../core/objects", "../core/styles"], function (attributes, collections, dom, objects, styles) {
+define(["../core/attributes", "../core/collections", "../core/controls", "../core/dom", "../core/objects", "../core/oo", "../core/styles"], function (attributes, collections, controls, dom, objects, oo, styles) {
 
     "use strict";
 
@@ -12,13 +12,10 @@ define(["../core/attributes", "../core/collections", "../core/dom", "../core/obj
         maxColumns: 3
     };
 
-    function Grid(elementOrId, options) {
-        var element = objects.isString(elementOrId) ? dom.queryById(document, elementOrId) : elementOrId;
-        attributes.set(element, "data-trendy-component", "grid");
-        
-        this.element = element;
-        objects.extend(this, defaultOptions, options);
+    var base = oo.extend(Grid, controls.Control);
 
+    function Grid(elementOrId, options) {
+        base.call(this, "Grid", elementOrId, defaultOptions, options);
         this.initialize();
     };
 
