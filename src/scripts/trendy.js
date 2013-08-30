@@ -12,23 +12,9 @@ define([
     "./core/strings",
     "./core/styles",
     "./core/vendors",
-    "./controls/Grid"
-], function (
-    trendy,
-    attributes,
-    classes,
-    collections,
-    controls,
-    data,
-    dom,
-    events,
-    objects,
-    oo,
-    strings,
-    styles,
-    vendors,
-    Grid
-) {
+    "./controls/Grid",
+    "./controls/GridSelector"
+], function (trendy, attributes, classes, collections, controls, data, dom, events, objects, oo, strings, styles, vendors, Grid, GridSelector) {
 
     "use strict";
 
@@ -48,6 +34,7 @@ define([
 
     // controls
     trendy.controls.Grid = Grid;
+    trendy.controls.GridSelector = GridSelector;
 
     // initialize declarative controls
     dom.ready(function () {
