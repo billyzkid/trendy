@@ -49,9 +49,13 @@ define([
     // controls
     trendy.controls.Grid = Grid;
 
-    //dom.ready(function () {
-    //    var components = dom.queryAll("[data-trendy-component]");
-    //    alert("components found: " + components.length);
-    //});
+    // initialize declarative controls
+    dom.ready(function () {
+        var controls = trendy.collections.map(dom.queryAll(document, "[data-trendy-control]"), function (element) {
+            var name = trendy.attributes.get(element, "data-trendy-control");
+            var options = trendy.attributes.get(element, "data-trendy-options");
+            return new trendy.controls[name](element, trendy.strings.jsonify(options));
+        });
+    });
 
 });

@@ -6,6 +6,7 @@ define(["exports", "./collections"], function (strings, collections) {
     var whitespaceRE = /\s+/;
     var leadingWhitespaceRE = /^\s+/;
     var trailingWhitespaceRE = /\s+$/;
+    var jsonifyRE = /^(?:\{[\s\S]*\}|\[[\s\S]*\])$/;
     var tokenizeCallback = function (token) { return token.length > 0; };
 
     strings.trim = function (value) {
@@ -54,6 +55,20 @@ define(["exports", "./collections"], function (strings, collections) {
 
     strings.removeAll = function (value, search) {
         return strings.replaceAll(value, search, empty);
+    };
+
+    strings.stringify = function (value) {
+        return JSON.stringify(value);
+    };
+
+    strings.jsonify = function (value, strict) {
+        if (strict) {
+            return JSON.parse(value);
+        } else if (jsonifyRE.test(value)) {
+            return eval("(" + value + ")");
+        } else {
+            return null;
+        }
     };
 
 });
