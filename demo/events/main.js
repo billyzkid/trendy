@@ -1,4 +1,4 @@
-require({ baseUrl: "../../src/scripts" }, ["core/dom", "core/events"], function (dom, events) {
+require({ baseUrl: "../../src/scripts" }, ["./core/dom", "./core/events"], function (dom, events) {
 
     "use strict";
 
@@ -79,4 +79,5 @@ require({ baseUrl: "../../src/scripts" }, ["core/dom", "core/events"], function 
             events.fire(target, "mouseover");
         });
     });
+
 });

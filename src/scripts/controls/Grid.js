@@ -9,19 +9,19 @@ define([
     "use strict";
 
     var defaultOptions = {
-        transition: true,
-        timing: "ease",
-        duration: 450,
-        delay: 20,
         rows: 3,
         columns: 3,
-        maxColumns: 3
+        maxColumns: 3,
+        transition: true,
+        duration: 450,
+        delay: 20,
+        timing: "ease"
     };
 
     return oo.class(controls.Control,
     {
-        constructor: function (elementOrId, options) {
-            this.constructor.__super__.call(this, "Grid", elementOrId, defaultOptions, options);
+        constructor: function (element, options) {
+            this.constructor.__super__.call(this, "Grid", element, defaultOptions, options);
             this.initialize();
         },
         initialize: function () {

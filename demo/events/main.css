@@ -1,11 +1,10 @@
 ﻿html, body {
-    font-size: 100%;
     margin: 0;
     padding: 0;
 }
 
 body {
-    font-family: sans-serif;
+    font: 100% sans-serif;
 	color: #fff;
 	background-color: #000;
 }
@@ -15,17 +14,14 @@ body {
 	z-index: 1000;
 	top: 10px;
 	left: 10px;
-}
-
-button {
-    display: block;
+    right: 10px;
 }
 
 .box {
     font-size: 2em;
-    background-color: #1abc89;
     width: 200px;
     margin: 100px auto;
     padding: 50px;
     text-align: center;
+    background-color: #1abc89;
 }

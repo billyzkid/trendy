@@ -7,12 +7,12 @@
         <title>Grid Demo</title>
         <link rel="stylesheet" href="../../src/styles/trendy.css">
         <link rel="stylesheet" href="main.css">
-        <script src="../../lib/requirejs/require.min.js" data-main="main"></script>
+        <script src="../../lib/requirejs/require.min.js" data-main="../../src/scripts/trendy"></script>
     </head>
     <body>
         <div class="container">
-            <div class="grid-selector-trigger"></div>
-            <div class="grid-selector" data-trendy-control="GridSelector" data-trendy-options="{ rows: 5, columns: 5, maxColumns: 5, grid: '.grid', trigger: '.grid-selector-trigger' }">
+            <div class="trendy-grid-selector-trigger"></div>
+            <div class="trendy-grid-selector" data-trendy-control="GridSelector" data-trendy-options="{ rows: 5, columns: 5, maxColumns: 5 }">
                 <div></div>
                 <div></div>
                 <div></div>
@@ -39,7 +39,7 @@
                 <div></div>
                 <div></div>
             </div>
-            <div class="grid" data-trendy-control="Grid" data-trendy-options="{ rows: 5, columns: 5, maxColumns: 5 }">
+            <div class="trendy-grid" data-trendy-control="Grid" data-trendy-options="{ rows: 5, columns: 5, maxColumns: 5 }">
                 <div><h3>1</h3></div>
                 <div><h3>2</h3></div>
                 <div><h3>3</h3></div>

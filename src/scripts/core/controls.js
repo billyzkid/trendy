@@ -1,22 +1,46 @@
-define(["exports", "./attributes", "./data", "./dom", "./objects"], function (controls, attributes, data, dom, objects) {
+define([
+    "exports",
+    "./attributes",
+    "./collections",
+    "./data",
+    "./dom",
+    "./objects",
+    "./strings"
+], function (controls, attributes, collections, data, dom, objects, strings) {
 
     "use strict";
 
-    var key = "control";
+    var dataKey = "control";
 
-    controls.get = function (elementOrId) {
-        var element = objects.isString(elementOrId) ? dom.queryById(document, elementOrId) : elementOrId;
-        var control = data.get(element, key);
-        return control;
+    controls.get = function (element) {
+        if (objects.isString(element)) {
+            element = dom.query(document, element);
+        }
+
+        return data.get(element, dataKey);
     };
 
-    controls.Control = function (name, elementOrId, defaultOptions, options) {
-        var element = objects.isString(elementOrId) ? dom.queryById(document, elementOrId) : elementOrId;
+    controls.initialize = function () {
+        return collections.map(dom.queryAll(document, "[data-trendy-control]"), function (element) {
+            var name = attributes.get(element, "data-trendy-control");
+            var options = strings.jsonify(attributes.get(element, "data-trendy-options"));
+            return new controls[name](element, options);
+        });
+    };
+
+    controls.Control = function (name, element, defaultOptions, options) {
+        if (objects.isString(element)) {
+            element = dom.query(document, element);
+        }
+
         attributes.set(element, "data-trendy-control", name);
-        data.set(element, key, this);
+        data.set(element, dataKey, this);
 
         this.element = element;
         objects.extend(this, defaultOptions, options);
     };
+
+    // automatically initialize controls
+    dom.ready(controls.initialize);
 
 });

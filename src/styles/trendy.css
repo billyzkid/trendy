@@ -1,5 +1,7 @@
-﻿[data-trendy-control='Grid'] {
+﻿.trendy-grid {
     position: relative;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
     -webkit-backface-visibility: hidden;
        -moz-backface-visibility: hidden;
@@ -8,11 +10,27 @@
             backface-visibility: hidden;
 }
 
-[data-trendy-control='Grid'] > * {
+.trendy-grid > * {
     position: absolute;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    background-color: #1abc89;
 }
 
-[data-trendy-control='Grid'] > [aria-hidden='true'] {
+.trendy-grid > *:hover {
+    /* empty :hover required by IE10 */
+}
+
+.trendy-grid > *:hover:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.05);
+    content: "";
+}
+
+.trendy-grid > [aria-hidden="true"] {
     opacity: 0;
     visibility: hidden;
     -webkit-transform: scale(0.6) rotate(45deg);
@@ -22,6 +40,58 @@
             transform: scale(0.6) rotate(45deg);
 }
 
-[data-trendy-control='Grid'] > [aria-hidden='false'] {
+.trendy-grid > [aria-hidden="false"] {
     z-index: 999;
+}
+
+.trendy-grid-selector {
+    position: fixed;
+    z-index: 1000;
+    top: 10px;
+    left: 10px;
+    width: 110px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.trendy-grid-selector[data-trendy-open="true"] {
+    opacity: 1;
+    pointer-events: auto;
+    -webkit-transition: opacity 100ms linear;
+       -moz-transition: opacity 100ms linear;
+        -ms-transition: opacity 100ms linear;
+         -o-transition: opacity 100ms linear;
+            transition: opacity 100ms linear;
+}
+
+.trendy-grid-selector > * {
+    float: left;
+    width: 18px;
+    height: 18px;
+    margin: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+
+.trendy-grid-selector > [data-trendy-highlighted="true"] {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.trendy-grid-selector > [data-trendy-selected="true"] {
+    background: #ddd;
+}
+
+.trendy-grid-selector > [data-trendy-highlighted="true"][data-trendy-selected="true"] {
+    background: #fff;
+}
+
+.trendy-grid-selector-trigger {
+    position: fixed;
+    z-index: 1000;
+    width: 22px;
+    height: 23px;
+    padding: 10px;
+    background: url(../images/grid-selector-trigger.png) center center no-repeat;
+    cursor: pointer;
 }
