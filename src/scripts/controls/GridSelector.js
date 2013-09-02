@@ -13,34 +13,35 @@ define([
         rows: 3,
         columns: 3,
         maxColumns: 3,
-        grid: '.trendy-grid',
-        trigger: '.trendy-grid-selector-trigger'
+        grid: '.trendy-grid'
     };
 
     return oo.class(controls.Control,
     {
         constructor: function (element, options) {
             this.constructor.__super__.call(this, "GridSelector", element, defaultOptions, options);
-
-            this.triggerElement = dom.query(document, this.trigger);
+            
             this.gridElement = dom.query(document, this.grid);
+            this.triggerElement = dom.query(this.element, ".trendy-grid-selector-trigger");
+            this.popupElement = dom.query(this.element, ".trendy-grid-selector-popup");
 
             this.initialize();
         },
         initialize: function () {
-            var self = this;
+            var popupElement = this.popupElement;
 
             // open selector when trigger clicked
             events.add(this.triggerElement, "click", function () {
-                attributes.set(self.element, "data-trendy-open", true);
+                attributes.set(popupElement, "data-trendy-open", true);
+
             });
 
             // close selector when element clicked
-            events.add(this.element, "click", function () {
-                attributes.set(self.element, "data-trendy-open", false);
+            events.add(this.popupElement, "click", function () {
+                attributes.set(popupElement, "data-trendy-open", false);
             });
 
-            collections.forEach(this.element.children, this.initializeCell, this);
+            collections.forEach(this.popupElement.children, this.initializeCell, this);
         },
         initializeCell: function (element, index) {
             attributes.set(element, "data-trendy-selected", true);
@@ -52,7 +53,7 @@ define([
 			var column = index - row * this.maxColumns;
 
             // highlight matching cells
-            collections.forEach(this.element.children, function (childElement, childIndex) {
+            collections.forEach(this.popupElement.children, function (childElement, childIndex) {
                 var childRow = Math.floor(childIndex / this.maxColumns);
                 var childColumn = childIndex - childRow * this.maxColumns;
 
@@ -69,7 +70,7 @@ define([
             var column = index - row * this.maxColumns;
 
             // select matching cells
-            collections.forEach(this.element.children, function (childElement, childIndex) {
+            collections.forEach(this.popupElement.children, function (childElement, childIndex) {
                 var childRow = Math.floor(childIndex / this.maxColumns);
                 var childColumn = childIndex - childRow * this.maxColumns;
 
