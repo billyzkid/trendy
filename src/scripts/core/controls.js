@@ -33,11 +33,10 @@ define([
             element = dom.query(document, element);
         }
 
-        attributes.set(element, "data-trendy-control", name);
-        data.set(element, dataKey, this);
-
         this.element = element;
         objects.extend(this, defaultOptions, options);
+
+        data.set(element, dataKey, this);
     };
 
     // automatically initialize controls
