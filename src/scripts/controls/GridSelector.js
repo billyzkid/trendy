@@ -28,17 +28,17 @@ define([
             this.initialize();
         },
         initialize: function () {
-            var popupElement = this.popupElement;
+            var self = this;
 
             // open selector when trigger clicked
             events.add(this.triggerElement, "click", function () {
-                attributes.set(popupElement, "data-trendy-open", true);
+                attributes.set(self.popupElement, "data-trendy-open", true);
 
             });
 
             // close selector when element clicked
             events.add(this.popupElement, "click", function () {
-                attributes.set(popupElement, "data-trendy-open", false);
+                attributes.set(self.popupElement, "data-trendy-open", false);
             });
 
             collections.forEach(this.popupElement.children, this.initializeCell, this);
