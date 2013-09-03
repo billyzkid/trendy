@@ -28,13 +28,13 @@ define([
         });
     };
 
-    controls.Control = function (name, element, defaultOptions, options) {
+    controls.Control = function (element) {
         if (objects.isString(element)) {
             element = dom.query(document, element);
         }
 
         this.element = element;
-        objects.extend(this, defaultOptions, options);
+        objects.extend.apply(null, collections.concat([this], collections.slice(arguments, 1)));
 
         data.set(element, dataKey, this);
     };

@@ -2,16 +2,21 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-        <title>Grid Demo</title>
-        <link rel="stylesheet" href="../../src/styles/trendy.css">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Trendy Grid Demo using the Trendy JavaScript Framework">
+		<meta name="keywords" content="trendy, grid, selector, programmatic, control, demo, css, transition, animation">
+		<meta name="author" content="Will Allan">
+		<title>Trendy Grid Demo (Programmatic)</title>
+		<link rel="shortcut icon" href="../../src/images/favicon.ico">
+		<link rel="stylesheet/less" href="../../src/styles/trendy.less">
         <link rel="stylesheet" href="main.css">
-        <script src="../../lib/requirejs/require.min.js" data-main="main"></script>
+        <script src="../../lib/less/less.min.js"></script>
+		<script src="../../lib/require/require.min.js" data-main="main"></script>
     </head>
     <body>
         <div class="container">
-            <div class="trendy-grid-selector">
+            <div id="GridSelector" class="trendy-grid-selector">
                 <div class="trendy-grid-selector-trigger" aria-haspopup="true"></div>
                 <div class="trendy-grid-selector-popup">
                     <div></div>
@@ -41,7 +46,7 @@
                     <div></div>
                 </div>
             </div>
-            <div class="trendy-grid">
+            <div id="Grid" class="trendy-grid">
                 <div><h3>1</h3></div>
                 <div><h3>2</h3></div>
                 <div><h3>3</h3></div>

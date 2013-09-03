@@ -19,29 +19,25 @@ define([
     return oo.class(controls.Control,
     {
         constructor: function (element, options) {
-            this.constructor.__super__.call(this, "GridSelector", element, defaultOptions, options);
+            this.constructor.__super__.call(this, element, defaultOptions, options);
             
+            // initialize members
             this.gridElement = dom.query(document, this.grid);
             this.triggerElement = dom.query(this.element, ".trendy-grid-selector-trigger");
             this.popupElement = dom.query(this.element, ".trendy-grid-selector-popup");
 
-            this.initialize();
-        },
-        initialize: function () {
-            var self = this;
+            // initialize events
+            events.add(this.triggerElement, "click", this.openPopup.bind(this));
+            events.add(this.popupElement, "click", this.closePopup.bind(this));
 
-            // open selector when trigger clicked
-            events.add(this.triggerElement, "click", function () {
-                attributes.set(self.popupElement, "data-trendy-open", true);
-
-            });
-
-            // close selector when element clicked
-            events.add(this.popupElement, "click", function () {
-                attributes.set(self.popupElement, "data-trendy-open", false);
-            });
-
+            // initialize cells
             collections.forEach(this.popupElement.children, this.initializeCell, this);
+        },
+        openPopup: function () {
+            attributes.set(this.popupElement, "data-trendy-open", true);
+        },
+        closePopup: function () {
+            attributes.set(this.popupElement, "data-trendy-open", false);
         },
         initializeCell: function (element, index) {
             attributes.set(element, "data-trendy-selected", true);

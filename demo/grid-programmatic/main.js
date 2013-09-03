@@ -3,8 +3,8 @@ require({ baseUrl: "../../src/scripts" }, ["./core/dom", "./controls/Grid", "./c
     "use strict";
 
     dom.ready(function () {
-        var grid = new Grid(".trendy-grid", { rows: 5, columns: 5, maxColumns: 5 });
-        var gridSelector = new GridSelector(".trendy-grid-selector", { rows: 5, columns: 5, maxColumns: 5 });
+        var gridSelector = new GridSelector("#GridSelector", { rows: 5, columns: 5, maxColumns: 5, grid: "#Grid" });
+        var grid = new Grid("#Grid", { rows: 5, columns: 5, maxColumns: 5 });
     });
 
 });

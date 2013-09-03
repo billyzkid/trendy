@@ -21,8 +21,9 @@ define([
     return oo.class(controls.Control,
     {
         constructor: function (element, options) {
-            this.constructor.__super__.call(this, "Grid", element, defaultOptions, options);
-            this.initialize();
+            this.constructor.__super__.call(this, element, defaultOptions, options);
+            setTimeout(this.initialize.bind(this));
+            this.update();
         },
         initialize: function () {
             collections.forEach(this.element.children, this.initializeCell, this);
@@ -34,8 +35,6 @@ define([
             if (this.transition) {
                 styles.set(element, "transition", "all " + this.duration + "ms " + this.timing + " " + (index * this.delay) + "ms");
             }
-
-            this.updateCell(element, index);
         },
         updateCell: function (element, index) {
             var row = Math.floor(index / this.maxColumns);
