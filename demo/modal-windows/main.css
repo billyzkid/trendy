@@ -44,6 +44,7 @@ body {
     vertical-align: middle;
     height: 2.1em;
 	padding: 0 1em;
+    color: #c0392b;
     font-weight: 400;
     font-size: 0.7em;
 	letter-spacing: 0.1em;
@@ -51,23 +52,21 @@ body {
     text-decoration: none;
 }
 
-[role="navigation"] a:hover,
-[role="navigation"] a:active {
+[role="navigation"] a:hover:not([aria-disabled="true"]),
+[role="navigation"] a:active:not([aria-disabled="true"]) {
 	color: #e74c3c;
 	background-color: rgba(255, 255, 255, 0.6);
 }
 
-[role="navigation"] a,
 [role="navigation"] a[aria-disabled="true"] {
-    color: #c0392b;
-	background-color: rgba(255, 255, 255, 0);
+    opacity: 0.4;
 }
 
 [role="navigation"] a.icon-prev:before,
 [role="navigation"] a.icon-next:after {
     display: inline-block;
     vertical-align: middle;
-	margin-bottom: 4px;
+	margin: 0 0 4px;
     font: normal normal normal 1.175em/0 FontAwesome;
     speak: none;
 }
@@ -96,10 +95,11 @@ body {
 }
 
 [role="banner"] > h2 {
-    margin: 0.2em 0 0;
+    margin: 0;
     color: rgba(255, 255, 255, 0.7);
     font-weight: 300;
     font-size: 1.5em;
+    line-height: 1.25em;
 }
 
 [role="main"] {
@@ -156,7 +156,7 @@ body {
 }
 
 [role="main"] button:hover {
-	background: #a5281b;
+	background-color: #a5281b;
 }
 
 @media screen and (max-width: 45em) {
@@ -182,4 +182,18 @@ body {
 	[role="main"] p {
 		font-size: 1.5em;
 	}
+}
+
+@media screen and (max-width: 25em) {
+    [role="navigation"] a.icon-prev:before {
+        margin-right: 0;
+    }
+
+    [role="navigation"] a.icon-next:after {
+        margin-left: 0;
+    }
+
+    [role="navigation"] span {
+        display: none;
+    }
 }
