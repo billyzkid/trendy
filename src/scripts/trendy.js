@@ -14,8 +14,9 @@ define([
     "./core/vendors",
     "./controls/Grid",
     "./controls/GridSelector",
-    "./controls/ModalWindow"
-], function (trendy, attributes, classes, collections, controls, data, dom, events, objects, oo, strings, styles, vendors, Grid, GridSelector, ModalWindow) {
+    "./controls/Modal",
+    "./controls/ModalTrigger"
+], function (trendy, attributes, classes, collections, controls, data, dom, events, objects, oo, strings, styles, vendors, Grid, GridSelector, Modal, ModalTrigger) {
 
     "use strict";
 
@@ -36,6 +37,7 @@ define([
     // controls
     trendy.controls.Grid = Grid;
     trendy.controls.GridSelector = GridSelector;
-    trendy.controls.ModalWindow = ModalWindow;
+    trendy.controls.Modal = Modal;
+    trendy.controls.ModalTrigger = ModalTrigger;
 
 });

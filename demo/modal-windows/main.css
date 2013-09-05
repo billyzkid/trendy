@@ -42,20 +42,20 @@ body {
 [role="navigation"] a {
     display: table-cell;
     vertical-align: middle;
-    height: 2.1em;
-	padding: 0 1em;
+    height: 2.273em;
+    padding: 0 1em;
     color: #c0392b;
     font-weight: 400;
-    font-size: 0.7em;
-	letter-spacing: 0.1em;
+    font-size: 0.688em;
+    letter-spacing: 0.182em;
     text-transform: uppercase;
     text-decoration: none;
 }
 
 [role="navigation"] a:hover:not([aria-disabled="true"]),
 [role="navigation"] a:active:not([aria-disabled="true"]) {
-	color: #e74c3c;
-	background-color: rgba(255, 255, 255, 0.6);
+    color: #e74c3c;
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
 [role="navigation"] a[aria-disabled="true"] {
@@ -66,18 +66,18 @@ body {
 [role="navigation"] a.icon-next:after {
     display: inline-block;
     vertical-align: middle;
-	margin: 0 0 4px;
-    font: normal normal normal 1.175em/0 FontAwesome;
+    margin: 0 0 0.273em;
+    font: normal normal normal 1.273em/0 FontAwesome;
     speak: none;
 }
 
 [role="navigation"] a.icon-prev:before {
-    margin-right: 0.25em;
+    margin-right: 0.273em;
     content: "\f060";
 }
 
 [role="navigation"] a.icon-next:after {
-    margin-left: 0.25em;
+    margin-left: 0.273em;
     content: "\f061";
 }
 
@@ -91,7 +91,7 @@ body {
     margin: 0;
     color: rgba(255, 255, 255, 1);
     font-weight: 300;
-    font-size: 2.6em;
+    font-size: 3em;
 }
 
 [role="banner"] > h2 {
@@ -99,7 +99,7 @@ body {
     color: rgba(255, 255, 255, 0.7);
     font-weight: 300;
     font-size: 1.5em;
-    line-height: 1.25em;
+    line-height: 1.5;
 }
 
 [role="main"] {
@@ -113,8 +113,8 @@ body {
 
 [role="main"] > div {
     float: left;
-	width: 50%;
-	padding: 0 2em;
+    width: 50%;
+    padding: 0 2em;
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
@@ -133,41 +133,41 @@ body {
 [role="main"] p {
     margin: 0;
     font-weight: 300;
-	font-size: 2em;
-	line-height: 1.5;
+    font-size: 2em;
+    line-height: 1.5;
 }
 
 [role="main"] button {
     float: left;
-    margin: 3px;
-	padding: 0.6em 1.2em;
+    margin: 0.25em;
+    padding: 0.5em 1em;
     border: none;
-	color: #fff;
+    color: #fff;
     background-color: #c0392b;
     font-weight: 400;
-    font-size: 0.8em;
-	font-family: Lato, Calibri, Arial, sans-serif;
-	letter-spacing: 0.1em;
-	text-transform: uppercase;
-	cursor: pointer;
-    -webkit-border-radius: 3px;
-       -moz-border-radius: 3px;
-            border-radius: 3px;
+    font-size: 0.875em;
+    font-family: Lato, Calibri, Arial, sans-serif;
+    letter-spacing: 0.125em;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-border-radius: 0.25em;
+       -moz-border-radius: 0.25em;
+            border-radius: 0.25em;
 }
 
 [role="main"] button:hover {
-	background-color: #a5281b;
+    background-color: #a5281b;
 }
 
-@media screen and (max-width: 45em) {
+@media screen and (max-width: 48em) {
     [role="main"] {
-		padding: 0 2em;
-	}
+        padding: 0 2em;
+    }
 
-	[role="main"] > div {
-		width: 100%;
-		padding: 2em 0;
-	}
+    [role="main"] > div {
+        width: 100%;
+        padding: 2em 0;
+    }
 
     [role="main"] > div:first-child {
         text-align: left;
@@ -179,12 +179,18 @@ body {
                 box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
     }
 
-	[role="main"] p {
-		font-size: 1.5em;
-	}
+    [role="main"] p {
+        font-size: 1.5em;
+    }
 }
 
-@media screen and (max-width: 25em) {
+@media screen and (max-width: 32em) {
+    body {
+        font-size: 75%;
+    }
+}
+
+@media screen and (max-width: 20em) {
     [role="navigation"] a.icon-prev:before {
         margin-right: 0;
     }

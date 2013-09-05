@@ -1,56 +1,76 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Trendy Modal Windows Demo using the Trendy JavaScript Framework">
-		<meta name="keywords" content="trendy, modal, window, control, demo, css, transition, animation, 3d, perspective, effects">
-		<meta name="author" content="Will Allan">
-		<title>Trendy Modal Windows Demo</title>
-		<link rel="shortcut icon" href="../../src/images/favicon.ico">
-		<!--<link rel="stylesheet/less" href="../../src/styles/trendy.less">-->
+        <meta name="keywords" content="trendy, modal, window, control, demo, css, transition, animation, 3d, perspective, effects">
+        <meta name="author" content="Will Allan">
+        <title>Trendy Modal Windows Demo</title>
+        <link rel="shortcut icon" href="../../src/images/favicon.ico">
+        <link rel="stylesheet/less" href="../../src/styles/trendy.less">
         <link rel="stylesheet" href="main.css">
-        <!--<script src="../../lib/less/less.min.js"></script>-->
-		<!--<script src="../../lib/require/require.min.js" data-main="../../src/scripts/trendy"></script>-->
+        <script src="../../lib/less/less.min.js"></script>
+        <script src="../../lib/require/require.min.js" data-main="../../src/scripts/trendy"></script>
         <!--<script src="../../lib/require/require.min.js" data-main="main"></script>-->
-	</head>
-	<body>
-		<div class="container">
-			<ul role="navigation">
+    </head>
+    <body>
+        <div id="Modal01" role="dialog" class="trendy-modal" data-trendy-control="Modal" data-trendy-options="{ effect: 'ScaleFade' }">
+            <div>
+                <h3>Modal Dialog</h3>
+                <div>
+                    <p>This is a modal window. You can do the following things with it:</p>
+                    <ul>
+                        <li><strong>Read:</strong> modal windows will probably tell you something important so don't forget to read what they say.</li>
+                        <li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+                        <li><strong>Close:</strong> click on the button below to close the modal.</li>
+                    </ul>
+                </div>
+                <footer>
+                    <div>
+                        <button class="trendy-modal-ok-button">OK</button>
+                        <button class="trendy-modal-cancel-button">Close me!</button>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <div class="container">
+            <ul role="navigation">
                 <li><a class="icon-prev" href="../grid-programmatic/index.html"><span>Previous Demo</span></a></li>
                 <li><a class="icon-next" aria-disabled="true"><span>Next Demo</span></a></li>
             </ul>
-			<div role="banner">
-				<h1>Trendy Modal Windows</h1>
+            <div role="banner">
+                <h1>Trendy Modal Windows</h1>
                 <h2>Demonstration of modal window controls and effects</h2>
-			</div>
-			<div role="main">
-				<div>
-					<p>Click a button to display a modal window using a different combination of CSS transitions, animations, and 3D effects.</p>
-				</div>
-				<div>
-					<button>Fade In &amp; Scale</button>
-					<button>Slide In (Right)</button>
-					<button>Slide In (Bottom)</button>
-					<button>Newspaper</button>
-					<button>Fall</button>
-					<button>Side Fall</button>
-					<button>Sticky Up</button>
-					<button>3D Flip (Horizontal)</button>
-					<button>3D Flip (Vertical)</button>
-					<button>3D Sign</button>
-					<button>Super Scaled</button>
-					<button>Just Me</button>
-					<button>3D Slit</button>
-					<button>3D Rotate (Bottom)</button>
-					<button>3D Rotate (Left)</button>
-					<button>Blur</button>
-					<button>Let Me In!</button>
-					<button>Make Way!</button>
-					<button>Slip From Top</button>
-				</div>
-			</div>
-		</div>
-	</body>
+            </div>
+            <div role="main">
+                <div>
+                    <p>Click a button to display a modal window using a different combination of CSS transitions, animations, and 3D effects.</p>
+                </div>
+                <div>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal01' }">Scale/Fade</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal02' }">Slide In (Right)</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal03' }">Slide In (Bottom)</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal04' }">Newspaper</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal05' }">Fall</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal06' }">Side Fall</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal07' }">Sticky (Top)</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal08' }">Sticky (Bottom)</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal09' }">3D Flip (Horizontal)</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal10' }">3D Flip (Vertical)</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal11' }">3D Sign</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal12' }">Super Scaled</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal13' }">Just Me</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal14' }">3D Slit</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal15' }">3D Rotate (Bottom)</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal16' }">3D Rotate (Left)</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal17' }">Blur</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal18' }">Let Me In!</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal19' }">Make Way!</button>
+                    <button data-trendy-control="ModalTrigger" data-trendy-options="{ modal: '#Modal20' }">Slip From Top</button>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

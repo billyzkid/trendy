@@ -13,7 +13,7 @@ define([
         rows: 3,
         columns: 3,
         maxColumns: 3,
-        grid: '.trendy-grid'
+        grid: ".trendy-grid"
     };
 
     return oo.class(controls.Control,
@@ -46,7 +46,7 @@ define([
         },
         highlightCells: function (index) {
             var row = Math.floor(index / this.maxColumns);
-			var column = index - row * this.maxColumns;
+            var column = index - row * this.maxColumns;
 
             // highlight matching cells
             collections.forEach(this.popupElement.children, function (childElement, childIndex) {

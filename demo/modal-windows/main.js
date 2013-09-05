@@ -4,11 +4,16 @@ require({ baseUrl: "../../src/scripts" }, ["./trendy"], function (trendy) {
 
     trendy.dom.ready(function () {
         var overlay = trendy.dom.query(document, ".md-overlay");
-        var triggers = trendy.dom.queryAll(document, ".md-trigger");
+        //var triggers = trendy.dom.queryAll(document, ".md-trigger");
+        var triggers = trendy.dom.queryAll(document, ".container button");
 
         trendy.collections.forEach(triggers, function (el, i) {
-            var modalId = trendy.attributes.get(el, "data-modal");
-            var modal = trendy.dom.query(document, "#" + modalId);
+            if (i > 0) {
+                return;
+            }
+
+            //var modalId = trendy.attributes.get(el, "data-modal");
+            var modal = trendy.dom.query(document, "#modal-" + (i + 1));
             var close = trendy.dom.query(modal, ".md-close");
 
             function removeModal(hasPerspective) {
