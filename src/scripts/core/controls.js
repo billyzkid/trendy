@@ -5,8 +5,9 @@ define([
     "./data",
     "./dom",
     "./objects",
+    "./oo",
     "./strings"
-], function (controls, attributes, collections, data, dom, objects, strings) {
+], function (controls, attributes, collections, data, dom, objects, oo, strings) {
 
     "use strict";
 
@@ -28,18 +29,30 @@ define([
         });
     };
 
-    controls.Control = function (element) {
-        if (objects.isString(element)) {
-            element = dom.query(document, element);
+    controls.Control = oo.class(
+    {
+        constructor: function (name, element) {
+            // initialize members
+            this.name = name;
+            this.element = objects.isString(element) ? dom.query(document, element) : element;
+
+            // extend control with options
+            if (arguments.length > 2) {
+                var optionArgs = collections.concat([this], collections.slice(arguments, 2));
+                objects.extend.apply(null, optionArgs);
+            }
+
+            // set control reference
+            data.set(this.element, dataKey, this);
+        },
+        dispose: function () {
+            events.remove(this.element, "." + this.name);
+            data.remove(this.element, dataKey);
+            delete this.element;
         }
+    });
 
-        this.element = element;
-        objects.extend.apply(null, collections.concat([this], collections.slice(arguments, 1)));
-
-        data.set(element, dataKey, this);
-    };
-
-    // automatically initialize controls
+    // initialize declarative controls
     dom.ready(controls.initialize);
 
 });

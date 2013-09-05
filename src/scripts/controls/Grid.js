@@ -21,7 +21,7 @@ define([
     return oo.class(controls.Control,
     {
         constructor: function (element, options) {
-            this.constructor.__super__.call(this, element, defaultOptions, options);
+            this.constructor.__super__.call(this, "Grid", element, defaultOptions, options);
             setTimeout(this.initialize.bind(this));
             this.update();
         },

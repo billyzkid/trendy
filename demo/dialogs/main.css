@@ -66,18 +66,26 @@ body {
 [role="navigation"] a.icon-next:after {
     display: inline-block;
     vertical-align: middle;
-    margin: 0 0 0.273em;
+    margin-bottom: 0.273em;
     font: normal normal normal 1.273em/0 FontAwesome;
     speak: none;
 }
 
 [role="navigation"] a.icon-prev:before {
-    margin-right: 0.273em;
     content: "\f060";
 }
 
-[role="navigation"] a.icon-next:after {
+[role="navigation"] a.icon-prev:after {
     margin-left: 0.273em;
+    content: "Previous Demo";
+}
+
+[role="navigation"] a.icon-next:before {
+    margin-right: 0.273em;
+    content: "Next Demo";
+}
+
+[role="navigation"] a.icon-next:after {
     content: "\f061";
 }
 
@@ -191,15 +199,11 @@ body {
 }
 
 @media screen and (max-width: 20em) {
-    [role="navigation"] a.icon-prev:before {
-        margin-right: 0;
+    [role="navigation"] a.icon-prev:after {
+        display: none;
     }
 
-    [role="navigation"] a.icon-next:after {
-        margin-left: 0;
-    }
-
-    [role="navigation"] span {
+    [role="navigation"] a.icon-next:before {
         display: none;
     }
 }

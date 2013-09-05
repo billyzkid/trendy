@@ -12,11 +12,11 @@ define([
     "./core/strings",
     "./core/styles",
     "./core/vendors",
+    "./controls/Dialog",
+    "./controls/DialogTrigger",
     "./controls/Grid",
-    "./controls/GridSelector",
-    "./controls/Modal",
-    "./controls/ModalTrigger"
-], function (trendy, attributes, classes, collections, controls, data, dom, events, objects, oo, strings, styles, vendors, Grid, GridSelector, Modal, ModalTrigger) {
+    "./controls/GridSelector"
+], function (trendy, attributes, classes, collections, controls, data, dom, events, objects, oo, strings, styles, vendors, Dialog, DialogTrigger, Grid, GridSelector) {
 
     "use strict";
 
@@ -35,9 +35,9 @@ define([
     trendy.vendors = vendors;
 
     // controls
+    trendy.controls.Dialog = Dialog;
+    trendy.controls.DialogTrigger = DialogTrigger;
     trendy.controls.Grid = Grid;
     trendy.controls.GridSelector = GridSelector;
-    trendy.controls.Modal = Modal;
-    trendy.controls.ModalTrigger = ModalTrigger;
 
 });

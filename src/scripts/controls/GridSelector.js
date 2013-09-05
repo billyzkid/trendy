@@ -19,7 +19,7 @@ define([
     return oo.class(controls.Control,
     {
         constructor: function (element, options) {
-            this.constructor.__super__.call(this, element, defaultOptions, options);
+            this.constructor.__super__.call(this, "GridSelector", element, defaultOptions, options);
             
             // initialize members
             this.gridElement = dom.query(document, this.grid);

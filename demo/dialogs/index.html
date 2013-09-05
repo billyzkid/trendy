@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Trendy Dialogs Demo using the Trendy JavaScript Framework">
+        <meta name="keywords" content="trendy, modal, dialog, control, demo, css, transition, animation, 3d, perspective, effects">
+        <meta name="author" content="Will Allan">
+        <title>Trendy Dialogs Demo</title>
+        <link rel="shortcut icon" href="../../src/images/favicon.ico">
+        <link rel="stylesheet/less" href="../../src/styles/trendy.less">
+        <link rel="stylesheet" href="main.css">
+        <script src="../../lib/less/less.min.js"></script>
+        <script src="../../lib/require/require.min.js" data-main="../../src/scripts/trendy"></script>
+    </head>
+    <body>
+        <div id="Dialog1" role="dialog" class="trendy-dialog" data-trendy-control="Dialog" data-trendy-options="{ effect: 'ScaleFade' }">
+            <div>
+                <h3>Trendy Dialog</h3>
+                <div>
+                    <p>This is a dialog. A few things about dialogs:</p>
+                    <ul>
+                        <li>Dialogs usually alert the user to something important or require input.</li>
+                        <li>Dialogs enjoy a certain level of attention; users will notice and appreciate its presence.</li>
+                        <li>Dialogs can be confirmed and/or canceled using the buttons below or key commands.</li>
+                    </ul>
+                </div>
+                <footer>
+                    <div>
+                        <button class="trendy-dialog-confirm-button">OK</button>
+                        <button class="trendy-dialog-cancel-button">Close</button>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <div class="container">
+            <ul role="navigation">
+                <li><a class="icon-prev" href="../grid-programmatic/index.html" aria-label="Previous Demo"></a></li>
+                <li><a class="icon-next" aria-label="Next Demo" aria-disabled="true"></a></li>
+            </ul>
+            <div role="banner">
+                <h1>Trendy Dialogs</h1>
+                <h2>Demonstration of dialog controls and effects</h2>
+            </div>
+            <div role="main">
+                <div>
+                    <p>Click a button to open a dialog using different combinations of CSS transitions, animations, and 3D effects.</p>
+                </div>
+                <div>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog1' }">Scale/Fade</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog2' }">Slide In (Right)</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog3' }">Slide In (Bottom)</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog4' }">Newspaper</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog5' }">Fall</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog6' }">Side Fall</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog7' }">Sticky (Top)</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog8' }">Sticky (Bottom)</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog9' }">3D Flip (Horizontal)</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog10' }">3D Flip (Vertical)</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog11' }">3D Sign</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog12' }">Super Scaled</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog13' }">Just Me</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog14' }">3D Slit</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog15' }">3D Rotate (Bottom)</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog16' }">3D Rotate (Left)</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog17' }">Blur</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog18' }">Let Me In!</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog19' }">Make Way!</button>
+                    <button data-trendy-control="DialogTrigger" data-trendy-options="{ dialog: '#Dialog20' }">Slip From Top</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
