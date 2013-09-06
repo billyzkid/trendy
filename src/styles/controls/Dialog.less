@@ -2,18 +2,22 @@
 @import "../mixins.less";
 
 body:before {
+    content: "";
     position: fixed;
-    z-index: 2000;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     opacity: 0;
     visibility: hidden;
-    background-color: rgba(143, 27, 15, 0.8);
-    content: "";
-    .transition(all 300ms);
+    z-index: @dialog-overlay-z-index;
+    background: @dialog-overlay-background;
+    .transition(@dialog-overlay-transition);
 }
+
+/*html[data-trendy-hasdialog="true"] {
+    .no-user-select;
+}*/
 
 html[data-trendy-hasdialog="true"] body:before {
     opacity: 1;
@@ -21,89 +25,99 @@ html[data-trendy-hasdialog="true"] body:before {
 }
 
 .trendy-dialog {
+    font: @dialog-font;
     position: fixed;
-    z-index: 2000;
     top: 50%;
     left: 50%;
     width: 50%;
-    max-width: 630px;
-    min-width: 320px;
+    min-width: @dialog-min-width;
+    max-width: @dialog-max-width;
+    outline: 0;
     visibility: hidden;
-    outline: none;
+    z-index: @dialog-z-index;
     .backface-visibility(hidden);
-    .transform(translateX(-50%) translateY(-50%));
+    .translate(-50%, -50%);
 }
 
 .trendy-dialog[data-trendy-open="true"] {
     visibility: visible;
 }
 
-.trendy-dialog > div {
-    position: relative;
-    margin: 0 auto;
-    color: #fff;
-    background-color: #e74c3c;
-    .border-radius(3px);
+.trendy-dialog > section {
+    font: @dialog-font;
+    color: @dialog-color;
+    background: @dialog-background;
+    .border-radius(@dialog-border-radius);
+
+    /*position: relative;*/
+    /*margin: 0 auto;*/
 }
 
-.trendy-dialog[data-trendy-effect="ScaleFade"] > div {
+.trendy-dialog[data-trendy-effect="ScaleFade"] > section {
     opacity: 0;
-    .transform(scale(0.7));
-    .transition(all 300ms);
+    .scale(0.7);
+    .transition(@dialog-transition);
 }
 
-.trendy-dialog[data-trendy-effect="ScaleFade"][data-trendy-open="true"] > div {
+.trendy-dialog[data-trendy-effect="ScaleFade"][data-trendy-open="true"] > section {
     opacity: 1;
-    .transform(scale(1));
+    .scale(1);
 }
 
-.trendy-dialog > div > h3 {
-    margin: 0;
-    padding: 0.4em;
-    text-align: center;
-    font-weight: 300;
-    font-size: 2.4em;
-    color: rgba(255, 255, 255, 0.8);
-    background-color: rgba(0, 0, 0, 0.1);
-    .border-radius(3px 3px 0 0);
-}
-
-.trendy-dialog > div > div {
-    padding: 15px 40px 30px;
-    font-weight: 300;
-    font-size: 1.15em;
-}
-
-.trendy-dialog footer {
-    display: table-cell;
-    padding: 2em;
-    text-align: center;
-}
-
-.trendy-dialog footer:after {
+.trendy-dialog > section > header {
     display: table;
-    clear: both;
-    content: "";
+    width: 100%;
+    text-align: center;
+    padding: @dialog-header-padding;
+    color: @dialog-header-color;
+    background: @dialog-header-background;
+    .box-sizing(border-box);
 }
 
-.trendy-dialog footer > div {
-    margin: 0 auto;
+.trendy-dialog > section > header > h1 {
+    margin: 0;
+    font-weight: @dialog-header-font-weight;
+    font-size: @dialog-header-font-size;
 }
 
-.trendy-dialog button {
-    float: left;
-    margin: 0.25em;
-    padding: 0.5em 1em;
-    border: none;
-    color: #fff;
-    background-color: #c0392b;
-    font-weight: 400;
-    font-size: 0.875em;
-    font-family: Lato, Calibri, Arial, sans-serif;
-    letter-spacing: 0.125em;
-    text-transform: uppercase;
-    cursor: pointer;
-    .border-radius(0.25em);
+.trendy-dialog > section > div {
+    font-weight: @dialog-main-font-weight;
+    font-size: @dialog-main-font-size;
+    line-height: 1.5;
+    padding: @dialog-main-padding;
+}
+
+.trendy-dialog > section > footer {
+    display: table;
+    width: 100%;
+    text-align: center;
+    padding: @dialog-footer-padding;
+    color: @dialog-footer-color;
+    background: @dialog-footer-background;
+    .box-sizing(border-box);
+}
+
+.trendy-dialog > section > footer > button {
+    font-weight: @dialog-button-font-weight;
+    font-size: @dialog-button-font-size;
+    font-family: inherit;
+    letter-spacing: @dialog-button-letter-spacing;
+    text-transform: @dialog-button-text-transform;
+    color: @dialog-button-color;
+    background: @dialog-button-background;
+    margin: @dialog-button-margin;
+    padding: @dialog-button-padding;
+    border: @dialog-button-border;
+    cursor: @dialog-button-cursor;
+    .border-radius(@dialog-button-border-radius);
+}
+
+.trendy-dialog > section > footer > button:first-of-type {
+    margin-left: 0;
+}
+
+.trendy-dialog > section > footer > button:last-of-type {
+    margin-right: 0;
 }
 
 

@@ -10,29 +10,34 @@
         <title>Trendy Dialogs Demo</title>
         <link rel="shortcut icon" href="../../src/images/favicon.ico">
         <link rel="stylesheet/less" href="../../src/styles/trendy.less">
-        <link rel="stylesheet" href="main.css">
+        <!--<link rel="stylesheet" href="main.css">-->
         <script src="../../lib/less/less.min.js"></script>
         <script src="../../lib/require/require.min.js" data-main="../../src/scripts/trendy"></script>
     </head>
     <body>
         <div id="Dialog1" role="dialog" class="trendy-dialog" data-trendy-control="Dialog" data-trendy-options="{ effect: 'ScaleFade' }">
-            <div>
-                <h3>Trendy Dialog</h3>
+            <section>
+                <header>
+                    <h1>Trendy Dialog</h1>
+                </header>
                 <div>
-                    <p>This is a dialog. A few things about dialogs:</p>
+                    <p>Here are a few interesting things to note about dialogs:</p>
                     <ul>
-                        <li>Dialogs usually alert the user to something important or require input.</li>
-                        <li>Dialogs enjoy a certain level of attention; users will notice and appreciate its presence.</li>
-                        <li>Dialogs can be confirmed and/or canceled using the buttons below or key commands.</li>
+                        <li>Dialogs command <strong>attention</strong> &mdash; users will notice and appreciate its presence</li>
+                        <li>Dialogs usually <strong>alert</strong> something important or prompt for <strong>user input</strong></li>
+                        <li>Dialogs can be dismissed using <strong>buttons</strong> or <strong>keyboard</strong> commands</li>
                     </ul>
                 </div>
+                <!--<div>
+                    Blhaskdjf ajds fjfd kajdsf sajfd asdkf sadj sa dfsalk jflksad flksadf a
+                    asdklf jaslkdjfsa;lkjfd lksajdf asd flksadflk asdfj ajfd sadjf lsajfkasjdfas
+                    asd fjasjflsadjfl sadfl safj aslkdjflksadjfsajdf lksadlkfjsadlkfjsafasdf;lksafkjsa
+                </div>-->
                 <footer>
-                    <div>
-                        <button class="trendy-dialog-confirm-button">OK</button>
-                        <button class="trendy-dialog-cancel-button">Close</button>
-                    </div>
+                    <button class="trendy-dialog-confirm-button">OK</button>
+                    <button class="trendy-dialog-cancel-button">Close</button>
                 </footer>
-            </div>
+            </section>
         </div>
         <div class="container">
             <ul role="navigation">

@@ -1,1 +1,41 @@
-﻿
+﻿@base-font-size:                    16;
+@em:                                @base-font-size * 1em;
+
+@dialog-font:                       normal normal normal 100% ~"/" 1 Lato, Calibri, Arial, sans-serif;
+@dialog-color:                      #fff;
+@dialog-background:                 #e74c3c;
+@dialog-min-width:                  320/@em;
+@dialog-max-width:                  640/@em;
+@dialog-border-radius:              4/@em;
+@dialog-z-index:                    1000;
+@dialog-transition:                 all 300ms;
+
+@dialog-overlay-z-index:            @dialog-z-index;
+@dialog-overlay-background:         rgba(143, 27, 15, 0.8);
+@dialog-overlay-transition:         @dialog-transition;
+
+@dialog-header-font-weight:         300;
+@dialog-header-font-size:           36/@em;
+@dialog-header-padding:             32/@em;
+@dialog-header-color:               rgba(255, 255, 255, 0.8);
+@dialog-header-background:          rgba(0, 0, 0, 0.1);
+
+@dialog-footer-padding:             24/@em;
+@dialog-footer-color:               @dialog-header-color;
+@dialog-footer-background:          @dialog-header-background;
+
+@dialog-main-font-weight:           300;
+@dialog-main-font-size:             16/@em;
+@dialog-main-padding:               24/@em 32/@em;
+
+@dialog-button-font-weight:         400;
+@dialog-button-font-size:           14/@em;
+@dialog-button-letter-spacing:      2/@em;
+@dialog-button-text-transform:      uppercase;
+@dialog-button-color:               #fff;
+@dialog-button-background:          #c0392b;
+@dialog-button-margin:              0 3/@em;
+@dialog-button-padding:             7/@em 14/@em;
+@dialog-button-border:              0;
+@dialog-button-border-radius:       3/@em;
+@dialog-button-cursor:              pointer;
