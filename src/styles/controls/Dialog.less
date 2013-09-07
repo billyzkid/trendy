@@ -48,6 +48,8 @@ html[data-trendy-hasdialog="true"] body:before {
 }
 
 .trendy-dialog > section {
+    color: @dialog-color;
+    background: @dialog-background;
     .border-radius(@dialog-border-radius);
     overflow: hidden;
 }
@@ -80,18 +82,6 @@ html[data-trendy-hasdialog="true"] body:before {
     .box-sizing(border-box);
 }
 
-.trendy-dialog > section > header > h1 {
-    font: @dialog-h1-font;
-    color: @dialog-h1-color;
-    margin: 0;
-}
-
-.trendy-dialog > section > header > h2 {
-    font: @dialog-h2-font;
-    color: @dialog-h2-color;
-    margin: 0;
-}
-
 .trendy-dialog > section > footer {
     display: table;
     width: 100%;
@@ -101,7 +91,19 @@ html[data-trendy-hasdialog="true"] body:before {
     .box-sizing(border-box);
 }
 
-.trendy-dialog > section > footer > button {
+.trendy-dialog h1 {
+    font: @dialog-h1-font;
+    color: @dialog-h1-color;
+    margin: 0;
+}
+
+.trendy-dialog h2 {
+    font: @dialog-h2-font;
+    color: @dialog-h2-color;
+    margin: 0;
+}
+
+.trendy-dialog button {
     font: @dialog-button-font;
     letter-spacing: @dialog-button-letter-spacing;
     text-transform: @dialog-button-text-transform;
@@ -114,11 +116,16 @@ html[data-trendy-hasdialog="true"] body:before {
     .border-radius(@dialog-button-border-radius);
 }
 
-.trendy-dialog > section > footer > button:first-of-type {
+.trendy-dialog button:hover {
+    color: @dialog-button-hover-color;
+    background: @dialog-button-hover-background;
+}
+
+.trendy-dialog button:first-of-type {
     margin-left: 0;
 }
 
-.trendy-dialog > section > footer > button:last-of-type {
+.trendy-dialog button:last-of-type {
     margin-right: 0;
 }
 

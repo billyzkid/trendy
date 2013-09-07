@@ -2,6 +2,8 @@
 @em2:                               14 * 1em;
 
 @dialog-font:                       400 (16/@em1) Lato, sans-serif;
+@dialog-color:                      #fff;
+@dialog-background:                 dodgerblue; //#e74c3c;
 @dialog-min-width:                  320/@em1;
 @dialog-max-width:                  640/@em1;
 @dialog-border-radius:              4/@em1;
@@ -11,33 +13,36 @@
 @dialog-overlay-z-index:            1000;
 @dialog-overlay-transition:         all 300ms;
 
+@dialog-main-font:                  300 (16/@em1) ~"/" 1.25 Lato, sans-serif;
+@dialog-main-color:                 inherit;
+@dialog-main-background:            none;
+@dialog-main-padding:               16/@em1 32/@em1;
+@dialog-main-text-align:            left;
+
+@dialog-header-background:          rgba(0, 0, 0, 0.2); //lighten(#c0392b, 5%);
+@dialog-header-padding:             32/@em1;
+@dialog-header-text-align:          center;
+
+@dialog-footer-background:          rgba(0, 0, 0, 0.2); //lighten(#c0392b, 5%);
+@dialog-footer-padding:             16/@em1;
+@dialog-footer-text-align:          right;
+
 @dialog-h1-font:                    300 (36/@em1) Lato, sans-serif;
-@dialog-h1-color:                   #fff;
+@dialog-h1-color:                   inherit;
 
 @dialog-h2-font:                    300 (20/@em1) ~"/" 1.25 Lato, sans-serif;
 @dialog-h2-color:                   rgba(255, 255, 255, 0.7);
 
-@dialog-main-font:                  300 (16/@em1) ~"/" 1.25 Lato, sans-serif;
-@dialog-main-color:                 #fff;
-@dialog-main-background:            #e74c3c;
-@dialog-main-padding:               16/@em1 32/@em1;
-@dialog-main-text-align:            left;
-
-@dialog-header-background:          lighten(#c0392b, 5%);
-@dialog-header-padding:             32/@em1;
-@dialog-header-text-align:          center;
-
-@dialog-footer-background:          lighten(#c0392b, 5%);
-@dialog-footer-padding:             16/@em1;
-@dialog-footer-text-align:          right;
-
 @dialog-button-font:                400 (14/@em1) Lato, sans-serif;
 @dialog-button-letter-spacing:      1/@em2;
 @dialog-button-text-transform:      uppercase;
-@dialog-button-color:               #fff;
-@dialog-button-background:          #c0392b;
+@dialog-button-color:               inherit;
+@dialog-button-background:          rgba(0, 0, 0, 0.2); //#c0392b;
 @dialog-button-margin:              0 3/@em2;
 @dialog-button-padding:             7/@em2 14/@em2;
 @dialog-button-border:              0;
 @dialog-button-border-radius:       3/@em2;
 @dialog-button-cursor:              pointer;
+
+@dialog-button-hover-color:         inherit;
+@dialog-button-hover-background:    rgba(0, 0, 0, 0.4); //#a5281b;
