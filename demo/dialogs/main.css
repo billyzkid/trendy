@@ -59,7 +59,7 @@ body {
 }
 
 [role="navigation"] a[aria-disabled="true"] {
-    opacity: 0.4;
+    opacity: 0.5;
 }
 
 [role="navigation"] a.icon-prev:before,

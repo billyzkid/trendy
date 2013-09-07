@@ -1,6 +1,10 @@
 ﻿@import "../variables.less";
 @import "../mixins.less";
 
+body {
+    font-size: 100%;
+}
+
 body:before {
     content: "";
     position: fixed;
@@ -10,8 +14,8 @@ body:before {
     height: 100%;
     opacity: 0;
     visibility: hidden;
-    z-index: @dialog-overlay-z-index;
     background: @dialog-overlay-background;
+    z-index: @dialog-overlay-z-index;
     .transition(@dialog-overlay-transition);
 }
 
@@ -44,19 +48,14 @@ html[data-trendy-hasdialog="true"] body:before {
 }
 
 .trendy-dialog > section {
-    font: @dialog-font;
-    color: @dialog-color;
-    background: @dialog-background;
     .border-radius(@dialog-border-radius);
-
-    /*position: relative;*/
-    /*margin: 0 auto;*/
+    overflow: hidden;
 }
 
 .trendy-dialog[data-trendy-effect="ScaleFade"] > section {
     opacity: 0;
     .scale(0.7);
-    .transition(@dialog-transition);
+    .transition(all 300ms);
 }
 
 .trendy-dialog[data-trendy-effect="ScaleFade"][data-trendy-open="true"] > section {
@@ -64,43 +63,46 @@ html[data-trendy-hasdialog="true"] body:before {
     .scale(1);
 }
 
+.trendy-dialog > section > div {
+    font: @dialog-main-font;
+    color: @dialog-main-color;
+    background: @dialog-main-background;
+    padding: @dialog-main-padding;
+    text-align: @dialog-main-text-align;
+}
+
 .trendy-dialog > section > header {
     display: table;
     width: 100%;
-    text-align: center;
     padding: @dialog-header-padding;
-    color: @dialog-header-color;
     background: @dialog-header-background;
+    text-align: @dialog-header-text-align;
     .box-sizing(border-box);
 }
 
 .trendy-dialog > section > header > h1 {
+    font: @dialog-h1-font;
+    color: @dialog-h1-color;
     margin: 0;
-    font-weight: @dialog-header-font-weight;
-    font-size: @dialog-header-font-size;
 }
 
-.trendy-dialog > section > div {
-    font-weight: @dialog-main-font-weight;
-    font-size: @dialog-main-font-size;
-    line-height: 1.5;
-    padding: @dialog-main-padding;
+.trendy-dialog > section > header > h2 {
+    font: @dialog-h2-font;
+    color: @dialog-h2-color;
+    margin: 0;
 }
 
 .trendy-dialog > section > footer {
     display: table;
     width: 100%;
-    text-align: center;
     padding: @dialog-footer-padding;
-    color: @dialog-footer-color;
     background: @dialog-footer-background;
+    text-align: @dialog-footer-text-align;
     .box-sizing(border-box);
 }
 
 .trendy-dialog > section > footer > button {
-    font-weight: @dialog-button-font-weight;
-    font-size: @dialog-button-font-size;
-    font-family: inherit;
+    font: @dialog-button-font;
     letter-spacing: @dialog-button-letter-spacing;
     text-transform: @dialog-button-text-transform;
     color: @dialog-button-color;
