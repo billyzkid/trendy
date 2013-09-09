@@ -11,11 +11,28 @@
          url("../../../lib/fontawesome/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1") format("svg");
 }
 
-body {
+html, body {
     margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
     font: normal normal normal 100%/1 Lato, Calibri, Arial, sans-serif;
     color: #fff;
+    background-color: #000;
+}
+
+.container {
+    height: 100%;
     background-color: #e74c3c;
+    overflow: auto;
+}
+
+.container:after {
+    display: table;
+    clear: both;
+    content: "";
 }
 
 [role="navigation"] {

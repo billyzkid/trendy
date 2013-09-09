@@ -44,11 +44,13 @@ define([
         open: function () {
             attributes.set(this.element, "data-trendy-open", true);
             attributes.set(document.documentElement, "data-trendy-hasdialog", true);
+            attributes.set(document.documentElement, "data-trendy-hasdialog-effect", this.effect);
             this.focus();
         },
         close: function () {
             attributes.set(this.element, "data-trendy-open", false);
-            attributes.set(document.documentElement, "data-trendy-hasdialog", false);
+            attributes.remove(document.documentElement, "data-trendy-hasdialog");
+            attributes.remove(document.documentElement, "data-trendy-hasdialog-effect");
             this.blur();
         },
         confirm: function () {
