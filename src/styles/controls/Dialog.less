@@ -125,6 +125,18 @@
     .scale(1);
 }
 
+/* SuperScale effect */
+.trendy-dialog[data-trendy-effect="SuperScale"] > section {
+    opacity: 0;
+    .scale(2);
+    .transition(all 300ms);
+}
+
+.trendy-dialog[data-trendy-effect="SuperScale"][data-trendy-open="true"] > section {
+    opacity: 1;
+    .scale(1);
+}
+
 /* SlideTop effect */
 .trendy-dialog[data-trendy-effect="SlideTop"] > section {
     opacity: 0;
@@ -464,7 +476,19 @@
 	.transform(translateZ(0px) translateX(0%) rotateY(0deg));
 }
 
+/* Blur effect */
+.trendy-dialog[data-trendy-effect="Blur"] > section {
+    opacity: 0;
+    .transition(all 300ms);
+}
 
+.trendy-dialog[data-trendy-effect="Blur"][data-trendy-open="true"] > section {
+    opacity: 1;
+}
+
+.trendy-dialog[data-trendy-effect="Blur"][data-trendy-open="true"] ~ .container {
+    .filter(blur(2px));
+}
 
 
 

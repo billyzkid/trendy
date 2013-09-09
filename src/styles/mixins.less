@@ -324,20 +324,12 @@
 }
 
 /* miscellaneous */
-.clearfix() {
-    &:after {
-        display: table;
-        clear: both;
-        content: "";
-    }
-}
-
-.icon(@content) {
-    &:before {
-        display: inline-block;
-        content: @content;
-        speak: none;
-    }
+.filter(@filter) {
+    -webkit-filter: @filter;
+       -moz-filter: @filter;
+        -ms-filter: @filter;
+         -o-filter: @filter;
+            filter: @filter;
 }
 
 .perspective(@perspective) {
@@ -354,4 +346,20 @@
         -ms-backface-visibility: @visibility;
          -o-backface-visibility: @visibility;
             backface-visibility: @visibility;
+}
+
+.icon(@content) {
+    &:before {
+        display: inline-block;
+        content: @content;
+        speak: none;
+    }
+}
+
+.clearfix() {
+    &:after {
+        display: table;
+        clear: both;
+        content: "";
+    }
 }
