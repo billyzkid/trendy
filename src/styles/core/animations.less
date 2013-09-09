@@ -1,0 +1,27 @@
+﻿@import "../variables.less";
+@import "../mixins.less";
+
+@-webkit-keyframes slit {
+	50% { -webkit-transform: translateZ(-250px) rotateY(89deg); opacity: 0.5; -webkit-animation-timing-function: ease-out; }
+	100% { -webkit-transform: translateZ(0) rotateY(0deg); opacity: 1; }
+}
+
+@-moz-keyframes slit {
+	50% { -moz-transform: translateZ(-250px) rotateY(89deg); opacity: 0.5; -moz-animation-timing-function: ease-out; }
+	100% { -moz-transform: translateZ(0) rotateY(0deg); opacity: 1; }
+}
+
+@-ms-keyframes slit {
+	50% { -ms-transform: translateZ(-250px) rotateY(89deg); opacity: 0.5; -ms-animation-timing-function: ease-out; }
+	100% { -ms-transform: translateZ(0) rotateY(0deg); opacity: 1; }
+}
+
+@-o-keyframes slit {
+	50% { -o-transform: translateZ(-250px) rotateY(89deg); opacity: 0.5; -o-animation-timing-function: ease-out; }
+	100% { -o-transform: translateZ(0) rotateY(0deg); opacity: 1; }
+}
+
+@keyframes slit {
+	50% { transform: translateZ(-250px) rotateY(89deg); opacity: 0.5; animation-timing-function: ease-out; }
+	100% { transform: translateZ(0) rotateY(0deg); opacity: 1; }
+}

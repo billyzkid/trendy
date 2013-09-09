@@ -1,32 +1,9 @@
 ﻿@import "../variables.less";
 @import "../mixins.less";
 
-body {
-    font-size: 100%;
-}
-
-body:before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    visibility: hidden;
-    background: @dialog-overlay-background;
-    z-index: @dialog-overlay-z-index;
-    .transition(@dialog-overlay-transition);
-}
-
 /*html[data-trendy-hasdialog="true"] {
     .no-user-select;
 }*/
-
-html[data-trendy-hasdialog="true"] body:before {
-    opacity: 1;
-    visibility: visible;
-}
 
 .trendy-dialog {
     font: @dialog-font;
@@ -54,25 +31,6 @@ html[data-trendy-hasdialog="true"] body:before {
     overflow: hidden;
 }
 
-.trendy-dialog[data-trendy-effect="ScaleFade"] > section {
-    opacity: 0;
-    .scale(0.7);
-    .transition(all 300ms);
-}
-
-.trendy-dialog[data-trendy-effect="ScaleFade"][data-trendy-open="true"] > section {
-    opacity: 1;
-    .scale(1);
-}
-
-.trendy-dialog > section > div {
-    font: @dialog-main-font;
-    color: @dialog-main-color;
-    background: @dialog-main-background;
-    padding: @dialog-main-padding;
-    text-align: @dialog-main-text-align;
-}
-
 .trendy-dialog > section > header {
     display: table;
     width: 100%;
@@ -89,6 +47,14 @@ html[data-trendy-hasdialog="true"] body:before {
     background: @dialog-footer-background;
     text-align: @dialog-footer-text-align;
     .box-sizing(border-box);
+}
+
+.trendy-dialog > section > div {
+    font: @dialog-main-font;
+    color: @dialog-main-color;
+    background: @dialog-main-background;
+    padding: @dialog-main-padding;
+    text-align: @dialog-main-text-align;
 }
 
 .trendy-dialog h1 {
@@ -128,6 +94,378 @@ html[data-trendy-hasdialog="true"] body:before {
 .trendy-dialog button:last-of-type {
     margin-right: 0;
 }
+
+.trendy-dialog-overlay {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    background: @dialog-overlay-background;
+    z-index: @dialog-overlay-z-index;
+    .transition(@dialog-overlay-transition);
+}
+
+.trendy-dialog[data-trendy-open="true"] + .trendy-dialog-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Scale effect */
+.trendy-dialog[data-trendy-effect="Scale"] > section {
+    opacity: 0;
+    .scale(0.7);
+    .transition(all 300ms);
+}
+
+.trendy-dialog[data-trendy-effect="Scale"][data-trendy-open="true"] > section {
+    opacity: 1;
+    .scale(1);
+}
+
+/* SlideTop effect */
+.trendy-dialog[data-trendy-effect="SlideTop"] > section {
+    opacity: 0;
+    .translateY(-20%);
+    .transition(all 300ms cubic-bezier(0.25, 0.5, 0.5, 0.9));
+}
+
+.trendy-dialog[data-trendy-effect="SlideTop"][data-trendy-open="true"] > section {
+	opacity: 1;
+    .translateY(0%);
+}
+
+/* SlideBottom effect */
+.trendy-dialog[data-trendy-effect="SlideBottom"] > section {
+    opacity: 0;
+    .translateY(20%);
+    .transition(all 300ms cubic-bezier(0.25, 0.5, 0.5, 0.9));
+}
+
+.trendy-dialog[data-trendy-effect="SlideBottom"][data-trendy-open="true"] > section {
+	opacity: 1;
+    .translateY(0%);
+}
+
+/* SlideLeft effect */
+.trendy-dialog[data-trendy-effect="SlideLeft"] > section {
+    opacity: 0;
+    .translateX(-20%);
+    .transition(all 300ms cubic-bezier(0.25, 0.5, 0.5, 0.9));
+}
+
+.trendy-dialog[data-trendy-effect="SlideLeft"][data-trendy-open="true"] > section {
+	opacity: 1;
+    .translateX(0%);
+}
+
+/* SlideRight effect */
+.trendy-dialog[data-trendy-effect="SlideRight"] > section {
+    opacity: 0;
+    .translateX(20%);
+    .transition(all 300ms cubic-bezier(0.25, 0.5, 0.5, 0.9));
+}
+
+.trendy-dialog[data-trendy-effect="SlideRight"][data-trendy-open="true"] > section {
+	opacity: 1;
+    .translateX(0%);
+}
+
+/* Newspaper effect */
+.trendy-dialog[data-trendy-effect="Newspaper"] > section {
+    opacity: 0;
+    .transform(scale(0) rotate(720deg));
+    .transition(all 500ms);
+}
+
+.trendy-dialog[data-trendy-effect="Newspaper"][data-trendy-open="true"] > section {
+	opacity: 1;
+    .transform(scale(1) rotate(0deg));
+}
+
+.trendy-dialog[data-trendy-effect="Newspaper"] + .trendy-dialog-overlay {
+    .transition(all 500ms);
+}
+
+/* Fall effect */
+.trendy-dialog[data-trendy-effect="Fall"] {
+    .perspective(1300px);
+}
+
+.trendy-dialog[data-trendy-effect="Fall"] > section {
+    opacity: 0;
+    .transform-style(preserve-3d);
+    .transform(translateZ(600px) rotateX(20deg));
+}
+
+.trendy-dialog[data-trendy-effect="Fall"][data-trendy-open="true"] > section {
+	opacity: 1;
+    .transform(translateZ(0px) rotateX(0deg));
+    .transition(all 300ms ease-in);
+}
+
+/* FallLeft effect */
+.trendy-dialog[data-trendy-effect="FallLeft"] {
+    .perspective(1300px);
+}
+
+.trendy-dialog[data-trendy-effect="FallLeft"] > section {
+    opacity: 0;
+    .transform-style(preserve-3d);
+    .transform(translate(-30%) translateZ(600px) rotate(-10deg));
+}
+
+.trendy-dialog[data-trendy-effect="FallLeft"][data-trendy-open="true"] > section {
+	opacity: 1;
+    .transform(translate(0%) translateZ(0px) rotate(0deg));
+    .transition(all 300ms ease-in);
+}
+
+/* FallRight effect */
+.trendy-dialog[data-trendy-effect="FallRight"] {
+    .perspective(1300px);
+}
+
+.trendy-dialog[data-trendy-effect="FallRight"] > section {
+    opacity: 0;
+    .transform-style(preserve-3d);
+    .transform(translate(30%) translateZ(600px) rotate(10deg));
+}
+
+.trendy-dialog[data-trendy-effect="FallRight"][data-trendy-open="true"] > section {
+	opacity: 1;
+    .transform(translate(0%) translateZ(0px) rotate(0deg));
+    .transition(all 300ms ease-in);
+}
+
+/* StickyTop effect */
+.trendy-dialog[data-trendy-effect="StickyTop"] {
+    top: 0;
+    bottom: auto;
+	.translateX(-50%);
+}
+
+.trendy-dialog[data-trendy-effect="StickyTop"] > section {
+    opacity: 0;
+    .border-top-radius(0);
+    .translateY(-200%);
+    .transition(all 300ms);
+}
+
+.trendy-dialog[data-trendy-effect="StickyTop"][data-trendy-open="true"] > section {
+	opacity: 1;
+    .translateY(0%);
+}
+
+/* StickyBottom effect */
+.trendy-dialog[data-trendy-effect="StickyBottom"] {
+    top: auto;
+    bottom: 0;
+	.translateX(-50%);
+}
+
+.trendy-dialog[data-trendy-effect="StickyBottom"] > section {
+    opacity: 0;
+    .border-bottom-radius(0);
+    .translateY(200%);
+    .transition(all 300ms);
+}
+
+.trendy-dialog[data-trendy-effect="StickyBottom"][data-trendy-open="true"] > section {
+	opacity: 1;
+    .translateY(0%);
+}
+
+/* StickyWideTop effect */
+.trendy-dialog[data-trendy-effect="StickyWideTop"] {
+    top: 0;
+    bottom: auto;
+    left: 0;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+	.translateX(0%);
+}
+
+.trendy-dialog[data-trendy-effect="StickyWideTop"] > section {
+    opacity: 0;
+    .border-radius(0);
+    .translateY(-200%);
+    .transition(all 300ms);
+}
+
+.trendy-dialog[data-trendy-effect="StickyWideTop"][data-trendy-open="true"] > section {
+	opacity: 1;
+    .translateY(0%);
+}
+
+/* StickyWideBottom effect */
+.trendy-dialog[data-trendy-effect="StickyWideBottom"] {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+	.translateX(0%);
+}
+
+.trendy-dialog[data-trendy-effect="StickyWideBottom"] > section {
+    opacity: 0;
+    .border-radius(0);
+    .translateY(200%);
+    .transition(all 300ms);
+}
+
+.trendy-dialog[data-trendy-effect="StickyWideBottom"][data-trendy-open="true"] > section {
+	opacity: 1;
+    .translateY(0%);
+}
+
+/* FlipHorizontal effect */
+.trendy-dialog[data-trendy-effect="FlipHorizontal"] {
+    .perspective(1300px);
+}
+
+.trendy-dialog[data-trendy-effect="FlipHorizontal"] > section {
+    opacity: 0;
+    .transform-style(preserve-3d);
+    .rotateY(-70deg);
+    .transition(all 300ms);
+}
+
+.trendy-dialog[data-trendy-effect="FlipHorizontal"][data-trendy-open="true"] > section {
+	opacity: 1;
+    .rotateY(0deg);
+}
+
+/* FlipVertical effect */
+.trendy-dialog[data-trendy-effect="FlipVertical"] {
+    .perspective(1300px);
+}
+
+.trendy-dialog[data-trendy-effect="FlipVertical"] > section {
+    opacity: 0;
+    .transform-style(preserve-3d);
+    .rotateX(-70deg);
+    .transition(all 300ms);
+}
+
+.trendy-dialog[data-trendy-effect="FlipVertical"][data-trendy-open="true"] > section {
+	opacity: 1;
+    .rotateX(0deg);
+}
+
+/* Sign effect */
+.trendy-dialog[data-trendy-effect="Sign"] {
+    .perspective(1300px);
+}
+
+.trendy-dialog[data-trendy-effect="Sign"] > section {
+    opacity: 0;
+    .transform-style(preserve-3d);
+    .transform-origin(50% 0%);
+    .rotateX(-60deg);
+    .transition(all 300ms);
+}
+
+.trendy-dialog[data-trendy-effect="Sign"][data-trendy-open="true"] > section {
+	opacity: 1;
+    .rotateX(0deg);
+}
+
+/* Slit effect */
+.trendy-dialog[data-trendy-effect="Slit"] {
+    .perspective(1300px);
+}
+
+.trendy-dialog[data-trendy-effect="Slit"] > section {
+    opacity: 0;
+    .transform-style(preserve-3d);
+    .transform(translateZ(-3000px) rotateY(90deg));
+    .transition(all 300ms);
+}
+
+.trendy-dialog[data-trendy-effect="Slit"][data-trendy-open="true"] > section {
+	.animation(slit 700ms forwards ease-out);
+}
+
+/* RotateTop effect */
+.trendy-dialog[data-trendy-effect="RotateTop"] {
+    .perspective(1300px);
+}
+
+.trendy-dialog[data-trendy-effect="RotateTop"] > section {
+    opacity: 0;
+    .transform-style(preserve-3d);
+    .transform-origin(100% 0%);
+    .transform(translateY(-100%) rotateX(-90deg));
+    .transition(all 300ms ease-out);
+}
+
+.trendy-dialog[data-trendy-effect="RotateTop"][data-trendy-open="true"] > section {
+    opacity: 1;
+	.transform(translateY(0%) rotateX(0deg));
+}
+
+/* RotateBottom effect */
+.trendy-dialog[data-trendy-effect="RotateBottom"] {
+    .perspective(1300px);
+}
+
+.trendy-dialog[data-trendy-effect="RotateBottom"] > section {
+    opacity: 0;
+    .transform-style(preserve-3d);
+    .transform-origin(0% 100%);
+    .transform(translateY(100%) rotateX(90deg));
+    .transition(all 300ms ease-out);
+}
+
+.trendy-dialog[data-trendy-effect="RotateBottom"][data-trendy-open="true"] > section {
+    opacity: 1;
+	.transform(translateY(0%) rotateX(0deg));
+}
+
+/* RotateLeft effect */
+.trendy-dialog[data-trendy-effect="RotateLeft"] {
+    .perspective(1300px);
+}
+
+.trendy-dialog[data-trendy-effect="RotateLeft"] > section {
+    opacity: 0;
+    .transform-style(preserve-3d);
+    .transform-origin(0% 100%);
+    .transform(translateZ(100px) translateX(-30%) rotateY(90deg));
+    .transition(all 300ms);
+}
+
+.trendy-dialog[data-trendy-effect="RotateLeft"][data-trendy-open="true"] > section {
+    opacity: 1;
+	.transform(translateZ(0px) translateX(0%) rotateY(0deg));
+}
+
+/* RotateRight effect */
+.trendy-dialog[data-trendy-effect="RotateRight"] {
+    .perspective(1300px);
+}
+
+.trendy-dialog[data-trendy-effect="RotateRight"] > section {
+    opacity: 0;
+    .transform-style(preserve-3d);
+    .transform-origin(100% 0%);
+    .transform(translateZ(100px) translateX(30%) rotateY(-90deg));
+    .transition(all 300ms);
+}
+
+.trendy-dialog[data-trendy-effect="RotateRight"][data-trendy-open="true"] > section {
+    opacity: 1;
+	.transform(translateZ(0px) translateX(0%) rotateY(0deg));
+}
+
+
+
 
 
 /*.md-perspective,

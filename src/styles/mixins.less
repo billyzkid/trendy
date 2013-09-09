@@ -1,4 +1,4 @@
-﻿// gradients
+﻿/* gradient */
 .horizontal-gradient(@startColor, @endColor) {
     background-repeat: repeat-x;
     background-image: -webkit-gradient(linear, 0 0, 100% 0, from(@startColor), to(@endColor));
@@ -33,7 +33,7 @@
     background-image: none;
 }
 
-// background clip
+/* background clip */
 .background-clip(@clip) {
     -webkit-background-clip: @clip;
        -moz-background-clip: @clip;
@@ -46,7 +46,7 @@
             background-clip: padding-box;
 }
 
-// border radius
+/* border radius */
 .border-radius(@radius) {
     -webkit-border-radius: @radius;
        -moz-border-radius: @radius;
@@ -97,21 +97,21 @@
     .border-bottom-right-radius(@radius);
 }
 
-// box sizing
+/* box sizing */
 .box-sizing(@sizing) {
     -webkit-box-sizing: @sizing;
        -moz-box-sizing: @sizing;
             box-sizing: @sizing;
 }
 
-// box shadows
+/* box shadow */
 .box-shadow(@shadow) {
     -webkit-box-shadow: @shadow;
        -moz-box-shadow: @shadow;
             box-shadow: @shadow;
 }
 
-// carets
+/* caret */
 .caret() {
     display: inline-block;
     vertical-align: middle;
@@ -146,7 +146,7 @@
     border-bottom: @height / 2 solid transparent;
 }
 
-// animations
+/* animation */
 .animation(@animation) {
     -webkit-animation: @animation;
        -moz-animation: @animation;
@@ -155,7 +155,7 @@
             animation: @animation;
 }
 
-// transitions
+/* transition */
 .transition(@transition) {
     -webkit-transition: @transition;
        -moz-transition: @transition;
@@ -196,7 +196,7 @@
             transition-timing-function: @function;
 }
 
-// transforms
+/* transform */
 .transform(@transform) {
     -webkit-transform: @transform;
        -moz-transform: @transform;
@@ -219,27 +219,127 @@
         -ms-transition:     -ms-transform @transition;
          -o-transition:      -o-transform @transition;
             transition:         transform @transition;
-
-            transform: skew
 }
 
+.transform-style(@style) {
+    -webkit-transform-style: @style;
+       -moz-transform-style: @style;
+        -ms-transform-style: @style;
+         -o-transform-style: @style;
+            transform-style: @style;
+}
+
+/* rotate */
 .rotate(@angle) {
     .transform(rotate(@angle));
 }
 
-.scale(@factor) {
-    .transform(scale(@factor));
+.rotate3d(@x, @y, @z, @angle) {
+    .transform(rotate3d(@x, @y, @z, @angle));
 }
 
+.rotateX(@angle) {
+    .transform(rotateX(@angle));
+}
+
+.rotateY(@angle) {
+    .transform(rotateY(@angle));
+}
+
+.rotateZ(@angle) {
+    .transform(rotateZ(@angle));
+}
+
+/* scale */
+.scale(@xy) {
+    .transform(scale(@xy));
+}
+
+.scale(@x, @y) {
+    .transform(scale(@x, @y));
+}
+
+.scale3d(@x, @y, @z) {
+    .transform(scale3d(@x, @y, @z));
+}
+
+.scaleX(@x) {
+    .transform(scaleX(@x));
+}
+
+.scaleY(@y) {
+    .transform(scaleY(@y));
+}
+
+.scaleZ(@z) {
+    .transform(scaleZ(@z));
+}
+
+/* skew */
 .skew(@angle) {
     .transform(skew(@angle));
 }
 
+.skewX(@angle) {
+    .transform(skewX(@angle));
+}
+
+.skewY(@angle) {
+    .transform(skewY(@angle));
+}
+
+/* translate */
 .translate(@x, @y) {
     .transform(translate(@x, @y));
 }
 
-// 3d
+.translate3d(@x, @y, @z) {
+    .transform(translate3d(@x, @y, @z));
+}
+
+.translateX(@x) {
+    .transform(translateX(@x));
+}
+
+.translateY(@y) {
+    .transform(translateY(@y));
+}
+
+.translateZ(@z) {
+    .transform(translateZ(@z));
+}
+
+/* user select */
+.user-select(@value) {
+    -webkit-touch-callout: @value;
+      -webkit-user-select: @value;
+         -moz-user-select: @value;
+          -ms-user-select: @value;
+           -o-user-select: @value;
+              user-select: @value;
+}
+
+.no-user-select() {
+    .user-select(none) !important;
+}
+
+/* miscellaneous */
+.clearfix() {
+    &:after {
+        display: table;
+        clear: both;
+        content: "";
+    }
+}
+
+.icon(@content) {
+    &:before {
+        display: inline-block;
+        content: @content;
+        speak: none;
+    }
+}
+
 .perspective(@perspective) {
     -webkit-perspective: @perspective;
        -moz-perspective: @perspective;
@@ -254,35 +354,4 @@
         -ms-backface-visibility: @visibility;
          -o-backface-visibility: @visibility;
             backface-visibility: @visibility;
-}
-
-// icons
-.icon(@content) {
-    &:before {
-        display: inline-block;
-        content: @content;
-        speak: none;
-    }
-}
-
-// miscellaneous
-.user-select(@value) {
-    -webkit-touch-callout: @value;
-      -webkit-user-select: @value;
-         -moz-user-select: @value;
-          -ms-user-select: @value;
-           -o-user-select: @value;
-              user-select: @value;
-}
-
-.no-user-select() {
-    .user-select(none) !important;
-}
-
-.clearfix() {
-    &:after {
-        display: table;
-        clear: both;
-        content: "";
-    }
 }

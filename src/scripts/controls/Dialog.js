@@ -17,19 +17,25 @@ define([
         constructor: function (element, options) {
             this.constructor.__super__.call(this, "Dialog", element, defaultOptions, options);
 
-            // set the effect
-            attributes.set(this.element, "data-trendy-effect", this.effect);
-
-            // initialize dialog button events
+            var overlayElement = dom.create("div", "trendy-dialog-overlay");
             var confirmElement = dom.query(this.element, ".trendy-dialog-confirm-button");
             var cancelElement = dom.query(this.element, ".trendy-dialog-cancel-button");
 
+            // insert overlay element
+            dom.insertAfter(overlayElement, this.element);
+
+            // initialize dialog button events
             if (confirmElement) {
                 events.add(confirmElement, "click.Dialog", this.confirm.bind(this));
             }
 
             if (cancelElement) {
                 events.add(cancelElement, "click.Dialog", this.cancel.bind(this));
+            }
+
+            // set the effect
+            if (this.effect) {
+                attributes.set(this.element, "data-trendy-effect", this.effect);
             }
 
             // allow dialog focus
