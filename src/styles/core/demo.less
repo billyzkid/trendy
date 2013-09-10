@@ -1,0 +1,224 @@
+﻿@import "../variables.less";
+@import "../mixins.less";
+
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font: 300 100% / 1 Lato, sans-serif;
+    color: #fff;
+    background: #000;
+}
+
+.container {
+    height: 100%;
+    background: #aaa;
+    overflow: auto;
+}
+
+.container:after {
+    display: table;
+    clear: both;
+    content: "";
+}
+
+[role="navigation"] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+[role="navigation"]:after {
+    display: table;
+    clear: both;
+    content: "";
+}
+
+[role="navigation"] > li:first-child {
+    float: left;
+}
+
+[role="navigation"] > li:last-child {
+    float: right;
+}
+
+[role="navigation"] a {
+    display: table-cell;
+    vertical-align: middle;
+    height: 2.273em;
+    padding: 0 1em;
+    color: rgba(0, 0, 0, 0.4);
+    font-weight: 400;
+    font-size: 0.688em;
+    letter-spacing: 0.182em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+[role="navigation"] a:hover:not([aria-disabled="true"]),
+[role="navigation"] a:active:not([aria-disabled="true"]) {
+    color: rgba(0, 0, 0, 0.6);
+    background: rgba(255, 255, 255, 0.6);
+}
+
+[role="navigation"] a[aria-disabled="true"] {
+    opacity: 0.5;
+    cursor: default;
+}
+
+[role="navigation"] a.icon-prev:before,
+[role="navigation"] a.icon-next:after {
+    font: 1.273em FontAwesome;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 0.273em;
+    speak: none;
+}
+
+[role="navigation"] a.icon-prev:before {
+    content: "\f060";
+}
+
+[role="navigation"] a.icon-prev:after {
+    margin-left: 0.273em;
+    content: "Previous Demo";
+}
+
+[role="navigation"] a.icon-next:before {
+    margin-right: 0.273em;
+    content: "Next Demo";
+}
+
+[role="navigation"] a.icon-next:after {
+    content: "\f061";
+}
+
+[role="banner"] {
+    padding: 3em;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+[role="banner"] > h1 {
+    margin: 0;
+    font-weight: 300;
+    font-size: 3em;
+}
+
+[role="banner"] > h2 {
+    margin: 0;
+    opacity: 0.7;
+    font-weight: 300;
+    font-size: 1.5em;
+    line-height: 1.5;
+}
+
+[role="main"] {
+    max-width: 60em;
+    margin: 0 auto;
+    padding: 2em;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+[role="main"] > div {
+    float: left;
+    width: 50%;
+    padding: 0 2em;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+[role="main"] > div:first-child  {
+    text-align: right;
+}
+
+[role="main"] > div:first-child > button  {
+    float: right;
+}
+
+[role="main"] > div:last-child  {
+    -webkit-box-shadow: -1px 0 0 rgba(0, 0, 0, 0.1);
+       -moz-box-shadow: -1px 0 0 rgba(0, 0, 0, 0.1);
+            box-shadow: -1px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+[role="main"] > div:last-child > button  {
+    float: left;
+}
+
+[role="main"] p {
+    margin: 0 0 1em;
+    font-size: 2em;
+    line-height: 1.5;
+}
+
+[role="main"] button {
+    font-weight: 400;
+    font-size: 0.875em;
+    font-family: inherit;
+    letter-spacing: 0.125em;
+    text-transform: uppercase;
+    color: inherit;
+    background: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    margin: 0.25em;
+    padding: 0.5em 1em;
+    border: 0;
+    -webkit-border-radius: 0.25em;
+       -moz-border-radius: 0.25em;
+            border-radius: 0.25em;
+}
+
+[role="main"] button:hover {
+    color: inherit;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+@media screen and (max-width: 48em) {
+    [role="main"] {
+        padding: 0 2em;
+    }
+
+    [role="main"] > div {
+        width: 100%;
+        padding: 2em 0;
+    }
+
+    [role="main"] > div:first-child {
+        text-align: left;
+    }
+
+    [role="main"] > div:last-child {
+        -webkit-box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+           -moz-box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+                box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    [role="main"] p {
+        font-size: 1.5em;
+    }
+}
+
+@media screen and (max-width: 32em) {
+    body {
+        font-size: 75%;
+    }
+}
+
+@media screen and (max-width: 20em) {
+    [role="navigation"] a.icon-prev:after {
+        display: none;
+    }
+
+    [role="navigation"] a.icon-next:before {
+        display: none;
+    }
+}

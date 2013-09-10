@@ -15,8 +15,8 @@ define([
     "./controls/Dialog",
     "./controls/DialogTrigger",
     "./controls/Grid",
-    "./controls/GridSelector"
-], function (trendy, attributes, classes, collections, controls, data, dom, events, objects, oo, strings, styles, vendors, Dialog, DialogTrigger, Grid, GridSelector) {
+    "./controls/GridFilter"
+], function (trendy, attributes, classes, collections, controls, data, dom, events, objects, oo, strings, styles, vendors, Dialog, DialogTrigger, Grid, GridFilter) {
 
     "use strict";
 
@@ -38,6 +38,6 @@ define([
     trendy.controls.Dialog = Dialog;
     trendy.controls.DialogTrigger = DialogTrigger;
     trendy.controls.Grid = Grid;
-    trendy.controls.GridSelector = GridSelector;
+    trendy.controls.GridFilter = GridFilter;
 
 });

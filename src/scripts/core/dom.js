@@ -53,6 +53,14 @@ define(["exports", "./collections", "./events", "./objects"], function (dom, col
         return dom.query(selector, "#" + value);
     };
 
+    dom.contains = function (node, containerNode) {
+        if (objects.isUndefined(containerNode)) {
+            containerNode = document.documentElement;
+        }
+
+        return containerNode.contains(node) // !!(containerNode.compareDocumentPosition(node) & 16);
+    };
+
     dom.create = function (tagName, className, parentNode) {
         if (!objects.isString(className)) {
             parentNode = className;

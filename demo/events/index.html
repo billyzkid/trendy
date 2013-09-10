@@ -5,30 +5,50 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Trendy Events Demo using the Trendy JavaScript Framework">
-        <meta name="keywords" content="trendy, events, demo, add, remove, fire">
+        <meta name="keywords" content="trendy, event, demo, add, remove, fire, custom, listener">
         <meta name="author" content="Will Allan">
         <title>Trendy Events Demo</title>
         <link rel="shortcut icon" href="../../src/images/favicon.ico">
+        <link rel="stylesheet/less" href="../../src/styles/trendy.less">
         <link rel="stylesheet" href="main.css">
+        <script src="../../lib/less/less.min.js"></script>
         <script src="../../lib/require/require.min.js" data-main="main"></script>
     </head>
     <body>
-        <div class="buttons">
-            <button>Add "dummy" event listener</button>
-            <button>Add "click" event listener</button>
-            <button>Add "click.foo" event listener</button>
-            <button>Add "click.foo.bar" event listener</button>
-            <button>Add "mouseover.foo" event listener</button>
-            <button>Remove "dummy" event listeners</button>
-            <button>Remove "click" event listeners</button>
-            <button>Remove "click.foo" event listeners</button>
-            <button>Remove "mouseover.foo" event listeners</button>
-            <button>Remove ".foo" event listeners</button>
-            <button>Remove all event listeners</button>
-            <button>Fire "dummy" event</button>
-            <button>Fire "click" event</button>
-            <button>Fire "mouseover" event</button>
+        <div class="container">
+            <ul role="navigation">
+                <li><a class="icon-prev" href="../dialogs/index.html" aria-label="Previous Demo"></a></li>
+                <li><a class="icon-next" href="../grids/index.html" aria-label="Next Demo" aria-disabled="true"></a></li>
+            </ul>
+            <div role="banner">
+                <h1>Trendy Events</h1>
+                <h2>Demonstrates simple event management</h2>
+            </div>
+            <div role="main">
+                <div>
+                    <p>Open the console window, and then click buttons to add or remove event listeners, or to explicitly fire events.</p>
+                    <div class="target">Event Target</div>
+                </div>
+                <div>
+                    <button>Add "click" listener</button>
+                    <button>Add "click.foo" listener</button>
+                    <button>Add "click.bar" listener</button>
+                    <button>Add "custom" listener</button>
+                    <button>Add "custom.foo" listener</button>
+                    <button>Add "custom.bar" listener</button>
+                    <button>Remove "click" listeners</button>
+                    <button>Remove "click.foo" listeners</button>
+                    <button>Remove "click.bar" listeners</button>
+                    <button>Remove "custom" listeners</button>
+                    <button>Remove "custom.foo" listeners</button>
+                    <button>Remove "custom.bar" listeners</button>
+                    <button>Remove ".foo" listeners</button>
+                    <button>Remove ".bar" listeners</button>
+                    <button>Remove all listeners</button>
+                    <button>Fire "click" event</button>
+                    <button>Fire "custom" event</button>
+                </div>
+            </div>
         </div>
-        <div class="box">Event Target</div>
     </body>
 </html>
