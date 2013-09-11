@@ -357,9 +357,13 @@
 }
 
 .clearfix() {
+    &:before {
+        content: "";
+        display: table;
+    }
     &:after {
+        content: "";
         display: table;
         clear: both;
-        content: "";
     }
 }
