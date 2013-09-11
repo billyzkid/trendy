@@ -7,6 +7,7 @@ define([
     "./core/data",
     "./core/dom",
     "./core/events",
+    "./core/fullscreen",
     "./core/objects",
     "./core/oo",
     "./core/strings",
@@ -16,7 +17,7 @@ define([
     "./controls/DialogTrigger",
     "./controls/Grid",
     "./controls/GridFilter"
-], function (trendy, attributes, classes, collections, controls, data, dom, events, objects, oo, strings, styles, vendors, Dialog, DialogTrigger, Grid, GridFilter) {
+], function (trendy, attributes, classes, collections, controls, data, dom, events, fullscreen, objects, oo, strings, styles, vendors, Dialog, DialogTrigger, Grid, GridFilter) {
 
     "use strict";
 
@@ -28,6 +29,7 @@ define([
     trendy.data = data;
     trendy.dom = dom;
     trendy.events = events;
+    trendy.fullscreen = fullscreen;
     trendy.objects = objects;
     trendy.oo = oo;
     trendy.strings = strings;

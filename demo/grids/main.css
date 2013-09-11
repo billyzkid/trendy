@@ -13,9 +13,26 @@
     font-weight: 400;
 }
 
-.trendy-grid-filter {
-    position: absolute;
-    z-index: 1000;
-    top: 0.5em;
-    left: 2.5em;
+.grid:-webkit-full-screen {
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+
+.grid:-moz-full-screen {
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+
+.grid:-ms-fullscreen {
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+
+.grid:fullscreen {
+    width: 100%;
+    height: 100%;
+    background: #000;
 }

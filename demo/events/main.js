@@ -1,82 +1,89 @@
-require({ baseUrl: "../../src/scripts" }, ["./core/dom", "./core/events"], function (dom, events) {
+require({ baseUrl: "../../src/scripts" }, ["./trendy"], function (trendy) {
 
     "use strict";
 
-    dom.ready(function () {
-        var buttons = dom.queryAll(document, ".buttons > button");
-        var target = dom.query(document, ".box");
-        //var target = {};
+    trendy.dom.ready(function () {
+        var buttons = trendy.dom.queryAll(document, "button");
+        var target = trendy.dom.query(document, ".target");
 
-        buttons[0].addEventListener("click", function () {
-            var date = new Date();
-            events.add(target, "dummy", function (event) {
-                console.log("dummy", this, arguments, date);
+        trendy.events.add(buttons[0], "click", function () {
+            trendy.events.add(target, "click", function () {
+                console.log("click", this, arguments);
             });
         });
 
-        buttons[1].addEventListener("click", function () {
-            var date = new Date();
-            events.add(target, "click", function (event) {
-                console.log("click", this, arguments, date);
+        trendy.events.add(buttons[1], "click", function () {
+            trendy.events.add(target, "click.foo", function () {
+                console.log("click.foo", this, arguments);
             });
         });
 
-        buttons[2].addEventListener("click", function () {
-            var date = new Date();
-            events.add(target, "click.foo", function (event) {
-                console.log("click.foo", this, arguments, date);
+        trendy.events.add(buttons[2], "click", function () {
+            trendy.events.add(target, "click.bar", function () {
+                console.log("click.bar", this, arguments);
             });
         });
 
-        buttons[3].addEventListener("click", function () {
-            var date = new Date();
-            events.add(target, "click.foo.bar", function (event) {
-                console.log("click.foo.bar", this, arguments, date);
-                event.preventDefault();
+        trendy.events.add(buttons[3], "click", function () {
+            trendy.events.add(target, "custom", function () {
+                console.log("custom", this, arguments);
             });
         });
 
-        buttons[4].addEventListener("click", function () {
-            var date = new Date();
-            events.add(target, "mouseover.foo", function (event) {
-                console.log("mouseover.foo", this, arguments, date);
+        trendy.events.add(buttons[4], "click", function () {
+            trendy.events.add(target, "custom.foo", function () {
+                console.log("custom.foo", this, arguments);
             });
         });
 
-        buttons[5].addEventListener("click", function () {
-            events.remove(target, "dummy");
+        trendy.events.add(buttons[5], "click", function () {
+            trendy.events.add(target, "custom.bar", function () {
+                console.log("custom.bar", this, arguments);
+            });
         });
 
-        buttons[6].addEventListener("click", function () {
-            events.remove(target, "click");
+        trendy.events.add(buttons[6], "click", function () {
+            trendy.events.remove(target, "click");
         });
 
-        buttons[7].addEventListener("click", function () {
-            events.remove(target, "click.foo");
+        trendy.events.add(buttons[7], "click", function () {
+            trendy.events.remove(target, "click.foo");
         });
 
-        buttons[8].addEventListener("click", function () {
-            events.remove(target, "mouseover.foo");
+        trendy.events.add(buttons[8], "click", function () {
+            trendy.events.remove(target, "click.bar");
         });
 
-        buttons[9].addEventListener("click", function () {
-            events.remove(target, ".foo");
+        trendy.events.add(buttons[9], "click", function () {
+            trendy.events.remove(target, "custom");
         });
 
-        buttons[10].addEventListener("click", function () {
-            events.remove(target);
+        trendy.events.add(buttons[10], "click", function () {
+            trendy.events.remove(target, "custom.foo");
         });
 
-        buttons[11].addEventListener("click", function () {
-            events.fire(target, "dummy", { detail: new Date() });
+        trendy.events.add(buttons[11], "click", function () {
+            trendy.events.remove(target, "custom.bar");
         });
 
-        buttons[12].addEventListener("click", function () {
-            events.fire(target, "click", { cancelable: true });
+        trendy.events.add(buttons[12], "click", function () {
+            trendy.events.remove(target, ".foo");
         });
 
-        buttons[13].addEventListener("click", function () {
-            events.fire(target, "mouseover");
+        trendy.events.add(buttons[13], "click", function () {
+            trendy.events.remove(target, ".bar");
+        });
+
+        trendy.events.add(buttons[14], "click", function () {
+            trendy.events.remove(target);
+        });
+
+        trendy.events.add(buttons[15], "click", function () {
+            trendy.events.fire(target, "click", { detail: new Date() });
+        });
+
+        trendy.events.add(buttons[16], "click", function () {
+            trendy.events.fire(target, "custom", { detail: new Date() });
         });
     });
 
