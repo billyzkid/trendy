@@ -10,7 +10,9 @@ define([
     "use strict";
 
     var defaultOptions = {
-        grid: ".trendy-grid"
+        grid: ".trendy-grid",
+        triggerOnHover: true,
+        triggerOnClick: true
     };
 
     return oo.class(controls.Control,
@@ -18,19 +20,14 @@ define([
         constructor: function (element, options) {
             this.constructor.__super__.call(this, "GridFilter", element, defaultOptions, options);
             
-            // initialize grid element
+            var element = this.element;
             var gridElement = dom.query(document, this.grid);
-            
-            // initialize trigger element
-            var triggerElement = dom.create("div", "trendy-grid-filter-trigger", this.element);
+            var triggerElement = dom.create("div", "trendy-grid-filter-trigger", element);
+            var popupElement = dom.create("div", "trendy-grid-filter-popup", element);
+
             attributes.set(triggerElement, "aria-haspopup", true);
-            events.add(triggerElement, "click", this.openPopup.bind(this));
 
-            // initialize popup element
-            var popupElement = dom.create("div", "trendy-grid-filter-popup", this.element);
-            //events.add(popupElement, "click", this.closePopup.bind(this));
-
-            // initialize popup children
+            // initialize cells
             for (var i = 0, l = gridElement.children.length; i < l; i++) {
                 var popupChildElement = dom.create("div", popupElement);
                 attributes.set(popupChildElement, "data-trendy-selected", true);
@@ -38,19 +35,16 @@ define([
                 events.add(popupChildElement, "click", this.selectCells.bind(this, i));
             }
 
-            // TODO: add cross-browser events hook for mouseenter
-            events.add(this.element, "mouseover", (function (event) {
-                if (!dom.contains(event.relatedTarget, this.element)) {
-                    this.openPopup();
-                }
-            }).bind(this));
+            // initialize trigger events
+            if (this.triggerOnHover) {
+                events.add(element, "mouseenter", this.openPopup.bind(this));
+                events.add(element, "mouseleave", this.closePopup.bind(this));
+            }
 
-            // TODO: add cross-browser events hook for mouseleave
-            events.add(this.element, "mouseout", (function (event) {
-                if (!dom.contains(event.relatedTarget, this.element)) {
-                    this.closePopup();
-                }
-            }).bind(this));
+            if (this.triggerOnClick) {
+                events.add(triggerElement, "click", this.openPopup.bind(this));
+                events.add(popupElement, "click", this.closePopup.bind(this));
+            }
 
             // initialize members
             this.gridElement = gridElement;
