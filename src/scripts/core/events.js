@@ -1,4 +1,4 @@
-define(["exports", "./collections", "./data", "./objects", "./strings", "./vendors"], function (events, collections, data, objects, strings, vendors) {
+define(["exports", "./collections", "./data", "./dom", "./objects", "./strings", "./vendors"], function (events, collections, data, dom, objects, strings, vendors) {
 
     "use strict";
 
@@ -12,57 +12,80 @@ define(["exports", "./collections", "./data", "./objects", "./strings", "./vendo
         switch (vendors.current.engine) {
             case vendors.engines.webkit:
                 return {
-                    "animationend": "webkitAnimationEnd",
-                    "animationiteration": "webkitAnimationIteration",
-                    "animationstart": "webkitAnimationStart",
-                    "fullscreenchange": "webkitfullscreenchange",
-                    "fullscreenerror": "webkitfullscreenerror",
-                    "transitionend": "webkitTransitionEnd"
+                    animationend: "webkitAnimationEnd",
+                    animationiteration: "webkitAnimationIteration",
+                    animationstart: "webkitAnimationStart",
+                    fullscreenchange: "webkitfullscreenchange",
+                    fullscreenerror: "webkitfullscreenerror",
+                    mouseenter: "mouseover",
+                    mouseleave: "mouseout",
+                    transitionend: "webkitTransitionEnd"
                 };
             case vendors.engines.gecko:
                 return {
-                    "animationend": "mozAnimationEnd",
-                    "animationiteration": "mozAnimationIteration",
-                    "animationstart": "mozAnimationStart",
-                    "fullscreenchange": "mozfullscreenchange",
-                    "fullscreenerror": "mozfullscreenerror",
-                    "transitionend": "mozTransitionEnd"
+                    animationend: "mozAnimationEnd",
+                    animationiteration: "mozAnimationIteration",
+                    animationstart: "mozAnimationStart",
+                    fullscreenchange: "mozfullscreenchange",
+                    fullscreenerror: "mozfullscreenerror",
+                    mouseenter: "mouseover",
+                    mouseleave: "mouseout",
+                    transitionend: "mozTransitionEnd"
                 };
             case vendors.engines.trident:
                 return {
-                    "animationend": "MSAnimationEnd",
-                    "animationiteration": "MSAnimationIteration",
-                    "animationstart": "MSAnimationStart",
-                    "fullscreenchange": "MSFullscreenChange",
-                    "fullscreenerror": "MSFullscreenError",
-                    "transitionend": "MSTransitionEnd"
+                    animationend: "MSAnimationEnd",
+                    animationiteration: "MSAnimationIteration",
+                    animationstart: "MSAnimationStart",
+                    fullscreenchange: "MSFullscreenChange",
+                    fullscreenerror: "MSFullscreenError",
+                    transitionend: "MSTransitionEnd"
                 };
             case vendors.engines.presto:
                 return {
-                    "animationend": "oAnimationEnd",
-                    "animationiteration": "oAnimationIteration",
-                    "animationstart": "oAnimationStart",
-                    "transitionend": "oTransitionEnd"
+                    animationend: "oAnimationEnd",
+                    animationiteration: "oAnimationIteration",
+                    animationstart: "oAnimationStart",
+                    mouseenter: "mouseover",
+                    mouseleave: "mouseout",
+                    transitionend: "oTransitionEnd"
                 };
             default:
                 return {};
         }
     })();
 
-    function resolveType(target, type) {
+    function resolveType(type) {
         if (type in exceptionalTypes) {
             return exceptionalTypes[type];
         } else {
             return type;
         }
     }
+
+    function resolveListener(target, type, listener) {
+        var resolvedType = resolveType(type);
+
+        // shim mouseenter/mouseleave events
+        if ((type === "mouseenter" && resolvedType === "mouseover") || (type === "mouseleave" && resolvedType === "mouseout")) {
+            return function (event) {
+                if (!dom.contains(event.relatedTarget, target)) {
+                    listener.call(target, event);
+                }
+            };
+        } else {
+            return listener;
+        }
+    }
     
     events.add = function (target, id, listener, capture) {
         var storage = data.get(target);
         var parts = id.split(".");
-        var type = resolveType(target, parts.shift());
+        var type = parts.shift();
         var name = parts.join(".");
-        var event = { name: name, type: type, listener: listener, capture: capture };
+        var resolvedType = resolveType(type);
+        var resolvedListener = resolveListener(target, type, listener);
+        var event = { name: name, type: resolvedType, listener: resolvedListener, capture: capture };
 
         // ensure storage for events
         if (!storage.events) {
@@ -92,15 +115,15 @@ define(["exports", "./collections", "./data", "./objects", "./strings", "./vendo
             // parse event name and type
             if (!objects.isUndefined(id)) {
                 parts = id.split(".");
-                type = resolveType(target, parts.shift());
+                type = parts.shift();
                 name = parts.join(".");
             }
 
             // loop thru stored events
             collections.forEach(objects.keys(storage.events), function (key) {
                 collections.forEach(collections.copy(storage.events[key]), function (event) {
-                    if ((objects.isUndefined(name) || name === "" || strings.startsWith(event.name + ".", name + ".")) &&
-                        (objects.isUndefined(type) || type === "" || type === event.type) &&
+                    if ((objects.isUndefined(type) || type === "" || type === key) &&
+                        (objects.isUndefined(name) || name === "" || strings.startsWith(event.name + ".", name + ".")) &&
                         (objects.isUndefined(listener) || listener === event.listener) &&
                         (objects.isUndefined(capture) || capture === !!event.capture)) {
 
@@ -129,21 +152,19 @@ define(["exports", "./collections", "./data", "./objects", "./strings", "./vendo
 
     events.fire = function (target, type, options) {
         var event = document.createEvent("CustomEvent");
-        var eventType = resolveType(target, type);
         var eventOptions = objects.extend({}, defaultOptions, options);
 
-        event.initCustomEvent(eventType, eventOptions.canBubble, eventOptions.cancelable, eventOptions.detail);
+        event.initCustomEvent(type, eventOptions.canBubble, eventOptions.cancelable, eventOptions.detail);
 
         if (objects.isFunction(target.dispatchEvent)) {
             target.dispatchEvent(event);
         } else {
             var storage = data.get(target);
-            var key = event.type;
             var args = event;
 
             // loop thru stored events
-            if (storage.events && storage.events[key]) {
-                collections.forEach(collections.copy(storage.events[key]), function (event) {
+            if (storage.events && storage.events[type]) {
+                collections.forEach(collections.copy(storage.events[type]), function (event) {
                     event.listener.call(target, args);
                 });
             }
