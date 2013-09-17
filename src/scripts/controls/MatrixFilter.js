@@ -10,7 +10,7 @@ define([
     "use strict";
 
     var defaultOptions = {
-        grid: ".trendy-grid",
+        matrix: ".trendy-matrix",
         triggerOnHover: true,
         triggerOnClick: true
     };
@@ -18,17 +18,17 @@ define([
     return oo.class(controls.Control,
     {
         constructor: function (element, options) {
-            this.constructor.__super__.call(this, "GridFilter", element, defaultOptions, options);
+            this.constructor.__super__.call(this, "MatrixFilter", element, defaultOptions, options);
             
             var element = this.element;
-            var gridElement = dom.query(document, this.grid);
-            var triggerElement = dom.create("div", "trendy-grid-filter-trigger", element);
-            var popupElement = dom.create("div", "trendy-grid-filter-popup", element);
+            var matrixElement = dom.query(document, this.matrix);
+            var triggerElement = dom.create("div", "trendy-matrix-filter-trigger", element);
+            var popupElement = dom.create("div", "trendy-matrix-filter-popup", element);
 
             attributes.set(triggerElement, "aria-haspopup", true);
 
             // initialize cells
-            for (var i = 0, l = gridElement.children.length; i < l; i++) {
+            for (var i = 0, l = matrixElement.children.length; i < l; i++) {
                 var popupChildElement = dom.create("div", popupElement);
                 attributes.set(popupChildElement, "data-trendy-selected", true);
                 events.add(popupChildElement, "mouseover", this.highlightCells.bind(this, i));
@@ -47,7 +47,7 @@ define([
             }
 
             // initialize members
-            this.gridElement = gridElement;
+            this.matrixElement = matrixElement;
             this.triggerElement = triggerElement;
             this.popupElement = popupElement;
         },
@@ -56,10 +56,10 @@ define([
         },
         openPopup: function () {
             if (!this.isOpen()) {
-                var gridControl = controls.get(this.gridElement);
-                var maxColumns = gridControl.maxColumns;
-                var row = gridControl.rows - 1;
-                var column = gridControl.columns - 1;
+                var matrix = controls.get(this.matrixElement);
+                var maxColumns = matrix.maxColumns;
+                var row = matrix.rows - 1;
+                var column = matrix.columns - 1;
 
                 // select matching cells
                 collections.forEach(this.popupElement.children, function (childElement, childIndex) {
@@ -82,8 +82,8 @@ define([
             }
         },
         highlightCells: function (index) {
-            var gridControl = controls.get(this.gridElement);
-            var maxColumns = gridControl.maxColumns;
+            var matrix = controls.get(this.matrixElement);
+            var maxColumns = matrix.maxColumns;
             var row = Math.floor(index / maxColumns);
             var column = index - row * maxColumns;
 
@@ -100,8 +100,8 @@ define([
             });
         },
         selectCells: function (index) {
-            var gridControl = controls.get(this.gridElement);
-            var maxColumns = gridControl.maxColumns;
+            var matrix = controls.get(this.matrixElement);
+            var maxColumns = matrix.maxColumns;
             var row = Math.floor(index / maxColumns);
             var column = index - row * maxColumns;
 
@@ -117,10 +117,10 @@ define([
                 }
             });
 
-            // update grid control
-            gridControl.rows = row + 1;
-            gridControl.columns = column + 1;
-            gridControl.update();
+            // update matrix control
+            matrix.rows = row + 1;
+            matrix.columns = column + 1;
+            matrix.update();
         }
     });
 
