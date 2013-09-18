@@ -1,0 +1,51 @@
+﻿@import "grid.less";
+
+@column-width:  20;
+@gutter-width:  10;
+@columns:       12;
+
+[role="grid"] {
+    background: #000;
+}
+
+[role="gridcell"] {
+    background: #ccc;
+    text-align: center;
+    font-size: 1em;
+    /*padding: 1em;*/
+}
+
+[role="row"] {
+    background: #666;
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+    .row();
+
+    &:nth-child(1) {
+        [role="gridcell"] { .column(2); }
+    }
+
+    &:nth-child(2) {
+        [role="gridcell"] { .column(3); }
+    }
+
+    &:nth-child(3) {
+        [role="gridcell"] { .column(4); }
+    }
+
+    &:nth-child(4) {
+        [role="gridcell"] {
+            &:nth-child(1) { .column(5); }
+            &:nth-child(2) { .column(2); }
+            &:nth-child(3) { .column(5); }
+        }
+    }
+
+    &:nth-child(5) {
+        [role="gridcell"] {
+            &:nth-child(1) { .column(3); }
+            &:nth-child(2) { .column(6); }
+            &:nth-child(3) { .column(3); }
+        }
+    }
+}
