@@ -1,0 +1,46 @@
+﻿@import "../../src/styles/trendy.less";
+
+@column-width:                              20;
+@gutter-width:                              10;
+@columns:                                   12;
+
+.container {
+    background: yellow;
+}
+
+ul[role="grid"] {
+    width: 360px;
+    margin: 0;
+    padding: 0;
+
+    li {
+        list-style: none;
+        margin-top: 5px !important;
+        margin-bottom: 5px !important;
+        height: 20px;
+        background: #ccc;
+    }
+
+    li:nth-child(1) { .column(1); }
+    li:nth-child(2) { .column(11); }
+    li:nth-child(3) { .column(2); }
+    li:nth-child(4) { .column(10); }
+    li:nth-child(5) { .column(3); }
+    li:nth-child(6) { .column(9); }
+    li:nth-child(7) { .column(4); }
+    li:nth-child(8) { .column(8); }
+    li:nth-child(9) { .column(5); }
+    li:nth-child(10) { .column(7); }
+    li:nth-child(11) { .column(6); }
+    li:nth-child(12) { .column(6); }
+    li:nth-child(13) { .column(7); }
+    li:nth-child(14) { .column(5); }
+    li:nth-child(15) { .column(8); }
+    li:nth-child(16) { .column(4); }
+    li:nth-child(17) { .column(9); }
+    li:nth-child(18) { .column(3); }
+    li:nth-child(19) { .column(10); }
+    li:nth-child(20) { .column(2); }
+    li:nth-child(21) { .column(11); }
+    li:nth-child(22) { .column(1); }
+}
