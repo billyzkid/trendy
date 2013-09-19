@@ -1,11 +1,11 @@
 ﻿// options
 @columns: 			        12;
 @column-width: 		        60;
-@gutter-width: 		        24;
+@gutter-width: 		        20;
 @total-width: 		        100%;
 @visualize-grid:		    true;
-@visualize-column-color:	rgba(0, 0, 255, 0.1);
-@visualize-gutter-color: 	rgba(255, 255, 255, 0);
+@visualize-column-color:	rgba(0, 0, 0, 0.1);
+@visualize-gutter-color: 	rgba(0, 0, 0, 0);
 
 // variables
 @system-width:                      (@column-width * @columns) + (@gutter-width * @columns) * 1px;
@@ -27,8 +27,9 @@
 }
 
 .grid(@columns: @columns) {
-	.row(@columns);
-	.mixin() {}
+	.mixin() {
+        // nothing to visualize
+	}
 	.mixin() when (@visualize-grid = true) {
         @gutter-percentage: @gutter-width / (@column-width + @gutter-width) * 100%;
         .linear-gradient(left~"," @visualize-gutter-color 0%~"," @visualize-gutter-color @gutter-percentage~"," @visualize-column-color @gutter-percentage~"," @visualize-column-color 100%);
@@ -36,38 +37,43 @@
         background-repeat: repeat;
 	}
 	.mixin;
+    .row(@columns);
 }
 
 .row(@columns: @columns) {	
 	.mixin(@columns: @columns) when (ispixel(@total-width)) {
 		width: @system-width;
 		margin-left: @column-gutter-width * -1;
-		}
+	}
 	.mixin(@columns: @columns) when (ispercentage(@total-width)) {
 		width: @total-width + @column-gutter-width-percentage;
 		margin-left: @column-gutter-width-percentage * -1;
 	}
 	.mixin(@columns);
 	.clearfix;
-    overflow:hidden;
 }
 
-.column(@columns: @columns) {
-	.mixin(@columns: @columns) when (ispixel(@total-width)) {
-		margin-left: @column-gutter-width;
+.column(@x: @columns, @columns: @columns) {
+	.mixin(@x, @columns) when (ispixel(@total-width)) {
+		float: left;
+        width: (((@column-width + @gutter-width) * @x) - @gutter-width) * 1px;
+        margin-left: @column-gutter-width;
+        overflow: hidden;
 	}
-	.mixin(@columns: @columns) when (ispercentage(@total-width)) {
-		margin-left: @column-gutter-width-percentage;
+	.mixin(@x, @columns) when (ispercentage(@total-width)) {
+		float: left;
+        width: ((((@column-width + @gutter-width) * @x) - @gutter-width) / @system-width) * @total-width;
+        margin-left: @column-gutter-width-percentage;
+        overflow: hidden;
 	}
-	.mixin(@columns);
-    float: left;
+	.mixin(@x, @columns);
 }
 
 .column-width(@x, @columns: @columns) {
-	.mixin(@x, @columns: @columns) when (ispixel(@total-width)) {
+	.mixin(@x, @columns) when (ispixel(@total-width)) {
 		width: (((@column-width + @gutter-width) * @x) - @gutter-width) * 1px;
 	}
-	.mixin(@x, @columns: @columns) when (ispercentage(@total-width)) {
+	.mixin(@x, @columns) when (ispercentage(@total-width)) {
 		width: ((((@column-width + @gutter-width) * @x) - @gutter-width) / @system-width) * @total-width;
 	}
 	.mixin(@x, @columns);
@@ -78,11 +84,11 @@
     margin-bottom: @y * -1;
 }
 
-.push(@offset: 1, @columns: @columns)  {
-	.mixin(@offset: 1, @columns: @columns) when (ispixel(@total-width)) {
+.column-push(@offset: 1, @columns: @columns)  {
+	.mixin(@offset, @columns) when (ispixel(@total-width)) {
 		margin-left: ((((@column-width + @gutter-width) * @offset) - @gutter-width) * 1px) + (@column-gutter-width * 2);
 	}
-	.mixin(@offset: 1, @columns: @columns) when (ispercentage(@total-width)) {
+	.mixin(@offset, @columns) when (ispercentage(@total-width)) {
 		margin-left: (((((@column-width + @gutter-width) * @offset) - @gutter-width) / @system-width) * @total-width) + (@column-gutter-width * 2);
 	}
 	.mixin(@offset, @columns);
