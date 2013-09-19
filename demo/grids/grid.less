@@ -4,8 +4,8 @@
 @gutter-width: 		        20;
 @total-width: 		        100%;
 @visualize-grid:		    true;
-@visualize-column-color:	rgba(0, 0, 0, 0.1);
-@visualize-gutter-color: 	rgba(0, 0, 0, 0);
+@visualize-column-color:	rgba(0, 0, 0, 0.2);
+@visualize-gutter-color: 	rgba(0, 0, 0, 0.1);
 
 // variables
 @system-width:                      (@column-width * @columns) + (@gutter-width * @columns) * 1px;
@@ -13,18 +13,6 @@
 @total-width:                       @system-width;
 @column-gutter-width:               (@gutter-width / @system-width) * @total-width;
 @column-gutter-width-percentage:    (@gutter-width / @system-width-percentage) * @total-width;
-
-.grid-container(@x: @columns, @columns: @columns) {
-	.mixin(@x, @columns) {}
-	.mixin(@x, @columns) when (ispixel(@total-width)) {
-		.column-width(@x, @columns);
-	}
-	.mixin(@min-width, @max-width) when (ispercentage(@total-width)) {
-		min-width: @min-width;
-		max-width: @max-width;
-	}
-	.mixin(@x, @columns);
-}
 
 .grid(@columns: @columns) {
 	.mixin() {
@@ -34,10 +22,13 @@
         @gutter-percentage: @gutter-width / (@column-width + @gutter-width) * 100%;
         .linear-gradient(left~"," @visualize-gutter-color 0%~"," @visualize-gutter-color @gutter-percentage~"," @visualize-column-color @gutter-percentage~"," @visualize-column-color 100%);
         background-size: ((@column-width + @gutter-width) / @system-width) * @total-width;
+        background-position-x: @column-gutter-width * -1;
         background-repeat: repeat;
 	}
-	.mixin;
-    .row(@columns);
+
+    .mixin;
+    .column-width(@columns);
+    overflow: hidden;
 }
 
 .row(@columns: @columns) {	
@@ -51,22 +42,23 @@
 	}
 	.mixin(@columns);
 	.clearfix;
+    overflow: hidden;
+
+    /*background-color: rgba(0,0,0,0.2);*/
 }
 
 .column(@x: @columns, @columns: @columns) {
 	.mixin(@x, @columns) when (ispixel(@total-width)) {
-		float: left;
         width: (((@column-width + @gutter-width) * @x) - @gutter-width) * 1px;
         margin-left: @column-gutter-width;
-        overflow: hidden;
 	}
 	.mixin(@x, @columns) when (ispercentage(@total-width)) {
-		float: left;
         width: ((((@column-width + @gutter-width) * @x) - @gutter-width) / @system-width) * @total-width;
         margin-left: @column-gutter-width-percentage;
-        overflow: hidden;
 	}
 	.mixin(@x, @columns);
+    float: left;
+    overflow: hidden;
 }
 
 .column-width(@x, @columns: @columns) {
