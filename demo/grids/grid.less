@@ -1,89 +1,60 @@
-﻿// options
-@columns: 			        12;
-@column-width: 		        60;
-@gutter-width: 		        20;
-@total-width: 		        100%;
-@visualize-grid:		    true;
-@visualize-column-color:	rgba(0, 0, 0, 0.2);
-@visualize-gutter-color: 	rgba(0, 0, 0, 0.1);
+﻿@grid-column-count:                     12;
+@grid-column-width:                     60;
+@grid-gutter-width:                     20;
+@grid-debug:		                    true;
+@grid-debug-column-background:	        rgba(0, 0, 0, 0.2);
+@grid-debug-gutter-background: 	        rgba(0, 0, 0, 0.1);
+@grid-debug-gutter-background-width:    @grid-gutter-width / (@grid-column-width + @grid-gutter-width) * 100%;
+@grid-system-width:                     @grid-column-count * (@grid-column-width + @grid-gutter-width) * 1px;
+@grid-total-width:                      @grid-system-width;
 
-// variables
-@system-width:                      (@column-width * @columns) + (@gutter-width * @columns) * 1px;
-@system-width-percentage:           @system-width - @gutter-width;
-@total-width:                       @system-width;
-@column-gutter-width:               (@gutter-width / @system-width) * @total-width;
-@column-gutter-width-percentage:    (@gutter-width / @system-width-percentage) * @total-width;
+.grid() {
 
-.grid(@columns: @columns) {
-	.mixin() {
-        // nothing to visualize
-	}
-	.mixin() when (@visualize-grid = true) {
-        @gutter-percentage: @gutter-width / (@column-width + @gutter-width) * 100%;
-        .linear-gradient(left~"," @visualize-gutter-color 0%~"," @visualize-gutter-color @gutter-percentage~"," @visualize-column-color @gutter-percentage~"," @visualize-column-color 100%);
-        background-size: ((@column-width + @gutter-width) / @system-width) * @total-width;
-        background-position-x: @column-gutter-width * -1;
+	.mixin() when (@grid-debug) {
+        .linear-gradient(left~"," @grid-debug-gutter-background 0%~"," @grid-debug-gutter-background @grid-debug-gutter-background-width~"," @grid-debug-column-background @grid-debug-gutter-background-width~"," @grid-debug-column-background 100%);
+        background-size: (@grid-column-width + @grid-gutter-width) / @grid-system-width * @grid-total-width;
+        background-position-x: @grid-gutter-width / @grid-system-width * @grid-total-width * -1;
         background-repeat: repeat;
 	}
 
     .mixin;
-    .column-width(@columns);
+    width: (@grid-column-count * (@grid-column-width + @grid-gutter-width) - @grid-gutter-width) / @grid-system-width * @grid-total-width;
     overflow: hidden;
 }
 
-.row(@columns: @columns) {	
-	.mixin(@columns: @columns) when (ispixel(@total-width)) {
-		width: @system-width;
-		margin-left: @column-gutter-width * -1;
-	}
-	.mixin(@columns: @columns) when (ispercentage(@total-width)) {
-		width: @total-width + @column-gutter-width-percentage;
-		margin-left: @column-gutter-width-percentage * -1;
-	}
-	.mixin(@columns);
-	.clearfix;
+.grid-row() {
+    .clearfix;
+    width: @grid-total-width;
+	margin-left: @grid-gutter-width / @grid-system-width * @grid-total-width * -1;
     overflow: hidden;
-
-    /*background-color: rgba(0,0,0,0.2);*/
 }
 
-.column(@x: @columns, @columns: @columns) {
-	.mixin(@x, @columns) when (ispixel(@total-width)) {
-        width: (((@column-width + @gutter-width) * @x) - @gutter-width) * 1px;
-        margin-left: @column-gutter-width;
+.grid-column(@count: 1, @equal-height: false) {
+    .grid-column(@count, 0, @equal-height);
+}
+
+.grid-column(@count: 1, @offset: 0, @equal-height: false) {
+	
+	.mixin1(@count) when (@count > 0) {
+        width: (@count * (@grid-column-width + @grid-gutter-width) - @grid-gutter-width) / @grid-system-width * @grid-total-width;
+        margin-left: @grid-gutter-width / @grid-system-width * @grid-total-width;
 	}
-	.mixin(@x, @columns) when (ispercentage(@total-width)) {
-        width: ((((@column-width + @gutter-width) * @x) - @gutter-width) / @system-width) * @total-width;
-        margin-left: @column-gutter-width-percentage;
+
+	.mixin2(@offset) when (@offset > 0) {
+		margin-left: ((@offset * (@grid-column-width + @grid-gutter-width) - @grid-gutter-width) / @grid-system-width * @grid-total-width) + (@grid-gutter-width / @grid-system-width * @grid-total-width * 2);
 	}
-	.mixin(@x, @columns);
+
+    .mixin3(@equal-height) when (@equal-height) {
+		padding-bottom: 99999px;
+        margin-bottom: -99999px;
+	}
+
+	.mixin1(@count);
+    .mixin2(@offset);
+    .mixin3(@equal-height);
+
     float: left;
     overflow: hidden;
-}
-
-.column-width(@x, @columns: @columns) {
-	.mixin(@x, @columns) when (ispixel(@total-width)) {
-		width: (((@column-width + @gutter-width) * @x) - @gutter-width) * 1px;
-	}
-	.mixin(@x, @columns) when (ispercentage(@total-width)) {
-		width: ((((@column-width + @gutter-width) * @x) - @gutter-width) / @system-width) * @total-width;
-	}
-	.mixin(@x, @columns);
-}
-
-.column-height-equal(@y: 32767px) {
-    padding-bottom: @y;
-    margin-bottom: @y * -1;
-}
-
-.column-push(@offset: 1, @columns: @columns)  {
-	.mixin(@offset, @columns) when (ispixel(@total-width)) {
-		margin-left: ((((@column-width + @gutter-width) * @offset) - @gutter-width) * 1px) + (@column-gutter-width * 2);
-	}
-	.mixin(@offset, @columns) when (ispercentage(@total-width)) {
-		margin-left: (((((@column-width + @gutter-width) * @offset) - @gutter-width) / @system-width) * @total-width) + (@column-gutter-width * 2);
-	}
-	.mixin(@offset, @columns);
 }
 
 .linear-gradient(@gradient) {
