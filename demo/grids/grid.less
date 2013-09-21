@@ -8,6 +8,8 @@
 @grid-system-width:                     @grid-column-count * (@grid-column-width + @grid-gutter-width) * 1px;
 @grid-total-width:                      @grid-system-width;
 
+.debug("@grid-column-count: @{grid-column-count}\a@grid-column-width: @{grid-column-width}\a@grid-gutter-width: @{grid-gutter-width}\a@grid-debug: @{grid-debug}\a@grid-debug-column-background: @{grid-debug-column-background}\a@grid-debug-gutter-background: @{grid-debug-gutter-background}\a@grid-debug-gutter-background-width: @{grid-debug-gutter-background-width}\a@grid-system-width: @{grid-system-width}\a@grid-total-width: @{grid-total-width}");
+
 .grid() {
 
 	.mixin() when (@grid-debug) {
@@ -70,5 +72,22 @@
         content: "";
         display: table;
         clear: both;
+    }
+}
+
+.debug(@var) {
+    body:after {
+        content: "@{var}";
+        position: fixed;
+        bottom: 8px;
+        right: 8px;
+        color: #f00;
+        white-space: pre;
+        background: #fff;
+        font-size: 12px;
+        font-family: monospace;
+        padding: 8px;
+        border: 1px solid red;
+        border-radius: 4px;
     }
 }
