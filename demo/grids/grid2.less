@@ -1,9 +1,9 @@
 ﻿@grid-column-count:                     12;
 @grid-column-width:                     60;
 @grid-gutter-width:                     20;
-@grid-debug:		                    true;
-@grid-debug-column-background:	        rgba(0, 0, 0, 0.2);
-@grid-debug-gutter-background: 	        rgba(0, 0, 0, 0.1);
+@grid-debug:                            true;
+@grid-debug-column-background:            rgba(0, 0, 0, 0.2);
+@grid-debug-gutter-background:             rgba(0, 0, 0, 0.1);
 @grid-debug-gutter-background-width:    @grid-gutter-width / (@grid-column-width + @grid-gutter-width) * 100%;
 @grid-system-width:                     @grid-column-count * (@grid-column-width + @grid-gutter-width) - @grid-gutter-width * 1px;
 @grid-system-width2:                    @grid-column-count * (@grid-column-width + @grid-gutter-width) * 1px;
@@ -13,12 +13,12 @@
 
 .grid() {
 
-	.mixin() when (@grid-debug) {
+    .mixin() when (@grid-debug) {
         .linear-gradient(left~"," @grid-debug-gutter-background 0%~"," @grid-debug-gutter-background @grid-debug-gutter-background-width~"," @grid-debug-column-background @grid-debug-gutter-background-width~"," @grid-debug-column-background 100%);
         background-size: (@grid-column-width + @grid-gutter-width) / @grid-system-width * @grid-total-width;
         background-position-x: @grid-gutter-width / @grid-system-width * @grid-total-width * -1;
         background-repeat: repeat;
-	}
+    }
 
     .mixin;
     width: @grid-total-width;
@@ -28,7 +28,7 @@
 .grid-row() {
     .clearfix;
     width: @grid-total-width + (@grid-gutter-width / @grid-system-width * @grid-total-width);
-	margin-left: @grid-gutter-width / @grid-system-width * @grid-total-width * -1;
+    margin-left: @grid-gutter-width / @grid-system-width * @grid-total-width * -1;
     overflow: hidden;
 }
 
@@ -37,22 +37,22 @@
 }
 
 .grid-column(@count: 1, @offset: 0, @equal-height: false) {
-	
-	.mixin1(@count) when (@count > 0) {
+    
+    .mixin1(@count) when (@count > 0) {
         width: (@count * (@grid-column-width + @grid-gutter-width) - @grid-gutter-width) / @grid-system-width2 * @grid-total-width;
         margin-left: @grid-gutter-width / @grid-system-width2 * @grid-total-width;
-	}
+    }
 
-	.mixin2(@offset) when (@offset > 0) {
-		margin-left: ((@offset * (@grid-column-width + @grid-gutter-width) - @grid-gutter-width) / @grid-system-width2 * @grid-total-width) + (@grid-gutter-width / @grid-system-width2 * @grid-total-width * 2);
-	}
+    .mixin2(@offset) when (@offset > 0) {
+        margin-left: ((@offset * (@grid-column-width + @grid-gutter-width) - @grid-gutter-width) / @grid-system-width2 * @grid-total-width) + (@grid-gutter-width / @grid-system-width2 * @grid-total-width * 2);
+    }
 
     .mixin3(@equal-height) when (@equal-height) {
-		padding-bottom: 99999px;
+        padding-bottom: 99999px;
         margin-bottom: -99999px;
-	}
+    }
 
-	.mixin1(@count);
+    .mixin1(@count);
     .mixin2(@offset);
     .mixin3(@equal-height);
 
