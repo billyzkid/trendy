@@ -5,10 +5,11 @@
 @grid-debug-column-background:	        rgba(0, 0, 0, 0.2);
 @grid-debug-gutter-background: 	        rgba(0, 0, 0, 0.1);
 @grid-debug-gutter-background-width:    @grid-gutter-width / (@grid-column-width + @grid-gutter-width) * 100%;
-@grid-system-width:                     @grid-column-count * (@grid-column-width + @grid-gutter-width) * 1px;
+@grid-system-width:                     @grid-column-count * (@grid-column-width + @grid-gutter-width) - @grid-gutter-width * 1px;
+@grid-system-width2:                    @grid-column-count * (@grid-column-width + @grid-gutter-width) * 1px;
 @grid-total-width:                      @grid-system-width;
 
-.debug("@grid-column-count: @{grid-column-count}\a@grid-column-width: @{grid-column-width}\a@grid-gutter-width: @{grid-gutter-width}\a@grid-debug: @{grid-debug}\a@grid-debug-column-background: @{grid-debug-column-background}\a@grid-debug-gutter-background: @{grid-debug-gutter-background}\a@grid-debug-gutter-background-width: @{grid-debug-gutter-background-width}\a@grid-system-width: @{grid-system-width}\a@grid-total-width: @{grid-total-width}");
+.debug("@grid-column-count: @{grid-column-count}\a@grid-column-width: @{grid-column-width}\a@grid-gutter-width: @{grid-gutter-width}\a@grid-debug: @{grid-debug}\a@grid-debug-column-background: @{grid-debug-column-background}\a@grid-debug-gutter-background: @{grid-debug-gutter-background}\a@grid-debug-gutter-background-width: @{grid-debug-gutter-background-width}\a@grid-system-width: @{grid-system-width}\a@grid-system-width2: @{grid-system-width2}\a@grid-total-width: @{grid-total-width}");
 
 .grid() {
 
@@ -20,13 +21,13 @@
 	}
 
     .mixin;
-    width: (@grid-column-count * (@grid-column-width + @grid-gutter-width) - @grid-gutter-width) / @grid-system-width * @grid-total-width;
+    width: @grid-total-width;
     overflow: hidden;
 }
 
 .grid-row() {
     .clearfix;
-    width: @grid-total-width;
+    width: @grid-total-width + (@grid-gutter-width / @grid-system-width * @grid-total-width);
 	margin-left: @grid-gutter-width / @grid-system-width * @grid-total-width * -1;
     overflow: hidden;
 }
@@ -38,12 +39,12 @@
 .grid-column(@count: 1, @offset: 0, @equal-height: false) {
 	
 	.mixin1(@count) when (@count > 0) {
-        width: (@count * (@grid-column-width + @grid-gutter-width) - @grid-gutter-width) / @grid-system-width * @grid-total-width;
-        margin-left: @grid-gutter-width / @grid-system-width * @grid-total-width;
+        width: (@count * (@grid-column-width + @grid-gutter-width) - @grid-gutter-width) / @grid-system-width2 * @grid-total-width;
+        margin-left: @grid-gutter-width / @grid-system-width2 * @grid-total-width;
 	}
 
 	.mixin2(@offset) when (@offset > 0) {
-		margin-left: ((@offset * (@grid-column-width + @grid-gutter-width) - @grid-gutter-width) / @grid-system-width * @grid-total-width) + (@grid-gutter-width / @grid-system-width * @grid-total-width * 2);
+		margin-left: ((@offset * (@grid-column-width + @grid-gutter-width) - @grid-gutter-width) / @grid-system-width2 * @grid-total-width) + (@grid-gutter-width / @grid-system-width2 * @grid-total-width * 2);
 	}
 
     .mixin3(@equal-height) when (@equal-height) {
