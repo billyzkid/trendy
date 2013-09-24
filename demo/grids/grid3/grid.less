@@ -1,0 +1,181 @@
+﻿.grid-fixed(@columns: 12, @column-width: 60px, @gutter-width: 20px, @gutter-height: 20px, @debug: true) {
+
+    .row(@span: @columns, @offset: 0) {
+
+        .span() when (@span =< 0) {
+            width: 0;
+        }
+
+        .span() when (@span > 0) {
+            width: @span * (@column-width + @gutter-width);
+        }
+        
+        .offset() {
+            margin-left: @offset * (@column-width + @gutter-width) - @gutter-width / 2;
+        }
+    
+        .span;
+        .offset;
+        .clearfix;
+
+        overflow: hidden;
+    }
+
+    .column(@span: @columns, @equal-height: false) {
+        .column(@span, 0, @equal-height);
+    }
+
+    .column(@span: @columns, @offset: 0, @equal-height: false) {
+
+        .span() when (@span =< 0) {
+            width: 0;
+        }
+
+        .span() when (@span > 0) {
+            width: @span * (@column-width + @gutter-width) - @gutter-width;
+        }
+        
+        .offset() when (@offset =< 0) {
+            margin-top: @gutter-height / 2;
+            margin-bottom: @gutter-height / 2;
+            margin-left: @gutter-width / 2;
+            margin-right: @gutter-width / 2;
+        }
+
+        .offset() when (@offset > 0) {
+            margin-top: @gutter-height / 2;
+            margin-bottom: @gutter-height / 2;
+            margin-left: @gutter-width / 2 + @offset * (@column-width + @gutter-width);
+            margin-right: @gutter-width / 2;
+        }
+
+        .equal-height() when (@equal-height) {
+            margin-bottom: -99999px;
+            padding-bottom: 99999px;
+        }
+
+        .span;
+        .offset;
+        .equal-height;
+
+        float: left;
+        overflow: hidden;
+    }
+
+    .visualize() when (@debug) {
+        @gradient-column-color: rgba(0, 0, 0, 0.2);
+        @gradient-gutter-color: rgba(0, 0, 0, 0.1);
+        @gradient: left, @gradient-column-color 0, @gradient-column-color @column-width / 2, @gradient-gutter-color @column-width / 2, @gradient-gutter-color @column-width / 2 + @gutter-width, @gradient-column-color @column-width / 2 + @gutter-width, @gradient-column-color @column-width + @gutter-width;
+
+        background-size: @column-width + @gutter-width;
+        background-image: -webkit-linear-gradient(@gradient);
+        background-image:    -moz-linear-gradient(@gradient);
+        background-image:     -ms-linear-gradient(@gradient);
+        background-image:      -o-linear-gradient(@gradient);
+        background-image:         linear-gradient(@gradient);
+        background-position-x: center;
+        background-position-y: center;
+        background-repeat: repeat;
+        background-clip: content-box;
+    }
+
+    .visualize;
+
+    width: @columns * (@column-width + @gutter-width) - @gutter-width;
+    overflow: hidden;
+}
+
+.grid-fluid(@columns: 12, @column-width: 60px, @gutter-width: 20px, @gutter-height: 20px, @debug: true) {
+
+    .row(@span: @columns, @offset: 0) {
+
+        .span() when (@span =< 0) {
+            width: 0;
+        }
+
+        .span() when (@span > 0) {
+            width: @span * (@column-width + @gutter-width);
+        }
+        
+        .offset() {
+            margin-left: @offset * (@column-width + @gutter-width) - @gutter-width / 2;
+        }
+    
+        .span;
+        .offset;
+        .clearfix;
+
+        overflow: hidden;
+    }
+
+    .column(@span: @columns, @equal-height: false) {
+        .column(@span, 0, @equal-height);
+    }
+
+    .column(@span: @columns, @offset: 0, @equal-height: false) {
+
+        .span() when (@span =< 0) {
+            width: 0;
+        }
+
+        .span() when (@span > 0) {
+            width: @span * (@column-width + @gutter-width) - @gutter-width;
+        }
+        
+        .offset() when (@offset =< 0) {
+            margin-top: @gutter-height / 2;
+            margin-bottom: @gutter-height / 2;
+            margin-left: @gutter-width / 2;
+            margin-right: @gutter-width / 2;
+        }
+
+        .offset() when (@offset > 0) {
+            margin-top: @gutter-height / 2;
+            margin-bottom: @gutter-height / 2;
+            margin-left: @gutter-width / 2 + @offset * (@column-width + @gutter-width);
+            margin-right: @gutter-width / 2;
+        }
+
+        .equal-height() when (@equal-height) {
+            margin-bottom: -99999px;
+            padding-bottom: 99999px;
+        }
+
+        .span;
+        .offset;
+        .equal-height;
+
+        float: left;
+        overflow: hidden;
+    }
+
+    .visualize() when (@debug) {
+        @gradient-column-color: rgba(0, 0, 0, 0.2);
+        @gradient-gutter-color: rgba(0, 0, 0, 0.1);
+        @gradient: left, @gradient-column-color 0, @gradient-column-color @column-width / 2, @gradient-gutter-color @column-width / 2, @gradient-gutter-color @column-width / 2 + @gutter-width, @gradient-column-color @column-width / 2 + @gutter-width, @gradient-column-color @column-width + @gutter-width;
+
+        background-size: @column-width + @gutter-width;
+        background-image: -webkit-linear-gradient(@gradient);
+        background-image:    -moz-linear-gradient(@gradient);
+        background-image:     -ms-linear-gradient(@gradient);
+        background-image:      -o-linear-gradient(@gradient);
+        background-image:         linear-gradient(@gradient);
+        background-position-x: center;
+        background-position-y: center;
+        background-repeat: repeat;
+        background-clip: content-box;
+    }
+
+    .visualize;
+
+    width: @columns * (@column-width + @gutter-width) - @gutter-width;
+    overflow: hidden;
+}
+
+.clearfix() {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
