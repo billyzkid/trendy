@@ -85,7 +85,9 @@
     overflow: hidden;
 }
 
-.grid-fluid(@columns: 12, @column-width: 60px, @gutter-width: 20px, @gutter-height: 20px, @debug: true) {
+.grid-fluid(@columns: 12, @total-width: 100%, @column-width: 3, @gutter-width: 1, @gutter-height: 1, @debug: true) {
+
+    @p-gutter-width: @columns * (@column-width + @gutter-width) - @gutter-width / 100%;
 
     .row(@span: @columns, @offset: 0) {
 
