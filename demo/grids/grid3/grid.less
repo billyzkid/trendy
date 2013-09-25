@@ -87,7 +87,13 @@
 
 .grid-fluid(@columns: 12, @total-width: 100%, @column-width: 3, @gutter-width: 1, @gutter-height: 1, @debug: true) {
 
-    @p-gutter-width: @columns * (@column-width + @gutter-width) - @gutter-width / 100%;
+    @p-unit-width: 100% / (@columns * (@column-width + @gutter-width) - @gutter-width);
+    @p-column-width: @p-unit-width * @column-width;
+    @p-gutter-width: @p-unit-width * @gutter-width;
+    @p-gutter-height: @p-unit-width * @gutter-height;
+    @p-ratio: (@columns * (@p-column-width + @p-gutter-width)) / (@columns * (@p-column-width + @p-gutter-width) - @p-gutter-width);
+
+    .debug("@p-unit-width: @{p-unit-width}\a@p-column-width: @{p-column-width}\a@p-gutter-width: @{p-gutter-width}\a@p-ratio: @{p-ratio}");
 
     .row(@span: @columns, @offset: 0) {
 
@@ -96,11 +102,11 @@
         }
 
         .span() when (@span > 0) {
-            width: @span * (@column-width + @gutter-width);
+            width: @span * (@p-column-width + @p-gutter-width);
         }
         
         .offset() {
-            margin-left: @offset * (@column-width + @gutter-width) - @gutter-width / 2;
+            margin-left: @offset * (@p-column-width + @p-gutter-width) - @p-gutter-width / 2;
         }
     
         .span;
@@ -121,21 +127,21 @@
         }
 
         .span() when (@span > 0) {
-            width: @span * (@column-width + @gutter-width) - @gutter-width;
+            width: (@span * (@p-column-width + @p-gutter-width) - @p-gutter-width) / @p-ratio;
         }
         
         .offset() when (@offset =< 0) {
-            margin-top: @gutter-height / 2;
-            margin-bottom: @gutter-height / 2;
-            margin-left: @gutter-width / 2;
-            margin-right: @gutter-width / 2;
+            margin-top: @p-gutter-height / 2 / @p-ratio;
+            margin-bottom: @p-gutter-height / 2 / @p-ratio;
+            margin-left: @p-gutter-width / 2 / @p-ratio;
+            margin-right: @p-gutter-width / 2 / @p-ratio;
         }
 
         .offset() when (@offset > 0) {
-            margin-top: @gutter-height / 2;
-            margin-bottom: @gutter-height / 2;
-            margin-left: @gutter-width / 2 + @offset * (@column-width + @gutter-width);
-            margin-right: @gutter-width / 2;
+            margin-top: @p-gutter-height / 2;
+            margin-bottom: @p-gutter-height / 2;
+            margin-left: @p-gutter-width / 2 + @offset * (@p-column-width + @p-gutter-width);
+            margin-right: @p-gutter-width / 2;
         }
 
         .equal-height() when (@equal-height) {
@@ -154,9 +160,11 @@
     .visualize() when (@debug) {
         @gradient-column-color: rgba(0, 0, 0, 0.2);
         @gradient-gutter-color: rgba(0, 0, 0, 0.1);
-        @gradient: left, @gradient-column-color 0, @gradient-column-color @column-width / 2, @gradient-gutter-color @column-width / 2, @gradient-gutter-color @column-width / 2 + @gutter-width, @gradient-column-color @column-width / 2 + @gutter-width, @gradient-column-color @column-width + @gutter-width;
+        @gradient-width1: @p-column-width / (@p-column-width + @p-gutter-width) * 100;
+        @gradient-width2: @p-gutter-width / (@p-column-width + @p-gutter-width) * 100;
+        @gradient: left, @gradient-column-color 0, @gradient-column-color @gradient-width1 / 2, @gradient-gutter-color @gradient-width1 / 2, @gradient-gutter-color @gradient-width1 / 2 + @gradient-width2, @gradient-column-color @gradient-width1 / 2 + @gradient-width2, @gradient-column-color @gradient-width1 + @gradient-width2;
 
-        background-size: @column-width + @gutter-width;
+        background-size: @p-column-width + @p-gutter-width;
         background-image: -webkit-linear-gradient(@gradient);
         background-image:    -moz-linear-gradient(@gradient);
         background-image:     -ms-linear-gradient(@gradient);
@@ -170,7 +178,7 @@
 
     .visualize;
 
-    width: @columns * (@column-width + @gutter-width) - @gutter-width;
+    width: @total-width;
     overflow: hidden;
 }
 
@@ -179,5 +187,22 @@
         content: "";
         display: table;
         clear: both;
+    }
+}
+
+.debug(@var) {
+    &:after {
+        content: "@{var}";
+        position: fixed;
+        bottom: 8px;
+        left: 8px;
+        color: #f00;
+        white-space: pre;
+        background: rgba(255, 255, 255, 0.6);
+        font-size: 12px;
+        font-family: monospace;
+        padding: 8px;
+        border: 1px solid red;
+        border-radius: 4px;
     }
 }
