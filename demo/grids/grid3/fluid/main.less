@@ -1,4 +1,4 @@
-﻿@import "../grid.less";
+﻿@import "../grid2.less";
 
 body {
     color: #000;
@@ -54,8 +54,8 @@ article {
     }
 }
 
-#Page {
-    .grid;
+#Page1 {
+    .grid(80%, 2, 10%, true);
 
     margin: 20px auto;
     //padding: 20px;
@@ -65,10 +65,29 @@ article {
     & > header,
     & > footer,
     & > section {
-        .grid-fluid > .row(12);
+        .grid-row;
     }
 
     & > section > article {
-        .grid-fluid > .column(2);
+        .grid-column(2);
+    }
+}
+
+#Page2 {
+    .grid(1000px, 2, 100px, true);
+
+    margin: 20px auto;
+    //padding: 20px;
+    //border: 20px solid #000;
+    //box-sizing: border-box;
+
+    & > header,
+    & > footer,
+    & > section {
+        .grid-row;
+    }
+
+    & > section > article {
+        .grid-column(2);
     }
 }

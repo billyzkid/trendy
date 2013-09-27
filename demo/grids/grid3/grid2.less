@@ -1,0 +1,116 @@
+﻿@grid-width: 100%;
+@grid-columns: 10;
+@grid-column-width: 0;
+@grid-gutter-width: 0;
+@grid-gutter-height: 0;
+@grid-debug: true;
+@grid-debug-column-color: rgba(0, 0, 0, 0.2);
+@grid-debug-gutter-color: rgba(255, 0, 0, 1);
+
+.grid(@width: @grid-width, @columns: @grid-columns, @gutter-width: @grid-gutter-width, @debug: @grid-debug) when (ispercentage(@width)) {
+
+    @grid-width: @width;
+    @grid-columns: @columns;
+    @grid-column-width: (100% + @gutter-width) / @columns - @gutter-width;
+    @grid-gutter-width: @gutter-width; 
+    @grid-gutter-height: @gutter-width;
+    @grid-debug: @debug;
+
+    //.debug("@grid-columns: @{grid-columns}\a@grid-column-width: @{grid-column-width}\a@grid-gutter-width: @{grid-gutter-width}");
+
+    .visualize() when (@grid-debug) {
+        @gradient-size: @grid-column-width + @grid-gutter-width;
+        @gradient-column-width: @grid-column-width / @gradient-size * 100%;
+        @gradient-gutter-width: @grid-gutter-width / @gradient-size * 100%;
+        @gradient: left, @grid-debug-gutter-color 0%, @grid-debug-gutter-color @gradient-gutter-width / 2, @grid-debug-column-color @gradient-gutter-width / 2, @grid-debug-column-color @gradient-gutter-width / 2 + @gradient-column-width, @grid-debug-gutter-color @gradient-gutter-width / 2 + @gradient-column-width, @grid-debug-gutter-color 100%;
+
+        background-size: @gradient-size;
+        background-image: -webkit-linear-gradient(@gradient);
+        background-image:    -moz-linear-gradient(@gradient);
+        background-image:     -ms-linear-gradient(@gradient);
+        background-image:      -o-linear-gradient(@gradient);
+        background-image:         linear-gradient(@gradient);
+        background-position-x: @grid-gutter-width / -2;
+        background-position-y: top;
+        background-repeat: repeat;
+        background-clip: content-box;
+    }
+
+    .visualize;
+
+    width: @grid-width;
+    overflow: hidden;
+}
+
+.grid(@width: @grid-width, @columns: @grid-columns, @gutter-width: @grid-gutter-width, @debug: @grid-debug) when not (ispercentage(@width)) {
+
+    @grid-width: @width;
+    @grid-columns: @columns;
+    @grid-column-width: @width / @columns - @gutter-width / 2;
+    @grid-gutter-width: @gutter-width; 
+    @grid-gutter-height: @gutter-width;
+    @grid-debug: @debug;
+
+    .debug("@grid-columns: @{grid-columns}\a@grid-column-width: @{grid-column-width}\a@grid-gutter-width: @{grid-gutter-width}");
+
+    .visualize() when (@grid-debug) {
+        @gradient-size: @grid-column-width + @grid-gutter-width;
+        @gradient-column-width: @grid-column-width;
+        @gradient-gutter-width: @grid-gutter-width;
+        @gradient: left, @grid-debug-gutter-color 0px, @grid-debug-gutter-color @gradient-gutter-width, @grid-debug-column-color @gradient-gutter-width, @grid-debug-column-color @gradient-size;
+
+        background-size: @gradient-size;
+        background-image: -webkit-linear-gradient(@gradient);
+        background-image:    -moz-linear-gradient(@gradient);
+        background-image:     -ms-linear-gradient(@gradient);
+        background-image:      -o-linear-gradient(@gradient);
+        background-image:         linear-gradient(@gradient);
+        background-position-x: @grid-gutter-width * -1;
+        background-position-y: top;
+        background-repeat: repeat;
+        background-clip: content-box;
+    }
+
+    .visualize;
+
+    width: @grid-width;
+    overflow: hidden;
+}
+
+.grid-row(@span: @grid-columns, @offset: 0) {
+    overflow: hidden;
+}
+
+.grid-column(@span: @grid-columns, @equal-height: false) {
+    .grid-column(@span, 0, @equal-height);
+}
+
+.grid-column(@span: @grid-columns, @offset: 0, @equal-height: false) {
+    float: left;
+    overflow: hidden;
+}
+
+.clearfix() {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+.debug(@var) {
+    &:after {
+        content: "@{var}";
+        position: fixed;
+        bottom: 8px;
+        left: 8px;
+        color: #f00;
+        white-space: pre;
+        background: rgba(255, 255, 255, 0.6);
+        font-size: 12px;
+        font-family: monospace;
+        padding: 8px;
+        border: 1px solid red;
+        border-radius: 4px;
+    }
+}
