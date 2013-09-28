@@ -11,27 +11,27 @@
 
     @grid-width: @width;
     @grid-columns: @columns;
-    @grid-column-width: (100% + @gutter-width) / @columns - @gutter-width;
-    @grid-gutter-width: @gutter-width; 
+    @grid-column-width: (100% - ((@columns - 1) * @gutter-width)) / @columns;
+    @grid-gutter-width: @gutter-width;
     @grid-gutter-height: @gutter-width;
     @grid-debug: @debug;
 
     //.debug("@grid-columns: @{grid-columns}\a@grid-column-width: @{grid-column-width}\a@grid-gutter-width: @{grid-gutter-width}");
 
     .visualize() when (@grid-debug) {
-        @gradient-size: @grid-column-width + @grid-gutter-width;
-        @gradient-column-width: @grid-column-width / @gradient-size * 100%;
-        @gradient-gutter-width: @grid-gutter-width / @gradient-size * 100%;
-        @gradient: left, @grid-debug-gutter-color 0%, @grid-debug-gutter-color @gradient-gutter-width / 2, @grid-debug-column-color @gradient-gutter-width / 2, @grid-debug-column-color @gradient-gutter-width / 2 + @gradient-column-width, @grid-debug-gutter-color @gradient-gutter-width / 2 + @gradient-column-width, @grid-debug-gutter-color 100%;
+        @background-size: @grid-gutter-width + @grid-column-width;
+        @background-position-x: @grid-gutter-width / (100% - @background-size) * 100% * -1;
+        @background-gutter-width: @grid-gutter-width / @background-size * 100%;
+        @background-gradient: left, @grid-debug-gutter-color 0%, @grid-debug-gutter-color @background-gutter-width, @grid-debug-column-color @background-gutter-width,  @grid-debug-column-color 100%;
 
-        background-size: @gradient-size;
-        background-image: -webkit-linear-gradient(@gradient);
-        background-image:    -moz-linear-gradient(@gradient);
-        background-image:     -ms-linear-gradient(@gradient);
-        background-image:      -o-linear-gradient(@gradient);
-        background-image:         linear-gradient(@gradient);
-        background-position-x: @grid-gutter-width / -2;
+        background-size: @background-size;
+        background-position-x: @background-position-x;
         background-position-y: top;
+        background-image: -webkit-linear-gradient(@background-gradient);
+        background-image:    -moz-linear-gradient(@background-gradient);
+        background-image:     -ms-linear-gradient(@background-gradient);
+        background-image:      -o-linear-gradient(@background-gradient);
+        background-image:         linear-gradient(@background-gradient);
         background-repeat: repeat;
         background-clip: content-box;
     }
@@ -46,27 +46,27 @@
 
     @grid-width: @width;
     @grid-columns: @columns;
-    @grid-column-width: @width / @columns - @gutter-width / 2;
+    @grid-column-width: (@width - ((@columns - 1) * @gutter-width)) / @columns;
     @grid-gutter-width: @gutter-width; 
     @grid-gutter-height: @gutter-width;
     @grid-debug: @debug;
 
-    .debug("@grid-columns: @{grid-columns}\a@grid-column-width: @{grid-column-width}\a@grid-gutter-width: @{grid-gutter-width}");
+    //.debug("@grid-columns: @{grid-columns}\a@grid-column-width: @{grid-column-width}\a@grid-gutter-width: @{grid-gutter-width}");
 
     .visualize() when (@grid-debug) {
-        @gradient-size: @grid-column-width + @grid-gutter-width;
-        @gradient-column-width: @grid-column-width;
-        @gradient-gutter-width: @grid-gutter-width;
-        @gradient: left, @grid-debug-gutter-color 0px, @grid-debug-gutter-color @gradient-gutter-width, @grid-debug-column-color @gradient-gutter-width, @grid-debug-column-color @gradient-size;
+        @background-size: @grid-gutter-width + @grid-column-width;
+        @background-position-x: @grid-gutter-width * -1;
+        @background-gutter-width: @grid-gutter-width;
+        @background-gradient: left, @grid-debug-gutter-color 0px, @grid-debug-gutter-color @background-gutter-width, @grid-debug-column-color @background-gutter-width, @grid-debug-column-color @background-size;
 
-        background-size: @gradient-size;
-        background-image: -webkit-linear-gradient(@gradient);
-        background-image:    -moz-linear-gradient(@gradient);
-        background-image:     -ms-linear-gradient(@gradient);
-        background-image:      -o-linear-gradient(@gradient);
-        background-image:         linear-gradient(@gradient);
-        background-position-x: @grid-gutter-width * -1;
+        background-size: @background-size;
+        background-position-x: @background-position-x;
         background-position-y: top;
+        background-image: -webkit-linear-gradient(@background-gradient);
+        background-image:    -moz-linear-gradient(@background-gradient);
+        background-image:     -ms-linear-gradient(@background-gradient);
+        background-image:      -o-linear-gradient(@background-gradient);
+        background-image:         linear-gradient(@background-gradient);
         background-repeat: repeat;
         background-clip: content-box;
     }
